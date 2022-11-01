@@ -8,7 +8,7 @@ const cors = require('cors');
 
 dotenv.config();
 
-mongoose.connect(process.env.DB_Access,() => console.log("Database Connected"));
+mongoose.connect("mongodb+srv://ghost:ghost@afra.qaclfcn.mongodb.net/myUsers",() => console.log("Database Connected"));
 
 app.use(express.json()); //-> body parser
 app.use(cors());

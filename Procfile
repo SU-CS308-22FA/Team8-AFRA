@@ -1,0 +1,1 @@
+web: bin/web/backend node server.js

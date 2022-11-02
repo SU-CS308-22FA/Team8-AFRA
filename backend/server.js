@@ -5,8 +5,7 @@ const router = require("./routes/routes");
 const routeUrls = require('./routes/routes');
 const dotenv = require('dotenv');
 const cors = require('cors');
-
-dotenv.config();
+dotenv.config({path: "./config.env"});
 
 mongoose.connect("mongodb+srv://ghost:ghost@afra.qaclfcn.mongodb.net/myUsers",() => console.log("Database Connected"));
 

@@ -15,7 +15,7 @@ export const Login = (props) => {
             password: pass
         }
 
-        axios.post('/api/app/signin', registered)
+        axios.post('/app/signin', registered)
             .then(response => {
                 if(response.data === "User not found" || response.data === "wrong password")
                 {

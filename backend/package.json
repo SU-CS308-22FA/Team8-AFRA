@@ -4,8 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "build": "node server.js"
+    "start": "npm install && node server.js"
   },
   "author": "zeynepturkmen",
   "license": "ISC",

@@ -1,3 +1,3 @@
-web: npm start
-web: node backend/server.js 
 web: npm install mongoose
+web: node backend/server.js 
+web: npm start

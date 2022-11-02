@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require('../models/signupmodels');
+require("dotenv").config();
 
 router.post('/signup', (request, response) => {
     const emaila = request.body.email;

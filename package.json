@@ -17,11 +17,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "npm install && npm run dev",
-    "backend": "npm start --prefix backend",
-    "dev": "concurrently \"npm run build\" \"npm run backend\"",
-    "heroku-postbuild": "react-scripts start && react-scripts build && NPM_CONFIG_PRODUCTION=false npm install --prefix backend && npm run build --prefix backend",
-    "build": "react-scripts start && react-scripts build && npm install --prefix backend && npm run build --prefix backend",
+    "start": "set NODE_ENV=production && npm install && npm run build && npm run dev",
+    "dev": "concurrently \"react-scripts start\" \"npm start --prefix backend\"",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

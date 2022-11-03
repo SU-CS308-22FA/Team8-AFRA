@@ -17,7 +17,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set NODE_ENV=production && npm install && npm run build && npm run dev",
+    "start": "npm install && npm run build && npm run dev",
     "dev": "concurrently \"react-scripts start\" \"npm start --prefix backend\"",
     "build": "react-scripts build",
     "test": "react-scripts test",

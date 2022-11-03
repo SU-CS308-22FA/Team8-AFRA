@@ -3,12 +3,13 @@ const app = express();
 const mongoose = require('mongoose');
 const router = require("./routes/routes");
 const routeUrls = require('./routes/routes');
+const PORT = process.env.PORT || 4000;
 const dotenv = require('dotenv');
 const cors = require('cors');
 
-dotenv.config();
+dotenv.config({path: "./config.env"});
 
-mongoose.connect("mongodb+srv://ghost:ghost@afra.qaclfcn.mongodb.net/myUsers",() => console.log("Database Connected"));
+mongoose.connect(process.env.MONGOOSE_URL,() => console.log("Database Connected"));
 
 app.use(express.json()); //-> body parser
 app.use(cors());
@@ -19,10 +20,10 @@ if (process.env.NODE_ENV === 'production') {
     console.log("Its production mode");
     // Express serve up index.html file if it doesn't recognize route
     const path = require('path');
-   // app.use('public', express.static('../public'))
+    app.use(express.static('client/build'));
     app.get('*', (req, res) => {
-      res.sendFile(path.resolve('../public/index.html'));
+      res.sendFile(path.resolve(__dirname,'client','public','index.html'));
     });
 }
 
-app.listen(4000, () => console.log("Server is running"));
+app.listen(PORT, () => console.log("Server is running"));

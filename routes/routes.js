@@ -30,9 +30,9 @@ router.post('/signup', (request, response) => {
                         })
                         signedUpUser.save(function(err, user){
                             if(err)
-                                response.json("Can't leave fields empty");
+                                response.send("Can't leave fields empty");
                             else 
-                              response.json(signedUpUser);
+                              response.send(signedUpUser);
 
                         })
                     }
@@ -65,7 +65,7 @@ router.post('/signin', (request, response) => {
                 const pass = request.body.password;
                 if(docs.password === pass) {
                     console.log("Im sending the docs");
-                    response.json(docs); 
+                    response.send(docs); 
                 }   
                 else
                     response.send("wrong password");
@@ -86,7 +86,7 @@ router.post('/userSettings', (request, response) => {
             {    
                 User.findOne({email: emaila}, function(err, docs){
                     if(!err){
-                        response.json(docs);
+                        response.send(docs);
                     }
                 });
             }

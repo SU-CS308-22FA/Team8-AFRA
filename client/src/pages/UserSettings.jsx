@@ -29,7 +29,7 @@ export const UserSettings = (props) => {
             password: pass
         }
 
-        axios.post('/app/userSettings', registered)
+        axios.post(`${process.env.REACT_APP_URL}/app/userSettings`, registered)
         .then(response =>
             {
                 if( response.data !== "done")
@@ -59,7 +59,7 @@ export const UserSettings = (props) => {
             <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
             <button type="submit">Change</button>
         </form>
-        <button className="link-btn" onClick={() => axios.post('/app/delete', {email: email})
+        <button className="link-btn" onClick={() => axios.post(`${process.env.REACT_APP_URL}/app/delete`, {email: email})
         .then(response =>
             {
                 if( response.data === "done")

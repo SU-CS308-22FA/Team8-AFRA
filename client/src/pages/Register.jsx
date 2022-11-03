@@ -24,7 +24,7 @@ export const Register = (props) => {
             password: pass
         }
 
-        axios.post('/app/signup', registered)
+        axios.post(`${process.env.REACT_APP_URL}/app/signup`, registered)
         .then(response => {
             if (response.data === "Username taken" || response.data === "Email already used." || response.data === "Can't leave fields empty")
                 alert(response.data);

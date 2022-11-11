@@ -1,6 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const User = require('../models/signupmodels');
+const Prof = ('../models/profmodels');
+const multer = require("multer");
+const upload = multer({ dest: "public/files" });
+const uploadSingleFile = require('../upload');
+const fs = require("fs");
+
+const deleteFile = (filePath) => {
+    fs.unlink(filePath, () => {
+      console.log("file deleted");
+    });
+  };
+
 
 router.post('/signup', (request, response) => {
     const emaila = request.body.email;
@@ -30,9 +42,9 @@ router.post('/signup', (request, response) => {
                         })
                         signedUpUser.save(function(err, user){
                             if(err)
-                                response.send("Can't leave fields empty");
+                                response.json("Can't leave fields empty");
                             else 
-                              response.send(signedUpUser);
+                              response.json(signedUpUser);
 
                         })
                     }
@@ -49,7 +61,6 @@ router.post('/signup', (request, response) => {
     });
 })
 
-
 router.post('/signin', (request, response) => {
     const emaila = request.body.email;
     User.findOne({email: emaila}, function(err, docs){
@@ -65,7 +76,7 @@ router.post('/signin', (request, response) => {
                 const pass = request.body.password;
                 if(docs.password === pass) {
                     console.log("Im sending the docs");
-                    response.send(docs); 
+                    response.json(docs); 
                 }   
                 else
                     response.send("wrong password");
@@ -74,7 +85,20 @@ router.post('/signin', (request, response) => {
     });
 })
 
-router.post('/userSettings', (request, response) => {
+router.post("/google-drive", upload.single("file"), async (req, res, next) => {
+    try {
+        if (!req.file) {
+          res.status(400).send("No file uploaded.");
+          return;
+        }
+        const response = await uploadSingleFile(req.file);
+        deleteFile(req.file.path);
+        res.status(200).json({ response });
+      } catch (err) {
+        console.log(err);
+  }});
+
+  router.post('/userSettings', (request, response) => {
     const emaila = request.body.email;
     const usernamea = request.body.username;
     User.findOne({username: usernamea}, function(err, docs){
@@ -86,7 +110,7 @@ router.post('/userSettings', (request, response) => {
             {    
                 User.findOne({email: emaila}, function(err, docs){
                     if(!err){
-                        response.send(docs);
+                        response.json(docs);
                     }
                 });
             }
@@ -119,4 +143,3 @@ router.post('/delete', (request, response) => {
 })
 
 module.exports = router;
-

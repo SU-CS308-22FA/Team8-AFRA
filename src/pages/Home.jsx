@@ -1,4 +1,6 @@
 import {Link} from "react-router-dom"
+//import { Login } from "./Login";
+//import { Register } from "./Register";
 import logo from "../logo.png"
 export const Home = () => {
     return(
@@ -11,6 +13,9 @@ export const Home = () => {
                 </li>
                 <li>
                     <Link to = "/register">Register</Link>
+                </li>
+                <li>
+                    <Link to = "/prof ">Proffesional Register</Link>
                 </li>
             </ul>
         </nav>

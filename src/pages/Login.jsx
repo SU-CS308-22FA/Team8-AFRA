@@ -15,7 +15,7 @@ export const Login = (props) => {
             password: pass
         }
 
-        axios.post(`${process.env.REACT_APP_URL}/app/signin`, registered)
+        axios.post('http://localhost:4000/app/signin', registered)
             .then(response => {
                 if(response.data === "User not found" || response.data === "wrong password")
                 {
@@ -26,8 +26,6 @@ export const Login = (props) => {
             })
     }
 
-
-    
     return (
         <div className="auth-form-container">
             <h2>Login</h2>

@@ -18,43 +18,54 @@ export const Prof = (props) => {
         console.log(pass);
         console.log(name);
         console.log(username);
-        console.log(selectedFile.name);
-        console.log(selectedFile.type);
-        console.log(selectedFile.size);
+        if(selectedFile)
+        { 
+            console.log(selectedFile.name);
+            console.log(selectedFile.type);
+            console.log(selectedFile.size);
+            let formData = new FormData();
+             formData.append("file", selectedFile);
 
-        let formData = new FormData();
-        formData.append("file", selectedFile);
-        axios.post('http://localhost:4000/app/google-drive', formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-        })
-        .then(response => {
-            if (response.data === "Username taken" || response.data === "Email already used." || response.data === "Can't leave fields empty")
-                alert(response.data);
-            else 
-                navigate("/settings/user",  {state: response.data});
-        }
-        )
 
-        /*const registered = {
-            fullName:name,
-            username: username,
-            email: email,
-            password: pass
+            axios.post('http://localhost:4000/app/google-drive', formData, { //push the file data
+                headers: {
+                'Content-Type': 'multipart/form-data'
+                }
+            })
+            .then(response => {
+                if (response.status === "No file uploaded.") 
+                {
+                    alert(response.data);
+                }
+                else //file is succesfully uploaded
+                {
+                    console.log("File uploaded now we will create the user.");
+                    const registered = {
+                        fullName:name,
+                        username: username,
+                        email: email,
+                        password: pass,
+                        licence: response.data.id
+                    }
+                    axios.post('http://localhost:4000/app/prosignup', registered) //push the user data
+                    .then(response => {
+                        if(response.data === "Username taken" || response.data === "Email already used." || response.data === "Can't leave fields empty") //form errors
+                        {
+                            alert(response.data);
+                            //TODO DELETE THE FILE FROM GOOGLE DRIVE
+                            axios.post('http://localhost:4000/app/drivedelete', registered)
+                        }   
+                        else 
+                        {
+                            alert("Request is being progressed, check back when the admins confirm your licence !");
+                            navigate('/');
+                        }
+                    })
+                }
+            })  
         }
-
-        axios.post('http://localhost:4000/app/signup', registered)
-        .then(response => {
-            if (response.data === "Username taken" || response.data === "Email already used." || response.data === "Can't leave fields empty")
-                alert(response.data);
-            else 
-                navigate("/settings/user",  {state: response.data});
-        }
-        )
-        */
-        
-        
+    else
+        alert("ADD A FILE");
     }
 
     return (

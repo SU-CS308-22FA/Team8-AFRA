@@ -1,12 +1,10 @@
 import {Link} from "react-router-dom"
-//import { Login } from "./Login";
-//import { Register } from "./Register";
 import logo from "../logo.png"
+
 export const Home = () => {
     return(
-        
         <nav>
-            <img src= {logo} alt="Logo" />
+            <img src= {logo} alt= "Logo"/>
             <ul>
                 <li>
                     <Link to = "/login">Login</Link>

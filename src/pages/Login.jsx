@@ -16,14 +16,14 @@ export const Login = (props) => {
         }
 
         axios.post('http://localhost:4000/app/signin', registered)
-            .then(response => {
-                if(response.data === "User not found" || response.data === "wrong password")
-                {
-                    alert(response.data);
-                }   
-                else 
-                    navigate("/settings/user",  {state: response.data});
-            })
+        .then(response => {
+            if(response.data === "User not found" || response.data === "wrong password" || response.data === "Your licence is not verified yet!")
+            {
+                alert(response.data);
+            }   
+            else 
+                navigate("/settings/user",  {state: response.data});
+        })
     }
 
     return (
@@ -37,6 +37,7 @@ export const Login = (props) => {
                 <button type="submit">Log In</button>
             </form>
             <button className="link-btn" onClick={() => navigate('/register')}>Don't have an account? Register here.</button>
+            <button className="link-btn" onClick={() => navigate('/prof')}>Journalists and Referees - Register here.</button>
         </div>
     )
 }

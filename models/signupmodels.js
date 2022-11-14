@@ -20,6 +20,14 @@ const signUpSchema = new mongoose.Schema({
     date:{
         type:Date,
         default: Date.now
+    },
+    accepted:{
+        type: Boolean,
+        required: false
+    },
+    licence:{
+        type:String,
+        required: false
     }
 })
 

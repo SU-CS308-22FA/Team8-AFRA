@@ -4,6 +4,8 @@ import { Home } from './pages/Home';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { UserSettings } from './pages/UserSettings';
+import { Prof } from './pages/Prof';
+
 
 function App() {
   return (
@@ -13,6 +15,7 @@ function App() {
         <Route path = "/login" element = {<Login />}></Route>
         <Route path = "/register" element = {<Register />}></Route>
         <Route path = "/settings/user" element = {<UserSettings />}></Route>
+        <Route path = "/prof" element = {<Prof />}></Route>
       </Routes>
     </div>
   );

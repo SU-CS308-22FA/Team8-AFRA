@@ -6,6 +6,7 @@ import { Register } from './pages/Register';
 import { UserSettings } from './pages/UserSettings';
 import { Prof } from './pages/Prof';
 
+
 function App() {
   return (
     <div className="App">

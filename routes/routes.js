@@ -40,7 +40,8 @@ const deleteFile = (filePath) => { //delete file from local directory
                             fullName: request.body.fullName,
                             email: request.body.email,
                             username: request.body.username,
-                            password: request.body.password
+                            password: request.body.password,
+                            accepted: true
                         })
                         signedUpUser.save(function(err, user){
                             if(err)

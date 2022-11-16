@@ -13,7 +13,7 @@ export const Home = () => {
                     <Link to = "/register">Register</Link>
                 </li>
                 <li>
-                    <Link to = "/prof ">Proffesional Register</Link>
+                    <Link to = "/prof">Proffesional Register</Link>
                 </li>
             </ul>
         </nav>

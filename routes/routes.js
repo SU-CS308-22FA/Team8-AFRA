@@ -40,7 +40,9 @@ const deleteFile = (filePath) => { //delete file from local directory
                             fullName: request.body.fullName,
                             email: request.body.email,
                             username: request.body.username,
-                            password: request.body.password
+                            password: request.body.password,
+                            accepted: false,
+                            pro: false
                         })
                         signedUpUser.save(function(err, user){
                             if(err)
@@ -91,6 +93,7 @@ router.post('/prosignup', (request, response) => {
                             username: request.body.username,
                             password: request.body.password,
                             licence: l,
+                            pro: true,
                             accepted: false
                         })
                         signedUpUser.save(function(err, user){
@@ -135,15 +138,25 @@ router.post('/signin', (request, response) => {
             {
                 const pass = request.body.password;
                 if(docs.password === pass) {
-
-                    //check if the user is accepted pro
-                    if (docs.accepted !== false)
+                    //check if the user is  pro
+                    if (docs.pro != true)
                     {
+                        console.log("This guy is not a professional")
                         console.log("Im sending the docs");
                         response.json(docs); 
                     }
                     else
-                        response.send("Your licence is not verified yet!");
+                    {   
+                        console.log("This is a professional account")
+                        if(docs.accepted)
+                         {
+                            response.json(docs); 
+                         } 
+                        else
+                         {
+                            response.send("Your licence is not verified yet!");
+                         }   
+                    }
                 }   
                 else
                     response.send("wrong password");

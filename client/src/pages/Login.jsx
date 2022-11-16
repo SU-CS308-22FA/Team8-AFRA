@@ -17,7 +17,7 @@ export const Login = (props) => {
 
         axios.post(`${process.env.REACT_APP_URL}/app/signin`, registered)
             .then(response => {
-                if(response.data === "User not found" || response.data === "wrong password")
+                if(response.data === "User not found" || response.data === "wrong password" || response.data === "Your licence is not verified yet!")
                 {
                     alert(response.data);
                 }   

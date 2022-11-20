@@ -136,6 +136,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 const deleteUserProfile = asyncHandler(async (req, res) => {
   const user = await User.deleteOne({_id: req.user._id});
+  const request = await proRequest.deleteOne({user: req.user._id})
 
   if (user) {
     res.json(

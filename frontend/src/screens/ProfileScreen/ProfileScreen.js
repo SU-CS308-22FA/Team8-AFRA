@@ -74,6 +74,8 @@ const ProfileScreen = ({ location, history }) => {
 
       dispatch(logout())
       console.log("logging out")
+
+      axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo)
     }
   }
   

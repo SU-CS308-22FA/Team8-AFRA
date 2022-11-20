@@ -7,6 +7,7 @@ import { deleteProfile, updateProfile, logout } from "../../actions/userActions"
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");

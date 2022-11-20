@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "this-is-afra",
+    "private_key_id": "aef4420e065cf70fcc7a41c7ff17c7df2664749e",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDHO7hIneZNZK9z\nEypLikXQrBXJVK9S4nzBXEkz1uYAfjP7Fv9jplLN0aV5XhiVONjFk+O8OmNZNPaJ\n7vz9U5D14BdcYMjk+ta/bFCWJJN3P/WOTyho3+Tri4fYjUDCRS+obBd8HGyzQZ9I\nOa5Vz6hSC8Adox3505axaFY/IlON/tpI6HvLqcpAjVhF5mfrt9zSSp+vjRgofPrr\n9makNV+Fu9qRELL2dE0fDKfU88HpvMgnwNlR5Qo5O1HB8yIlta/vOIIRV7xjhIWQ\n/QYiE9/sgRnrGoFPzlgbElKc91MlCcSSy48qtN6GGh0iRL/nb6Z8iLXsLjDLsAPJ\nQZrKoAlvAgMBAAECggEAStOtJOjY5FxaYNfj3Lcz/WmETTdXGcQiouSsQaIGhEzh\n7P34MU74boC8q1ah2PmewKYItFshkRGJPsjZj7NhEFd3rqRTD1z+ZqqhoaJfGDyX\nVzl3rdvZOHYRMU3r8orVmWXvdBeg47pTvmabiXMSfq4XG4p16ayEPmE3c0LLKtrQ\ntCtYSDNGwnOqAfGDbem3U7EI1O1wUxt4WwnhZp1RmDsijwfpiKu/w52rIAU7rmL2\n8EQ7V5y7pcZPkHjCOkGCB5QsuxJHqo3MeV3dtwUdZf2JO0UsUXs8mUNpulAjJwHU\nN3xIbo4L4/MSuTpdxNwARkb0MwJOp2QdpuCdGxVTAQKBgQDzmEsV5jQ3kEoboFgL\n4cHt0dKA6nAezjRhg+SzVLrD0bO/RcrL36SNJXaFOXVDCxQELqD6gliuXeDp7F8O\nTDd7qUxI+jiBWv6VzUvGoQVfx9gbWT0DCWeYeP7gp7hxyYkexYed8fHF0KiAG3ul\ncz0gewWBVO+QuPyKYhPGjCRPLwKBgQDRYRdpun0X0Z+RilUUYoUoVgVK08Zy7glT\n4jtho9H4kHmRm/9cLD6C+MKkWPffnrWwqCd3g4TrcSniIxSJzW5ZyYJCNYXVyQso\nSjXC1WA+q6ETx1Hr8+iWsPLcNpVgi3Bjo/L21E7q15wvtpXxYS/+pllZONf5mruT\najvpYZdZwQKBgFJw5FiRBHMZnjsjVSkQSrXWIUwIC9IhL5EhNjGLJ3pGanL9h9jf\n46zxVN9Zxtnd0fRoY4rkumao1wnUOYd5O/3aGjtIk/8TcL36MP8UV+FGnVkEJqX0\ndN8hdAFMQhwgfQuxBmjqDU1JhP12T657BeEMQZy3xixQrweWkeLMYy15AoGBAKJi\nJXFXM6skZRfP7BoKKnFU/XfB9LevysYmv50DG1YmXlJCZPKMUdLrsLEbWuowQYMH\ndsxm0NB0jGIYiNYy37F86awFrI1YBXIy060OJT2ViDA5tlxDZxBvnXqSTpl4qypr\nvYQWtjnGDBipB3MTx9A8HTFoN4Aas/0pN9vRVztBAoGAakuqsd55RYjh9NEPOknS\n/uuzoi8KGKgLzVXKj/jWplPB8j+baGBpyhWXLBilCv/e0UheymAMfpxSG8OBCvHg\nSUoygqdclRRPfu45PmudEftPSi8QampkJF6VmBkoH59vZWvcvU4+lgz13qCNkeNi\nH4S9RUaGjdxyVMa5EP4B6bM=\n-----END PRIVATE KEY-----\n",
+    "client_email": "afra-prof@this-is-afra.iam.gserviceaccount.com",
+    "client_id": "115060458162181814593",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/afra-prof%40this-is-afra.iam.gserviceaccount.com"
+  }

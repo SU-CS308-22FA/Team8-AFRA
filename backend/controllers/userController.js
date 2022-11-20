@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import proRequest from "../models/requestModel.js";
 import generateToken from "../utils/generateToken.js";
 
 //@description     Auth the user
@@ -89,6 +90,12 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.username = req.body.username || user.username;
     user.pic = req.body.pic || user.pic;
+    if (req.body.licence)
+    {
+      user.licence = "https://drive.google.com/file/d/" + req.body.licence
+      let request = new proRequest({ user: user._id, licence: user.licence})
+      request.save()
+    }
     if (req.body.password) {
       user.password = req.body.password;
     }

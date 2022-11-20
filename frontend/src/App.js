@@ -5,8 +5,8 @@ import Header from "./components/Header";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
-import { useState } from "react";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
+import { useState } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 
 function App() {
@@ -19,6 +19,8 @@ function App() {
         <Route path="/" component={LandingPage} exact />
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
+
+    
         <Route path="/profile" component={ProfileScreen} />
         <Route path="/verification" component={VerificationPage} />
       </main>

@@ -92,9 +92,16 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.pic = req.body.pic || user.pic;
     if (req.body.licence)
     {
+      user.verified = false
       user.licence = "https://drive.google.com/file/d/" + req.body.licence
-      let request = new proRequest({ user: user._id, licence: user.licence})
-      request.save()
+      const requestExists = await proRequest.findOne({ user: user._id });
+      if (requestExists){
+        proRequest.findOneAndUpdate({ user: user._id }, {licence: user.licence});
+      }
+      else{
+        let request = new proRequest({ user: user._id, licence: user.licence})
+        request.save()
+      }
     }
     if (req.body.password) {
       user.password = req.body.password;

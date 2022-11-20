@@ -96,7 +96,14 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       user.licence = "https://drive.google.com/file/d/" + req.body.licence
       const requestExists = await proRequest.findOne({ user: user._id });
       if (requestExists){
-        proRequest.findOneAndUpdate({ user: user._id }, {licence: user.licence});
+        proRequest.updateOne({ user: user._id }, {licence: user.licence}, function (err, docs) {
+          if (err){
+              console.log(err)
+          }
+          else{
+              console.log("Updated Docs : ", docs);
+          }
+      });
       }
       else{
         let request = new proRequest({ user: user._id, licence: user.licence})

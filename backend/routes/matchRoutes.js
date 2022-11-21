@@ -1,8 +1,5 @@
 import express from "express";
-import {
-  getMatchesBySeasonAndWeek,
-  uploadDatabase,
-} from "../controllers/matchController.js";
+import { uploadDatabase } from "../controllers/matchControllers.js";
 
 const router = express.Router();
 

@@ -7,6 +7,7 @@ import { deleteProfile, updateProfile, logout } from "../../actions/userActions"
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
+import axios from 'axios'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -74,6 +75,8 @@ const ProfileScreen = ({ location, history }) => {
 
       dispatch(logout())
       console.log("logging out")
+
+      axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo)
     }
   }
   

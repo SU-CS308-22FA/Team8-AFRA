@@ -42,6 +42,8 @@ const VerificationPage = ({ location, history }) => {
             let formData = new FormData();
             formData.append("file", selectedFile);
 
+            if(userInfo.licence)
+              axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo)
             axios.post(`${process.env.REACT_APP_URL}/app/google-drive`, formData, { //push the file data
                 headers: {
                 'Content-Type': 'multipart/form-data'
@@ -53,9 +55,7 @@ const VerificationPage = ({ location, history }) => {
                     alert(response.data);
                 }
                 else //file is succesfully uploaded
-                {
-                  if(userInfo.licence)
-                    axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo)
+                {    
                   console.log(response.data.id)
                   const licence = response.data.id;
                   dispatch(updateProfile({licence}))

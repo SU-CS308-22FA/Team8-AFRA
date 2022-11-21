@@ -9,6 +9,8 @@ function AdminPage() {
 
   const handleSelectSeason=(e)=>{
     setSeasonVar(e);
+    console.log(e);
+    console.log(seasonVar);
   }
 
   const submitSeasonHandler = async (e) => {
@@ -45,7 +47,7 @@ function AdminPage() {
     };
 
     try {
-      const { requestdata } = await axios.get(`${process.env.REACT_APP_URL}/api/requests`);
+      const { requestdata } = await axios.get(`${process.env.REACT_APP_URL}/api/requests`).then(response=>setRequestData(response.data))
       console.log(requestdata);
     } catch (error) {}
 
@@ -66,10 +68,10 @@ function AdminPage() {
         <Table responsive>
           <thead>
           <tr>
+            <th>Request Date</th>
             <th>Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>License</th>
+            <th>License </th>
+            <th>User ID</th>
             <th>Accept/Reject</th>
         </tr>
       </thead>
@@ -77,10 +79,10 @@ function AdminPage() {
         {requestdata.map(requestdata=>{
           return(
           <tr>
+            <td>{requestdata.date}</td>
             <td>{requestdata.name}</td>
-            <td>{requestdata.username}</td>
-            <td>{requestdata.email}</td>
-            <td>{requestdata.license}</td>
+            <td>{requestdata.licence}</td>
+            <td>{requestdata.user}</td>
           </tr>
           )
         }

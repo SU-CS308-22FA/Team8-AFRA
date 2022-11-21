@@ -8,6 +8,7 @@ import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
 import { useState } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
+import AdminPage from "./screens/AdminPage/AdminPage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -19,10 +20,9 @@ function App() {
         <Route path="/" component={LandingPage} exact />
         <Route path="/login" component={LoginScreen} />
         <Route path="/register" component={RegisterScreen} />
-
-    
         <Route path="/profile" component={ProfileScreen} />
         <Route path="/verification" component={VerificationPage} />
+        <Route path="/adminpage" component={AdminPage} />
       </main>
       <Footer />
     </Router>

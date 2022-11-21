@@ -6,8 +6,9 @@ import path from "path";
 import cors from "cors";
 
 import userRoutes from "./routes/userRoutes.js";
+import matchRoutes from "./routes/matchRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
-import googleDrive from "./routes/googledrive.js"
+import googleDrive from "./routes/googledrive.js";
 
 dotenv.config();
 
@@ -18,7 +19,8 @@ const app = express(); // main thing
 app.use(express.json()); // to accept json data
 app.use(cors());
 app.use("/api/users", userRoutes);
-app.use('/app', googleDrive); //-> /app is the base path and routeUrls will be appemded to it
+app.use("/app", googleDrive); //-> /app is the base path and routeUrls will be appemded to it
+app.use("/api/matches", matchRoutes);
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();

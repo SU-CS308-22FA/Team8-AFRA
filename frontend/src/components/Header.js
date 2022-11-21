@@ -33,6 +33,9 @@ function Header({ setSearch }) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto"></Nav>
           <Nav>
+            <Nav.Link href="/fixture">Fixture</Nav.Link>
+          </Nav>
+          <Nav>
             {userInfo ? (
               <>
                 <Nav.Link href="/mycomments">My Comments</Nav.Link>

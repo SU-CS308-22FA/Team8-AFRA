@@ -92,9 +92,23 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.pic = req.body.pic || user.pic;
     if (req.body.licence)
     {
+      user.verified = false
       user.licence = "https://drive.google.com/file/d/" + req.body.licence
-      let request = new proRequest({ user: user._id, licence: user.licence})
-      request.save()
+      const requestExists = await proRequest.findOne({ user: user._id });
+      if (requestExists){
+        proRequest.updateOne({ user: user._id }, {licence: user.licence}, function (err, docs) {
+          if (err){
+              console.log(err)
+          }
+          else{
+              console.log("Updated Docs : ", docs);
+          }
+      });
+      }
+      else{
+        let request = new proRequest({ user: user._id, licence: user.licence})
+        request.save()
+      }
     }
     if (req.body.password) {
       user.password = req.body.password;
@@ -122,6 +136,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 const deleteUserProfile = asyncHandler(async (req, res) => {
   const user = await User.deleteOne({_id: req.user._id});
+  const request = await proRequest.deleteOne({user: req.user._id})
 
   if (user) {
     res.json(

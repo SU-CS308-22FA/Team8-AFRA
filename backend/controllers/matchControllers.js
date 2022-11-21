@@ -3,14 +3,14 @@ import asyncHandler from "express-async-handler";
 import axios from "axios";
 
 const uploadDatabase = asyncHandler(async (req, res) => {
-  const { seasonVar } = req.query;
+  const { seasonVar } = req.body;
+  console.log(seasonVar);
 
   const s = await fixture.findOne({ season: seasonVar });
   if (s) {
     res.status(404);
     throw new Error(error);
   }
-
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
@@ -59,4 +59,4 @@ const uploadDatabase = asyncHandler(async (req, res) => {
   res.status(200);
 });
 
-export { getMatchesBySeasonAndWeek, uploadDatabase };
+export { uploadDatabase };

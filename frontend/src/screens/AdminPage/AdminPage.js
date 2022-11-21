@@ -7,6 +7,7 @@ function AdminPage() {
   const [seasonVar, setSeasonVar] = useState();
   const [message, setMessage] = useState();
   const [role, setRole] = useState();
+  const [id, setID] = useState();
 
   const handleSelectSeason=(e)=>{
     setSeasonVar(e);
@@ -16,6 +17,14 @@ function AdminPage() {
 
   const handleSelectRole=(e)=>{
     setRole(e);
+
+    const myArray = role.split(",");
+    const bob = {
+      id: myArray[1],
+      role: myArray[0]
+    }
+    axios.post(`${process.env.REACT_APP_URL}/api/requests/verify`, bob).then(response => window.location.reload())
+
     console.log(role);
   }
 
@@ -87,12 +96,12 @@ function AdminPage() {
           <tr>
             <td>{requestdata.date}</td>
             <td>{requestdata.name}</td>
-            <td>{requestdata.licence}</td>
+            <td> <a href={requestdata.licence}>Drive link of uploaded license</a> </td>
             <td>{requestdata.user}</td>
             <td> <DropdownButton id="dropdown-basic-button" title="Choose a role" onSelect={handleSelectRole}>
-                  <Dropdown.Item eventKey="journalist">Accept as journalist</Dropdown.Item>
-                  <Dropdown.Item eventKey="referee">Accept as referee</Dropdown.Item>
-                  <Dropdown.Item eventKey="deny">Deny</Dropdown.Item>
+                  <Dropdown.Item eventKey={"journalist" + "," + requestdata._id}>Accept as journalist</Dropdown.Item>
+                  <Dropdown.Item eventKey={"referee" + "," + requestdata._id}>Accept as referee</Dropdown.Item>
+                  <Dropdown.Item eventKey={"deny" + "," + requestdata._id}>Deny</Dropdown.Item>
                   </DropdownButton></td>
           </tr>
           )
@@ -125,6 +134,7 @@ function AdminPage() {
             <Button variant="primary" type="submit"> Get Season </Button>
           </Form>
           </Card.Body></Col>
+          <h2 className="subsentence"> {setMessage} </h2>
       </Row>
       
     </div>

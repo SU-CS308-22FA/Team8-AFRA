@@ -10,6 +10,7 @@ import { useState } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import FixturePage from "./screens/FixturePage/FixturePage";
+import StandingPage from "./screens/StandingPage/StandingPage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -25,6 +26,7 @@ function App() {
         <Route path="/verification" component={VerificationPage} />
         <Route path="/adminpage" component={AdminPage} />
         <Route path="/fixture" component={FixturePage} />
+        <Route path="/standings" component={StandingPage} />
       </main>
       <Footer />
     </Router>

@@ -12,7 +12,7 @@ function AdminPage() {
         "Content-type": "application/json",
       },
     };
-    console.log(process.env.REACT_APP_URL);
+
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/matches`,

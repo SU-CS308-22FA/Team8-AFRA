@@ -62,7 +62,7 @@ const uploadDatabase = asyncHandler(async (req, res) => {
 const getMatchesBySeasonAndWeek = asyncHandler(async (req, res) => {
   const { season, week } = req.query;
 
-  const r = await matchCalendar.find({
+  const r = await fixture.find({
     season: season,
     week: week,
   });

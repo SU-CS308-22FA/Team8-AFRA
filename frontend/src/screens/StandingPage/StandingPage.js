@@ -6,6 +6,7 @@ import "./StandingPage.css";
 function StandingPage() {
     const [seasonVar, setSeasonVar] = useState();
     const [data, setData] = useState([]);
+    const [tableHead, setTableHead] = useState([]);
     const [displaySentence, setDisplaySentence] = useState();
     
     const handleSelectSeason=(e)=>{
@@ -30,6 +31,7 @@ function StandingPage() {
         }
       );
       console.log(data);
+      setTableHead(["#", "Team", "Played Matches", "Won", "Drawn", "Lost", "GF", "GA", "GD", "Points"]);
       setData(data);
     };
     
@@ -66,16 +68,16 @@ function StandingPage() {
       <Table responsive>
       <thead>
         <tr>
-          <th>#</th>
-          <th>Team</th>
-          <th>Played Matches</th>
-          <th>Won</th>
-          <th>Drawn</th>
-          <th>Lost</th>
-          <th>GF</th>
-          <th>GA</th>
-          <th>GD</th>
-          <th>Points</th>
+            <th>{tableHead[0]}</th>
+            <th>{tableHead[1]}</th>
+            <th>{tableHead[2]}</th>
+            <th>{tableHead[3]}</th>
+            <th>{tableHead[4]}</th>
+            <th>{tableHead[5]}</th>
+            <th>{tableHead[6]}</th>
+            <th>{tableHead[7]}</th>
+            <th>{tableHead[8]}</th>
+            <th>{tableHead[9]}</th>
         </tr>
       </thead>
 

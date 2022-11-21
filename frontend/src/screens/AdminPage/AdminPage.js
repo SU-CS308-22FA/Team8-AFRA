@@ -94,7 +94,7 @@ function AdminPage() {
         {requestdata.map(requestdata=>{
           return(
           <tr>
-            <td>{requestdata.date}</td>
+            <td>{requestdata.date.split("T")[0]}</td>
             <td>{requestdata.name}</td>
             <td> <a href={requestdata.licence}>Drive link of uploaded license</a> </td>
             <td>{requestdata.user}</td>

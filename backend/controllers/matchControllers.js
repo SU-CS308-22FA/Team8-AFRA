@@ -59,4 +59,14 @@ const uploadDatabase = asyncHandler(async (req, res) => {
   res.status(200);
 });
 
-export { uploadDatabase };
+const getMatchesBySeasonAndWeek = asyncHandler(async (req, res) => {
+  const { season, week } = req.query;
+
+  const r = await fixture.find({
+    season: season,
+    week: week,
+  });
+  res.json(r);
+});
+
+export { uploadDatabase, getMatchesBySeasonAndWeek };

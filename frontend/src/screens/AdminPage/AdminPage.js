@@ -4,6 +4,7 @@ import axios from "axios";
 function AdminPage() {
   const [seasondata, setSeasonData] = useState([]);
   const [requestdata, setRequestData] = useState([]);
+  const [headData, setHeadData] = useState([]);
   const [seasonVar, setSeasonVar] = useState();
   const [message, setMessage] = useState();
   const [role, setRole] = useState();
@@ -53,6 +54,10 @@ function AdminPage() {
 
   const submitRequestHandler = async (e) => {
     console.log("submitted");
+
+    const newHead = [{"date":"Request Date"},{"name":"Name"},{"licence":"License"},{"userID":"User ID"},{"acceptance":"Accept/Reject"}]
+    
+    setHeadData(newHead);
     
     e.preventDefault();
     const config = {
@@ -81,13 +86,20 @@ function AdminPage() {
           </Form>
         </Card.Body>
         <Table responsive>
-          <thead>
-          <tr>
-            <th>Request Date</th>
-            <th>Name</th>
-            <th>License </th>
-            <th>User ID</th>
-            <th>Accept/Reject</th>
+        
+        <thead>
+        <tr>
+        {headData.map(headData=>{
+          return(
+            <th>
+            <a>{headData.date}</a>
+            <a>{headData.name}</a>
+            <a>{headData.licence}</a>
+            <a>{headData.userID}</a>
+            <a>{headData.acceptance}</a>
+            </th>
+          )
+        })}
         </tr>
       </thead>
       <tbody>

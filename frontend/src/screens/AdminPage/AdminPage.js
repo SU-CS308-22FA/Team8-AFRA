@@ -6,11 +6,17 @@ function AdminPage() {
   const [requestdata, setRequestData] = useState([]);
   const [seasonVar, setSeasonVar] = useState();
   const [message, setMessage] = useState();
+  const [role, setRole] = useState();
 
   const handleSelectSeason=(e)=>{
     setSeasonVar(e);
     console.log(e);
     console.log(seasonVar);
+  }
+
+  const handleSelectRole=(e)=>{
+    setRole(e);
+    console.log(role);
   }
 
   const submitSeasonHandler = async (e) => {
@@ -83,6 +89,11 @@ function AdminPage() {
             <td>{requestdata.name}</td>
             <td>{requestdata.licence}</td>
             <td>{requestdata.user}</td>
+            <td> <DropdownButton id="dropdown-basic-button" title="Choose a role" onSelect={handleSelectRole}>
+                  <Dropdown.Item eventKey="journalist">Accept as journalist</Dropdown.Item>
+                  <Dropdown.Item eventKey="referee">Accept as referee</Dropdown.Item>
+                  <Dropdown.Item eventKey="deny">Deny</Dropdown.Item>
+                  </DropdownButton></td>
           </tr>
           )
         }
@@ -108,7 +119,7 @@ function AdminPage() {
           <Dropdown.Item eventKey="2014">2014</Dropdown.Item>
           <Dropdown.Item eventKey="2013">2013</Dropdown.Item>
           <Dropdown.Item eventKey="2012">2012</Dropdown.Item>
-        </DropdownButton>
+          </DropdownButton>
       </div>
           <Form onSubmit={submitSeasonHandler} className="getSubmit">
             <Button variant="primary" type="submit"> Get Season </Button>

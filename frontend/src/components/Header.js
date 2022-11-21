@@ -36,6 +36,9 @@ function Header({ setSearch }) {
             <Nav.Link href="/fixture">Fixture</Nav.Link>
           </Nav>
           <Nav>
+            <Nav.Link href="/standings">Standings</Nav.Link>
+          </Nav>
+          <Nav>
             {userInfo ? (
               <>
                 <Nav.Link href="/mycomments">My Comments</Nav.Link>
@@ -79,7 +82,10 @@ function Header({ setSearch }) {
                 </NavDropdown>
               </>
             ) : (
-              <Nav.Link href="/login">Login</Nav.Link>
+              <>
+                <Nav.Link href="/login">Login</Nav.Link>
+                <Nav.Link href="/register">Register</Nav.Link>
+              </>
             )}
           </Nav>
         </Navbar.Collapse>

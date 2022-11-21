@@ -10,7 +10,6 @@ function FixturePage() {
   const [weekVar, setWeekVar] = useState();
   const [displaySentence, setDisplaySentence] = useState();
   const [data, setData] = useState([]);
-
   const handleSelectSeason = (e) => {
     setSeasonVar(e);
   };
@@ -23,12 +22,6 @@ function FixturePage() {
     e.preventDefault();
     setVarWeek(weekVar);
     setvarSeason(seasonVar);
-    setDisplaySentence(
-      "You are now viewing the matches of Week " +
-        weekVar +
-        " of Season " +
-        seasonVar
-    );
 
     const config = {
       headers: {
@@ -45,8 +38,16 @@ function FixturePage() {
         },
       }
     );
-
-    console.log(data);
+    if (data.length === 0) {
+      setDisplaySentence("No Data");
+    } else {
+      setDisplaySentence(
+        "You are now viewing the matches of Week " +
+          weekVar +
+          " of Season " +
+          seasonVar
+      );
+    }
 
     setData(data);
   };

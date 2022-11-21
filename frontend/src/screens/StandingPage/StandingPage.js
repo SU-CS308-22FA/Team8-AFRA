@@ -31,7 +31,9 @@ function StandingPage() {
         }
       );
       console.log(data);
-      setTableHead(["#", "Team", "Played Matches", "Won", "Drawn", "Lost", "GF", "GA", "GD", "Points"]);
+      const newHead = [{"rank":"#"},{"name":"Team"},{"allplayed":"Played Matches"},{"win":"Won"},{"draw":"Drawn"},{"lose":"Lost"},{"gf":"GF"},{"ga":"GA"},{"gd":"GD"},{"points":"Points"}]
+    
+      setTableHead(newHead);
       setData(data);
     };
     
@@ -68,16 +70,22 @@ function StandingPage() {
       <Table responsive>
       <thead>
         <tr>
-            <th>{tableHead[0]}</th>
-            <th>{tableHead[1]}</th>
-            <th>{tableHead[2]}</th>
-            <th>{tableHead[3]}</th>
-            <th>{tableHead[4]}</th>
-            <th>{tableHead[5]}</th>
-            <th>{tableHead[6]}</th>
-            <th>{tableHead[7]}</th>
-            <th>{tableHead[8]}</th>
-            <th>{tableHead[9]}</th>
+        {tableHead.map(tableHead=>{
+          return(
+            <th>
+            <a>{tableHead.rank}</a>
+            <a>{tableHead.name}</a>
+            <a>{tableHead.allplayed}</a>
+            <a>{tableHead.win}</a>
+            <a>{tableHead.draw}</a>
+            <a>{tableHead.lose}</a>
+            <a>{tableHead.gf}</a>
+            <a>{tableHead.ga}</a>
+            <a>{tableHead.gd}</a>
+            <a>{tableHead.points}</a>
+            </th>
+          )
+        })}
         </tr>
       </thead>
 

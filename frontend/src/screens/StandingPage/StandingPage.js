@@ -60,6 +60,46 @@ function StandingPage() {
         <p> </p>
         <h2 className="subsentence"> {displaySentence} </h2>
         <p> </p>
+
+        <p> </p>
+
+      <Table responsive>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Team</th>
+          <th>Played Matches</th>
+          <th>Won</th>
+          <th>Drawn</th>
+          <th>Lost</th>
+          <th>GF</th>
+          <th>GA</th>
+          <th>GD</th>
+          <th>Points</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {data.map(data=>{
+          return(
+          <tr>
+            <td>{data.rank}</td>
+            <td>{data.team.name}</td>
+            <td>{data.all.played}</td>
+            <td>{data.all.win}</td>
+            <td>{data.all.draw}</td>
+            <td>{data.all.lose}</td>
+            <td>{data.all.goals.for}</td>
+            <td>{data.all.goals.against}</td>
+            <td>{data.all.goals.for - data.all.goals.against}</td>
+            <td>{data.points}</td>
+            </tr>
+            )
+          }
+        )}
+      </tbody>
+
+    </Table>
         
       </div>
     );

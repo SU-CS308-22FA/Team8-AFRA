@@ -106,7 +106,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       });
       }
       else{
-        let request = new proRequest({ user: user._id, licence: user.licence})
+        let request = new proRequest({ user: user._id, name: user.name, licence: user.licence})
         request.save()
       }
     }

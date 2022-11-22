@@ -5,7 +5,11 @@ const proRequestSchema = new mongoose.Schema({
         type:Date,
         default: Date.now
     },
-    licence:{
+    name:{
+        type:String,
+        required: true
+    },
+    license:{
         type:String,
         required:true
     },

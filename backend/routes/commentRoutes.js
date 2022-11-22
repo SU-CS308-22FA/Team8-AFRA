@@ -7,12 +7,18 @@ import {
   DeleteComment,
   UpdateComment,
   LikeState,
+  getCommentsByLike,
+  getCommentsByDate,
+  getCommentsByLikeReverse,
 
 } from "../controllers/commentController.js";
 const router = express.Router();
 import { protect } from "../middleware/authMiddleware.js";
 
 router.route("/").get(getComments); // protect,
+router.route("/SortedByLike").get(getCommentsByLike);
+router.route("/SortedByLikeReverse").get(getCommentsByLikeReverse);
+router.route("/SortedByDate").get(getCommentsByDate);
 router
   .route("/:id")
   .get(getCommentById)
@@ -26,3 +32,4 @@ router.route("/likes/:id").put(protect,LikeState);
 
 
 export default router;
+

@@ -11,6 +11,9 @@ import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import FixturePage from "./screens/FixturePage/FixturePage";
 import StandingPage from "./screens/StandingPage/StandingPage";
+import CreateComment from "./screens/CreateComment/CreateComment";
+import MyComments from "./screens/MyComments/MyComments";
+import SingleComment from "./screens/CreateComment/SingleComment";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -27,6 +30,14 @@ function App() {
         <Route path="/adminpage" component={AdminPage} />
         <Route path="/fixture" component={FixturePage} />
         <Route path="/standings" component={StandingPage} />
+        <Route
+          path="/mycomments"
+          component={({ history }) => (
+            <MyComments search={search} history={history} />
+          )}
+        />
+        <Route path="/comment/:id" component={SingleComment} />
+        <Route path="/createcomment" component={CreateComment} />;
       </main>
       <Footer />
     </Router>

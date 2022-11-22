@@ -14,6 +14,10 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Dropdown from 'react-bootstrap/Dropdown';
 import {FaHeart,FaRegHeart,FaRegUserCircle} from 'react-icons/fa';
 import { BsXCircleFill,BsXCircle } from "react-icons/bs";
+import { $CombinedState } from "redux";
+
+
+
 
 
 
@@ -43,6 +47,9 @@ function MyComments({ history, search }) {
    //);
    //const [tempcomments,setComments] = useState(comments);
    //const [sorted, setSorted] = useState({sorted: "_id", reversed: false});
+   
+   
+   
 
    console.log(comments);
 
@@ -63,30 +70,21 @@ function MyComments({ history, search }) {
   const { success: successUpdate } = commentUpdate;
 
   
-  const sortByLike = () => {
+  const sortByLike = async() => {
+
     dispatch(listComments(1));
-    /*
-    setSorted({sorted: "_id", reversed: !sorted.reversed});
-    const usersCopy = [...tempcomments];
-    usersCopy.sort((userA,userB)=>{
-      if(sorted.reverse){
-        return userA._id-userB._id;
-      }
-      return userB._id-userA._id;
-    });
-    setComments(usersCopy);
-    setSorted({ sorted: "_id", reversed: !sorted.reversed });
-    */
 
   }
-  const sortByDate = ()=>{
+  const sortByDate = async()=>{
     dispatch(listComments(2));
   }
-  const sortByLikeReverse = ()=>{
+  const sortByLikeReverse = async()=>{
+ 
     dispatch(listComments(3));
   }
 
-  const sortByDefault = ()=>{
+  const sortByDefault = async ()=>{
+
     dispatch(listComments(0));
   }
 
@@ -115,9 +113,12 @@ function MyComments({ history, search }) {
   const likeHandler = async(id,title, content,likes) => {
   
     await dispatch(updateLikeAction(id,title, content,likes));
-    window.location.reload();
+    dispatch(listComments(0));
+    //$("#like-section").load(window.location.href + " #like-section");
+    //window.location.reload();
  
   }
+
   
   return (
     <MainScreen title={`Welcome To Match Details Page ${userInfo && userInfo.name}`} >
@@ -197,7 +198,7 @@ function MyComments({ history, search }) {
                     </div>
                   ) :  <></>
                   }
-                  <div>
+                  <div> 
                     <Button
                         variant={comment.usersThatLikedTheComment.includes(userInfo.username)==false ? "secondary" : "danger"}
                         className="mx-2"

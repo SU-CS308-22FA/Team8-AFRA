@@ -11,7 +11,6 @@ function AdminPage() {
   const [id, setID] = useState();
 
   const handleSelectSeason=(e)=>{
-    e.preventDefault();
     setSeasonVar(e);
     console.log(e);
     console.log(seasonVar);

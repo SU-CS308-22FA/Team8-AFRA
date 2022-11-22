@@ -31,7 +31,6 @@ function LandingPage({ history }) {
               </Link>
               <Link to="/register">
                 <Button
-                  variant="outline-primary"
                   size="lg"
                   className="landingbutton"
                 >

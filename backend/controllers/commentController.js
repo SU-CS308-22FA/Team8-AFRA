@@ -12,6 +12,28 @@ const getComments = asyncHandler(async (req, res) => {
   
 });
 
+// @route   GET /api/comments/SortedByLike
+const getCommentsByLike = asyncHandler(async (req, res) => {
+  const comments = await Comment.find().sort( { "likes": 1 } ); //{ user: req.user._id }
+  res.json(comments);
+  
+});
+
+// @route   GET /api/comments/SortedByLikeReverse
+const getCommentsByLikeReverse = asyncHandler(async (req, res) => {
+  const comments = await Comment.find().sort( { "likes": -1 } ); //{ user: req.user._id }
+  res.json(comments);
+  
+});
+
+// @route   GET /api/comments/SortedByDate
+const getCommentsByDate = asyncHandler(async (req, res) => {
+ 
+  const comments = await Comment.find().sort( { "createdAt": -1 } ); //{ user: req.user._id }
+  res.json(comments);
+  
+});
+
 
 //@description     Fetch single Comment
 //@route           GET /api/comments/:id
@@ -133,5 +155,5 @@ const LikeState = asyncHandler(async (req, res) => {
 
 
 
-export { getCommentById, getComments, CreateComment, DeleteComment, UpdateComment,LikeState};
+export { getCommentById, getComments, CreateComment, DeleteComment, UpdateComment,LikeState,getCommentsByLike,getCommentsByDate,getCommentsByLikeReverse};
 

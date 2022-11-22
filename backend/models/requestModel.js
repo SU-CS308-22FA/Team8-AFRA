@@ -9,7 +9,7 @@ const proRequestSchema = new mongoose.Schema({
         type:String,
         required: true
     },
-    license:{
+    licence:{
         type:String,
         required:true
     },

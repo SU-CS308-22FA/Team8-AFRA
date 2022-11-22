@@ -4,13 +4,13 @@ import axios from "axios";
 
 const uploadDatabase = asyncHandler(async (req, res) => {
   const { seasonVar } = req.body;
-  console.log(seasonVar);
 
   const s = await fixture.findOne({ season: seasonVar });
   if (s) {
-    res.status(404);
-    throw new Error(error);
+    res.send("Cannot Uploaded since the data already uploaded to database");
+    return;
   }
+
   const options = {
     method: "GET",
     url: "https://api-football-v1.p.rapidapi.com/v3/fixtures",
@@ -20,8 +20,7 @@ const uploadDatabase = asyncHandler(async (req, res) => {
       "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
     },
   };
-
-  axios
+  await axios
     .request(options)
     .then(function (r) {
       var weekCounter = 0;
@@ -52,11 +51,11 @@ const uploadDatabase = asyncHandler(async (req, res) => {
         });
         match.save();
       }
+      res.send("Uploaded successfully");
     })
-    .catch(function (error) {
-      res.status(404);
+    .catch(function (err) {
+      res.send("Cannot Uploaded since the API does not work");
     });
-  res.status(200);
 });
 
 const getMatchesBySeasonAndWeek = asyncHandler(async (req, res) => {

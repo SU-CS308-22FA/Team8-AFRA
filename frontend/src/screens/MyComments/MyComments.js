@@ -17,7 +17,23 @@ import { BsXCircleFill,BsXCircle } from "react-icons/bs";
 
 
 
+/*
+function BasicExample() {
+  return (
+    <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        Dropdown Button
+      </Dropdown.Toggle>
 
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={() => sortToLike} > Action </Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+}
+*/
 function MyComments({ history, search }) {
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.commentList);
@@ -47,7 +63,32 @@ function MyComments({ history, search }) {
   const { success: successUpdate } = commentUpdate;
 
   
-  
+  const sortByLike = () => {
+    dispatch(listComments(1));
+    /*
+    setSorted({sorted: "_id", reversed: !sorted.reversed});
+    const usersCopy = [...tempcomments];
+    usersCopy.sort((userA,userB)=>{
+      if(sorted.reverse){
+        return userA._id-userB._id;
+      }
+      return userB._id-userA._id;
+    });
+    setComments(usersCopy);
+    setSorted({ sorted: "_id", reversed: !sorted.reversed });
+    */
+
+  }
+  const sortByDate = ()=>{
+    dispatch(listComments(2));
+  }
+  const sortByLikeReverse = ()=>{
+    dispatch(listComments(3));
+  }
+
+  const sortByDefault = ()=>{
+    dispatch(listComments(0));
+  }
 
   useEffect(() => {
     dispatch(listComments(0));
@@ -86,6 +127,26 @@ function MyComments({ history, search }) {
           Create new Comments
         </Button>
       </Link>
+      <table>
+        <thead>
+          <tr>
+            <th>
+            <Dropdown>
+            <Dropdown.Toggle variant="light" id="dropdown-basic">
+              Filter Comments
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item onClick={()=> sortByDate()} > Sorted by Date(Oldest to Newest) </Dropdown.Item>
+              <Dropdown.Item onClick={()=> sortByLike()} > Sorted by Like(Most to Least)</Dropdown.Item>
+              <Dropdown.Item onClick={()=> sortByLikeReverse()} > Sorted by Like(Least to Most)</Dropdown.Item>
+              <Dropdown.Item onClick={()=> sortByDefault()}>Default</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+            </th>
+          </tr>
+        </thead>
+      </table>
       {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
       {errorDelete && (
         <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>

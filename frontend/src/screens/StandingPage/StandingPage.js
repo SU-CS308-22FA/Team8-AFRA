@@ -23,7 +23,7 @@ function StandingPage() {
       };
   
       const { data } = await axios.get(
-        "http://localhost:4000/api/matches/standings",
+        `${process.env.REACT_APP_URL}/api/matches/standings`,
         {
           params: {
             season: seasonVar,

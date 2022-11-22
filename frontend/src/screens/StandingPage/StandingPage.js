@@ -6,6 +6,7 @@ import "./StandingPage.css";
 function StandingPage() {
     const [seasonVar, setSeasonVar] = useState();
     const [data, setData] = useState([]);
+    const [tableHead, setTableHead] = useState([]);
     const [displaySentence, setDisplaySentence] = useState();
     
     const handleSelectSeason=(e)=>{
@@ -30,6 +31,9 @@ function StandingPage() {
         }
       );
       console.log(data);
+      const newHead = [{"rank":"#"},{"name":"Team"},{"allplayed":"Played Matches"},{"win":"Won"},{"draw":"Drawn"},{"lose":"Lost"},{"gf":"GF"},{"ga":"GA"},{"gd":"GD"},{"points":"Points"}]
+    
+      setTableHead(newHead);
       setData(data);
     };
     
@@ -60,6 +64,52 @@ function StandingPage() {
         <p> </p>
         <h2 className="subsentence"> {displaySentence} </h2>
         <p> </p>
+
+        <p> </p>
+
+      <Table responsive>
+      <thead>
+        <tr>
+        {tableHead.map(tableHead=>{
+          return(
+            <th>
+            <a>{tableHead.rank}</a>
+            <a>{tableHead.name}</a>
+            <a>{tableHead.allplayed}</a>
+            <a>{tableHead.win}</a>
+            <a>{tableHead.draw}</a>
+            <a>{tableHead.lose}</a>
+            <a>{tableHead.gf}</a>
+            <a>{tableHead.ga}</a>
+            <a>{tableHead.gd}</a>
+            <a>{tableHead.points}</a>
+            </th>
+          )
+        })}
+        </tr>
+      </thead>
+
+      <tbody>
+        {data.map(data=>{
+          return(
+          <tr>
+            <td>{data.rank}</td>
+            <td>{data.team.name}</td>
+            <td>{data.all.played}</td>
+            <td>{data.all.win}</td>
+            <td>{data.all.draw}</td>
+            <td>{data.all.lose}</td>
+            <td>{data.all.goals.for}</td>
+            <td>{data.all.goals.against}</td>
+            <td>{data.all.goals.for - data.all.goals.against}</td>
+            <td>{data.points}</td>
+            </tr>
+            )
+          }
+        )}
+      </tbody>
+
+    </Table>
         
       </div>
     );

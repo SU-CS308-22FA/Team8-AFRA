@@ -92,7 +92,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.pic = req.body.pic || user.pic;
     if (req.body.licence)
     {
-      user.verified = false
+      user.verified = false;
+      user.role = "user";
       user.licence = "https://drive.google.com/file/d/" + req.body.licence
       const requestExists = await proRequest.findOne({ user: user._id });
       if (requestExists){

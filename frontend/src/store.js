@@ -2,14 +2,24 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import {
+  commentCreateReducer,
+  commentDeleteReducer,
+  commentListReducer,
+  commentUpdateReducer,
+} from "./reducers/commentsReducers";
+import {
   userLoginReducer,
   userRegisterReducer,
   userUpdateReducer,
 } from "./reducers/userReducers";
 
 const reducer = combineReducers({
+  commentList: commentListReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  commentCreate: commentCreateReducer,
+  commentDelete: commentDeleteReducer,
+  commentUpdate: commentUpdateReducer,
   userUpdate: userUpdateReducer,
 });
 

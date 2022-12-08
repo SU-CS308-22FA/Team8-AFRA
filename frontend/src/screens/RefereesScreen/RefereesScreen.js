@@ -19,27 +19,14 @@ function RefereesScreen() {
   const submitHandler = async (e) => {
     setDisplaySentence("You are now viewing the referees");
     e.preventDefault();
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
 
-    /*
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/api/matches/standings`,
-        {
-          params: {
-            season: seasonVar,
-          },
-        }
-      );
-      console.log(data);
-      */
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/referees`
+    );
+    console.log(data);
 
     const newHead = [
-      { image: "Image" },
-      { rank: "#" },
+      { rank: "#Rank" },
       { name: "Referee" },
       { matchCount: "Match Count" },
       { yellowCard: "Yellow Card" },
@@ -71,7 +58,6 @@ function RefereesScreen() {
             {tableHead.map((tableHead) => {
               return (
                 <th>
-                  <a>{tableHead.image}</a>
                   <a>{tableHead.rank}</a>
                   <a>{tableHead.name}</a>
                   <a>{tableHead.matchCount}</a>
@@ -89,8 +75,7 @@ function RefereesScreen() {
           {data.map((data) => {
             return (
               <tr>
-                <td>{data.image}</td>
-                <td>{data.rank}</td>
+                <td>{10}</td>
                 <td>{data.name}</td>
                 <td>{data.matchCount}</td>
                 <td>{data.yellowCard}</td>

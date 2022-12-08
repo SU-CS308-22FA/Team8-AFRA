@@ -1,0 +1,35 @@
+.mainTitle {
+  font-size: 50px;
+  text-align: center;
+  color: rgb(14, 52, 136);
+}
+
+.subTitle {
+  text-align: center;
+}
+
+.submitButton {
+  text-align: center;
+}
+
+.explain {
+  text-align: center;
+}
+
+.listStart {
+  font-size: 20px;
+  color: red;
+  text-align: center;
+}
+
+.myTeam {
+  font-size: 20px;
+  color: rgb(50, 29, 143);
+  text-align: center;
+}
+
+.subsentence {
+  font-size: 25px;
+  text-align: center;
+  color: red;
+}

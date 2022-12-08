@@ -11,6 +11,7 @@ import requestRoutes from "./routes/requestRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import googleDrive from "./routes/googledrive.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import refereeRoutes from "./routes/refereeRoutes.js";
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use("/app", googleDrive); //-> /app is the base path and routeUrls will be a
 app.use("/api/matches", matchRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/referees", refereeRoutes);
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();

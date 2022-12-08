@@ -1,3 +1,9 @@
-import referee from "../models/refereeModel.js";
+import Referee from "../models/refereeModel.js";
 import asyncHandler from "express-async-handler";
-import axios from "axios";
+
+const getAllReferees = asyncHandler(async (req, res) => {
+  const referees = await Referee.find(); //{ user: req.user._id }
+  res.json(referees);
+});
+
+export { getAllReferees };

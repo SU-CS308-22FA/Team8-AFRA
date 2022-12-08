@@ -15,8 +15,9 @@
   "author": "AFRA",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.1.3",
+    "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
+    "cheerio": "^1.0.0-rc.12",
     "cloudinary": "^1.32.0",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
@@ -25,6 +26,7 @@
     "express-async-handler": "^1.1.4",
     "googleapis": "^109.0.1",
     "jquery": "^3.6.1",
+    "json2csv": "^5.0.7",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.15",
     "multer": "^1.4.5-lts.1",

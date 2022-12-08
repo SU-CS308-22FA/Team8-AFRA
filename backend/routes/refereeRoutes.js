@@ -1,7 +1,8 @@
 import express from "express";
-const router = express.Router();
 
 import { getAllReferees } from "../controllers/refereeController.js";
+
+const router = express.Router();
 
 router.route("/").get(getAllReferees);
 

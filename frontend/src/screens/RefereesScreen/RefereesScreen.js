@@ -1,13 +1,5 @@
-import React, { useState } from "react";
-import {
-  Form,
-  Button,
-  Dropdown,
-  DropdownButton,
-  Table,
-  Row,
-  Col,
-} from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Form, Button, Table } from "react-bootstrap";
 import axios from "axios";
 import "./RefereesScreen.css";
 
@@ -16,17 +8,10 @@ function RefereesScreen() {
   const [tableHead, setTableHead] = useState([]);
   const [displaySentence, setDisplaySentence] = useState();
 
-  const submitHandler = async (e) => {
-    setDisplaySentence("You are now viewing the referees");
-    e.preventDefault();
-
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_URL}/api/referees`
-    );
-    console.log(data);
-
+  useEffect(() => {
+    setDisplaySentence("You are now viewing the current referees");
     const newHead = [
-      { rank: "#Rank" },
+      { rank: "# Rank" },
       { name: "Referee" },
       { matchCount: "Match Count" },
       { yellowCard: "Yellow Card" },
@@ -35,19 +20,20 @@ function RefereesScreen() {
       { penalty: "Penalty" },
     ];
     setTableHead(newHead);
-    setData(data);
-  };
+    axios
+      .get(`${process.env.REACT_APP_URL}/api/referees`)
+      .then((res) => {
+        const referees = res.data;
+        setData(referees);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <div>
       <h1 className="mainTitle">Referees in Super League</h1>
-      <h3 className="subTitle">Press the button to see the referees</h3>
-      <p> </p>
-      <Form onSubmit={submitHandler} className="submitButton">
-        <Button variant="primary" type="submit">
-          See Referees
-        </Button>
-      </Form>
       <p> </p>
       <h2 className="subsentence"> {displaySentence} </h2>
       <p> </p>

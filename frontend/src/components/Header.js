@@ -41,6 +41,9 @@ function Header({ setSearch }) {
           <Nav>
             {userInfo ? (
               <>
+               <Nav>
+            <Nav.Link href="/calendar" >Google Calendar</Nav.Link>
+              </Nav>
                 <Nav.Link href="/mycomments">My Comments</Nav.Link>
                 <NavDropdown
                   title={`${userInfo.name}`}
@@ -57,6 +60,16 @@ function Header({ setSearch }) {
                       style={{ marginRight: 10 }}
                     /> */}
                         Admin Page
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="/adminban">
+                        {/* <img
+                      alt=""
+                      src={`${userInfo.pic}`}
+                      width="25"
+                      height="25"
+                      style={{ marginRight: 10 }}
+                    /> */}
+                        Admin Ban
                       </NavDropdown.Item>
 
                       <NavDropdown.Divider />

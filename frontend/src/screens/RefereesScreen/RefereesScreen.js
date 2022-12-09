@@ -7,10 +7,8 @@ import "./RefereesScreen.css";
 function RefereesScreen() {
   const [data, setData] = useState([]);
   const [tableHead, setTableHead] = useState([]);
-  const [displaySentence, setDisplaySentence] = useState();
 
   useEffect(() => {
-    setDisplaySentence("You are now viewing the current referees");
     const newHead = [
       { rank: "# Rank" },
       { name: "Referee" },
@@ -36,8 +34,6 @@ function RefereesScreen() {
     <div>
       <h1 className="mainTitle">Referees in Super League</h1>
       <p> </p>
-      <h2 className="subsentence"> {displaySentence} </h2>
-      <p> </p>
 
       <Table responsive>
         <thead>
@@ -48,9 +44,9 @@ function RefereesScreen() {
                   <a>{tableHead.rank}</a>
                   <a>{tableHead.name}</a>
                   <a>{tableHead.matchCount}</a>
-                  <a>{tableHead.yellowCard}</a>
-                  <a>{tableHead.yellowRedCard}</a>
-                  <a>{tableHead.redCard}</a>
+                  <a style={{ color: "#FFE15D" }}>{tableHead.yellowCard}</a>
+                  <a style={{ color: "#FF7000" }}>{tableHead.yellowRedCard}</a>
+                  <a style={{ color: "red" }}>{tableHead.redCard}</a>
                   <a>{tableHead.penalty}</a>
                 </th>
               );

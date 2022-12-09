@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
-import { Button, Card, Form } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import "./SingleReferee.css";
 import axios from "axios";
 
 function SingleReferee({ match, history }) {
@@ -39,27 +39,64 @@ function SingleReferee({ match, history }) {
   }, []);
 
   return (
-    <MainScreen title="Referee Details">
-      <Card>
-        <Card.Header>Referee</Card.Header>
-        <Card.Body>
-          <a>{refereeName}</a>
-          <p></p>
-          <a>{matchCount}</a>
-          <p></p>
-          <a>{yellowCard}</a>
-          <p></p>
-          <a>{yellowRedCard}</a>
-          <p></p>
-          <a>{redCard}</a>
-          <p></p>
-          <a>{penalty}</a>
-        </Card.Body>
-
-        <Card.Footer className="text-muted">
-          Referee Name - {refereeName}
-        </Card.Footer>
-      </Card>
+    <MainScreen title={refereeName}>
+      <div>
+        <h3 className="subTitle"> Here photograph will be seen </h3>
+        <Row>
+          <Col>
+            <h3 className="subTitle">Personal Information of {refereeName}</h3>
+          </Col>
+          <Col>
+            <h3 className="subTitle">Technical Details about {refereeName}</h3>
+            <Row className="allRows">
+              <Col>
+                <Row className="allRows">
+                  <h4 className="sub4Title">Number of matches</h4>
+                </Row>
+                <Row className="allRows">
+                  <h5>{matchCount}</h5>
+                </Row>
+              </Col>
+              <Col>
+                <Row className="allRows">
+                  <h4>Number of Penalties</h4>
+                </Row>
+                <Row className="allRows">
+                  <h5>{penalty}</h5>
+                </Row>
+              </Col>
+            </Row>
+            <Row className="allRows">
+              <Col>
+                <Row className="allRows">
+                  <h4>Number of Yellow Cards</h4>
+                </Row>
+                <Row className="allRows">
+                  <h5>{yellowCard}</h5>
+                </Row>
+              </Col>
+              <Col>
+                <Row className="allRows">
+                  <h4>Number of Red Cards</h4>
+                </Row>
+                <Row className="allRows">
+                  <h5>{redCard}</h5>
+                </Row>
+              </Col>
+            </Row>
+            <Row className="allRows">
+              <Col>
+                <Row className="allRows">
+                  <h4>Number of Red Cards from Yellow Cards</h4>
+                </Row>
+                <Row className="allRows">
+                  <h5>{yellowRedCard}</h5>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
     </MainScreen>
   );
 }

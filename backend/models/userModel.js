@@ -29,6 +29,10 @@ const userSchema = mongoose.Schema(
     licence:{
       type:String,
       required: false
+    }, 
+    refresh_token:{
+      type:String,
+      required: false
     },
     role:{
       type:String,

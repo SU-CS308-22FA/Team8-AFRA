@@ -3,11 +3,15 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
 import "./ProfileScreen.css";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProfile, updateProfile, logout } from "../../actions/userActions";
+import {
+  deleteProfile,
+  updateProfile,
+  logout,
+} from "../../actions/userActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState("");
@@ -64,22 +68,20 @@ const ProfileScreen = ({ location, history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(updateProfile({ name, email, password, pic, username}));
+    dispatch(updateProfile({ name, email, password, pic, username }));
   };
 
   const deleteHandler = (e) => {
-    if (window.confirm("Are you sure?"))
-    {
-      dispatch(deleteProfile())
-      console.log("profile deleted")
+    if (window.confirm("Are you sure?")) {
+      dispatch(deleteProfile());
+      console.log("profile deleted");
 
-      dispatch(logout())
-      console.log("logging out")
+      dispatch(logout());
+      console.log("logging out");
 
-      axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo)
+      axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo);
     }
-  }
-  
+  };
 
   return (
     <MainScreen title="EDIT PROFILE">
@@ -165,13 +167,11 @@ const ProfileScreen = ({ location, history }) => {
             }}
           >
             <img src={pic} alt={name} className="profilePic" />
-            <Button type="submit" onClick={() => deleteHandler() }>
-                Delete Account 
-           </Button>
-           <Link to="/verification">
-                <Button>
-                  Account Verification
-                </Button>
+            <Button type="submit" onClick={() => deleteHandler()}>
+              Delete Account
+            </Button>
+            <Link to="/verification">
+              <Button>Account Verification</Button>
             </Link>
           </Col>
         </Row>

@@ -16,7 +16,7 @@ import CreateComment from "./screens/CreateComment/CreateComment";
 import MyComments from "./screens/MyComments/MyComments";
 import SingleComment from "./screens/CreateComment/SingleComment";
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
-import RefereeDetails from "./screens/RefereesScreen/RefereeDetails";
+import SingleReferee from "./screens/SingleReferee/SingleReferee";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -33,8 +33,13 @@ function App() {
         <Route path="/adminpage" component={AdminPage} />
         <Route path="/fixture" component={FixturePage} />
         <Route path="/standings" component={StandingPage} />
-        <Route path="/referees" component={RefereesScreen} />
-        <Route path="/referees/:refereeId" component={RefereeDetails} />
+        <Route
+          path="/referees"
+          component={({ history }) => (
+            <RefereesScreen search={search} history={history} />
+          )}
+        />
+        <Route path="/referee/:refereeName" component={SingleReferee} />
         <Route
           path="/mycomments"
           component={({ history }) => (

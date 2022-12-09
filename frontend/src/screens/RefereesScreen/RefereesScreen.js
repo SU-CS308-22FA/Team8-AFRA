@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./RefereesScreen.css";
 
@@ -62,7 +63,9 @@ function RefereesScreen() {
             return (
               <tr>
                 <td>{10}</td>
-                <td>{data.name}</td>
+                <td>
+                  <a href={`/referee/${data.name}`}>{data.name}</a>
+                </td>
                 <td>{data.matchCount}</td>
                 <td>{data.yellowCard}</td>
                 <td>{data.yellowRedCard}</td>

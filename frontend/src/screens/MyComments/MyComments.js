@@ -1,7 +1,7 @@
 import React, { useEffect,useState } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -13,45 +13,16 @@ import ErrorMessage from "../../components/ErrorMessage";
 
 import Dropdown from 'react-bootstrap/Dropdown';
 import {FaHeart,FaRegHeart,FaRegUserCircle} from 'react-icons/fa';
-import { BsXCircleFill,BsXCircle } from "react-icons/bs";
-import { $CombinedState } from "redux";
+import { BsXCircle } from "react-icons/bs";
 
 
 
-
-
-
-/*
-function BasicExample() {
-  return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Dropdown Button
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item onClick={() => sortToLike} > Action </Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-  );
-}
-*/
-function MyComments({ history, search }) {
+function MyComments() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const commentList = useSelector((state) => state.commentList);
   const { loading, error, comments } = commentList;
-  //const filteredComments = comments.filter((comment) =>
-  //   comment.title.toLowerCase().includes(search.toLowerCase())
-   //);
-   //const [tempcomments,setComments] = useState(comments);
-   //const [sorted, setSorted] = useState({sorted: "_id", reversed: false});
-   
-   
-   
-
-   console.log(comments);
+  console.log(comments);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -91,11 +62,10 @@ function MyComments({ history, search }) {
   useEffect(() => {
     dispatch(listComments(0));
     if (!userInfo) {
-      history.push("/");
+      navigate("/");
     }
   }, [
     dispatch,
-    history,
     userInfo,
     successDelete,
     successCreate,
@@ -156,9 +126,6 @@ function MyComments({ history, search }) {
       {loadingDelete && <Loading />}
       {comments &&
         comments
-          .filter((filteredComment) =>
-            filteredComment.content.toLowerCase().includes(search.toLowerCase())
-          )
           .reverse()
           .map((comment) => (
             <Accordion>
@@ -231,7 +198,6 @@ function MyComments({ history, search }) {
               </Card>
             </Accordion>
           ))}
-         
     </MainScreen>
   );
 }

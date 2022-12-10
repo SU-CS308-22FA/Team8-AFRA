@@ -1,12 +1,19 @@
 import "./App.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router,Routes, Route, useNavigate, Outlet } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Unauthorized from "./components/Unauthorized";
+import BanScreen from "./components/Banned";
+import OnlyAdmins from "./components/OnlyAdmins";
+
+import RequireAuth from "./components/RequireAuth";
+import RequireAdmin from "./components/RequireAdmin";
+
 import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
-import { useState } from "react";
+import { useState,Suspense } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import AdminBan from "./screens/AdminPage/AdminBan";
@@ -31,29 +38,39 @@ function App() {
 
   return (
     <Router>
-      <Header setSearch={(s) => setSearch(s)} />
-      <main className="App">
-        <Route path="/" component={LandingPage} exact />
-        <Route path="/login" component={LoginScreen} />
-        <Route path="/register" component={RegisterScreen} />
-        <Route path="/profile" component={ProfileScreen} />
-        <Route path="/verification" component={VerificationPage} />
-        <Route path="/adminpage" component={AdminPage} />
-        <Route path="/adminban" component={AdminBan} />
-        <Route path="/fixture" component={FixturePage} />
-        <Route path="/calendar" component={CalendarPage} />
-        <Route path="/standings" component={StandingPage} />
-        <Route
-          path="/mycomments"
-          component={({ history }) => (
-            <MyComments search={search} history={history} />
-          )}
-        />
-        <Route path="/comment/:id" component={SingleComment} />
-        <Route path="/createcomment" component={CreateComment} />;
-      </main>
-      <Footer />
+
+<Header setSearch={(s) => setSearch(s)} />
+<Suspense>
+    <Routes>
+      
+        <Route path="/" element={<LandingPage/>}/>
+        <Route path="login" element={<LoginScreen />} />
+        <Route path="register" element={<RegisterScreen />}  />
+        <Route path="unauthorized" element={<Unauthorized />}  />
+        <Route path="onlyadmins" element={<OnlyAdmins />}  />
+        <Route path="fixture" element={<FixturePage/>} />
+        <Route path="standings" element={<StandingPage/>} />
+        <Route path="banned" element={<BanScreen/>} />
+
+        <Route element={<RequireAuth />}>
+           <Route path="calendar" element={<CalendarPage/>} />
+           <Route path="profile" element={<ProfileScreen/>} />
+           <Route path="comment/:id" element={<SingleComment/>} />
+            <Route path="createcomment" element={<CreateComment/>} />
+            <Route path="mycomments" element= {<MyComments/>} />
+            <Route path="verification" element={<VerificationPage/>} />
+        </Route>
+
+        <Route element={<RequireAdmin />}>
+          <Route path="adminpage" element={<AdminPage/>} />
+          <Route path="adminban" element={<AdminBan/>} />
+        </Route>
+       
+    </Routes>
+    </Suspense>
+    <Footer />
     </Router>
+    
   );
 }
 

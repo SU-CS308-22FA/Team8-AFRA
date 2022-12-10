@@ -39,7 +39,17 @@ const userSchema = mongoose.Schema(
       required: true,
       default: "user"
     },
+    falseReports:{
+      type: Number,
+      required: true,
+      default: 0
+    },
     verified:{
+      type: Boolean,
+      required:true,
+      default: false
+    },
+    banned:{
       type: Boolean,
       required:true,
       default: false

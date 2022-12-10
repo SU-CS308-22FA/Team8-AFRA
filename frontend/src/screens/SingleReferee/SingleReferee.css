@@ -3,6 +3,11 @@
   color: rgb(14, 52, 136);
 }
 
+.subTitle-bio {
+  text-align: center;
+  color: rgb(226, 15, 15);
+}
+
 .allRows {
   justify-content: center;
   align-items: center;

@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  Container,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
+import { Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
@@ -38,6 +31,9 @@ function Header({ setSearch }) {
           </Nav>
           <Nav>
             <Nav.Link href="/standings">Standings</Nav.Link>
+          </Nav>
+          <Nav>
+            <Nav.Link href="/referees">Referees</Nav.Link>
           </Nav>
           <Nav>
             {userInfo ? (

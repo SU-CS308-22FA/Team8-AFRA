@@ -4,6 +4,8 @@ import {google} from "googleapis";
 const router = express.Router();
 import User from "../models/userModel.js";
 import Fixture from "../models/matchModel.js";
+import dotenv from 'dotenv';
+const config = dotenv.config();
 
 //GOTTA FIX -ZEYNEP
 const oauth2Client = new google.auth.OAuth2(
@@ -16,9 +18,14 @@ function addHoursToDate(date, hours) {
 }
 
 router.post("/", async(req, res, next) => {
-    const {code} = req.body
+    try{
+      const {code} = req.body
     const {tokens} = await oauth2Client.getToken(code);
     res.send(tokens.refresh_token)
+    }
+    catch(err){
+      console.log(err)
+    }
 })
 
 router.post("/create-event", async(req, res, next) => {

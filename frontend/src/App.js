@@ -68,7 +68,7 @@ function App() {
                 <Route path="adminban" element={<AdminBan/>} />
               </Route>
           </Routes>
-          <Footer />306282eee262d4bbfbf425d67c4dc01399571ec4
+          <Footer />
     </Router>
   );
 }

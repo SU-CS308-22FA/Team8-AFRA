@@ -13,9 +13,13 @@ const Footer = () => {
       }}
     >
       <Container>
-        <Row>
-          <Col className="text-center py-3">Copyright &copy; AFRA</Col>
-        </Row>
+        <h3 style={{ color: "green", textAlign: "center" }}>
+          AFRA: Automated Fixture & Referee Assignment
+        </h3>
+        <p></p>
+        <h4 style={{ color: "green", textAlign: "center" }}>
+          Copyright &copy; AFRA
+        </h4>
       </Container>
     </footer>
   );

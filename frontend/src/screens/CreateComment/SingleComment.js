@@ -3,7 +3,10 @@ import MainScreen from "../../components/MainScreen";
 import axios from "axios";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCommentAction, updateCommentAction } from "../../actions/commentsActions";
+import {
+  deleteCommentAction,
+  updateCommentAction,
+} from "../../actions/commentsActions";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import ReactMarkdown from "react-markdown";
@@ -12,7 +15,7 @@ function SingleComment({ match, history }) {
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [date, setDate] = useState("");
-  
+
   const dispatch = useDispatch();
 
   const commentUpdate = useSelector((state) => state.commentUpdate);
@@ -30,7 +33,9 @@ function SingleComment({ match, history }) {
 
   useEffect(() => {
     const fetching = async () => {
-      const { data } = await axios.get(`${process.env.REACT_APP_URL}/api/comments/${match.params.id}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_URL}/api/comments/${match.params.id}`
+      );
 
       setTitle(data.title);
       setContent(data.content);
@@ -48,7 +53,7 @@ function SingleComment({ match, history }) {
   const updateHandler = (e) => {
     e.preventDefault();
     dispatch(updateCommentAction(match.params.id, title, content));
-    if ( !title || !content ) return;
+    if (!title || !content) return;
 
     resetHandler();
     history.push("/mycomments");
@@ -75,7 +80,6 @@ function SingleComment({ match, history }) {
                 onChange={(e) => setTitle(e.target.value)}
               />
             </Form.Group>
-            
 
             <Form.Group controlId="content">
               <Form.Label>Content</Form.Label>
@@ -96,8 +100,7 @@ function SingleComment({ match, history }) {
               </Card>
             )}
 
-            <Form.Group controlId="content">
-            </Form.Group>
+            <Form.Group controlId="content"></Form.Group>
             {loading && <Loading size={50} />}
             <Button variant="primary" type="submit">
               Update Comment

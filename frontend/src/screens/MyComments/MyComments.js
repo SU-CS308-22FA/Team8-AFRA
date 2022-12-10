@@ -1,27 +1,50 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 import { useDispatch, useSelector } from "react-redux";
-import { deleteCommentAction, listComments,updateLikeAction, } from "../../actions/commentsActions";
+import {
+  deleteCommentAction,
+  listComments,
+  updateLikeAction,
+} from "../../actions/commentsActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 
+import Dropdown from "react-bootstrap/Dropdown";
+import { FaHeart, FaRegHeart, FaRegUserCircle } from "react-icons/fa";
+import { BsXCircleFill, BsXCircle } from "react-icons/bs";
+import { $CombinedState } from "redux";
 
+/*
+function BasicExample() {
+  return (
+    <Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+        Dropdown Button
+      </Dropdown.Toggle>
 
-import Dropdown from 'react-bootstrap/Dropdown';
-import {FaHeart,FaRegHeart,FaRegUserCircle} from 'react-icons/fa';
-import { BsXCircle } from "react-icons/bs";
-
-
-
-function MyComments() {
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={() => sortToLike} > Action </Dropdown.Item>
+        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+}
+*/
+function MyComments({ history, search }) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const commentList = useSelector((state) => state.commentList);
   const { loading, error, comments } = commentList;
+  //const filteredComments = comments.filter((comment) =>
+  //   comment.title.toLowerCase().includes(search.toLowerCase())
+  //);
+  //const [tempcomments,setComments] = useState(comments);
+  //const [sorted, setSorted] = useState({sorted: "_id", reversed: false});
+
   console.log(comments);
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -40,37 +63,32 @@ function MyComments() {
   const commentUpdate = useSelector((state) => state.commentUpdate);
   const { success: successUpdate } = commentUpdate;
 
-  
-  const sortByLike = async() => {
-
+  const sortByLike = async () => {
     dispatch(listComments(1));
-
-  }
-  const sortByDate = async()=>{
+  };
+  const sortByDate = async () => {
     dispatch(listComments(2));
-  }
-  const sortByLikeReverse = async()=>{
- 
+  };
+  const sortByLikeReverse = async () => {
     dispatch(listComments(3));
-  }
+  };
 
-  const sortByDefault = async ()=>{
-
+  const sortByDefault = async () => {
     dispatch(listComments(0));
-  }
+  };
 
   useEffect(() => {
     dispatch(listComments(0));
     if (!userInfo) {
-      navigate("/");
+      history.push("/");
     }
   }, [
     dispatch,
+    history,
     userInfo,
     successDelete,
     successCreate,
     successUpdate,
-
   ]);
 
   const deleteHandler = (id) => {
@@ -79,19 +97,17 @@ function MyComments() {
     }
   };
 
-
-  const likeHandler = async(id,title, content,likes) => {
-  
-    await dispatch(updateLikeAction(id,title, content,likes));
+  const likeHandler = async (id, title, content, likes) => {
+    await dispatch(updateLikeAction(id, title, content, likes));
     dispatch(listComments(0));
     //$("#like-section").load(window.location.href + " #like-section");
     //window.location.reload();
- 
-  }
+  };
 
-  
   return (
-    <MainScreen title={`Welcome To Match Details Page ${userInfo && userInfo.name}`} >
+    <MainScreen
+      title={`Welcome To Match Details Page ${userInfo && userInfo.name}`}
+    >
       {console.log(comments)}
       <Link to="/createcomment">
         <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
@@ -102,18 +118,29 @@ function MyComments() {
         <thead>
           <tr>
             <th>
-            <Dropdown>
-            <Dropdown.Toggle variant="light" id="dropdown-basic">
-              Filter Comments
-            </Dropdown.Toggle>
+              <Dropdown>
+                <Dropdown.Toggle variant="light" id="dropdown-basic">
+                  Sort Comments
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={()=> sortByDate()} > Sorted by Date(Oldest to Newest) </Dropdown.Item>
-              <Dropdown.Item onClick={()=> sortByLike()} > Sorted by Like(Most to Least)</Dropdown.Item>
-              <Dropdown.Item onClick={()=> sortByLikeReverse()} > Sorted by Like(Least to Most)</Dropdown.Item>
-              <Dropdown.Item onClick={()=> sortByDefault()}>Default</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={() => sortByDate()}>
+                    {" "}
+                    Sorted by Date(Oldest to Newest){" "}
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => sortByLike()}>
+                    {" "}
+                    Sorted by Like(Most to Least)
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => sortByLikeReverse()}>
+                    {" "}
+                    Sorted by Like(Least to Most)
+                  </Dropdown.Item>
+                  <Dropdown.Item onClick={() => sortByDefault()}>
+                    Default
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </th>
           </tr>
         </thead>
@@ -126,6 +153,9 @@ function MyComments() {
       {loadingDelete && <Loading />}
       {comments &&
         comments
+          .filter((filteredComment) =>
+            filteredComment.content.toLowerCase().includes(search.toLowerCase())
+          )
           .reverse()
           .map((comment) => (
             <Accordion>
@@ -150,30 +180,61 @@ function MyComments() {
                       {comment.title}
                     </Accordion.Toggle>
                   </span>
-                  {comment.user===userInfo._id ? (
+                  {comment.user === userInfo._id ? (
                     <div>
-                    <Button href={`/comment/${comment._id}`}>Edit</Button>
+                      <Button href={`/comment/${comment._id}`}>Edit</Button>
                       <Button
-                        variant={comment.user===userInfo._id ? "danger" :"secondary"}
+                        variant={
+                          comment.user === userInfo._id ? "danger" : "secondary"
+                        }
                         className="mx-2"
-                        disabled= {comment.user!==userInfo._id ? "disabled" :null}
-                        onClick = {() => comment.user===userInfo._id ? deleteHandler(comment._id) : null }
+                        disabled={
+                          comment.user !== userInfo._id ? "disabled" : null
+                        }
+                        onClick={() =>
+                          comment.user === userInfo._id
+                            ? deleteHandler(comment._id)
+                            : null
+                        }
                         //onClick={() => deleteHandler(comment._id)}
                       >
-                        Delete <BsXCircle/>
+                        Delete <BsXCircle />
                       </Button>
                     </div>
-                  ) :  <></>
-                  }
-                  <div> 
+                  ) : (
+                    <></>
+                  )}
+                  <div>
                     <Button
-                        variant={comment.usersThatLikedTheComment.includes(userInfo.username)==false ? "secondary" : "danger"}
-                        className="mx-2"
-                        value="Like"
-                        disabled= {comment.user===userInfo._id ? "disabled" :null}
-                        onClick = {() => likeHandler(comment._id,comment.title,comment.content,comment.likes) }
-                      >
-                        {comment.usersThatLikedTheComment.includes(userInfo.username)==false ? < FaRegHeart/> : < FaHeart/>} {comment.likes}
+                      variant={
+                        comment.usersThatLikedTheComment.includes(
+                          userInfo.username
+                        ) == false
+                          ? "secondary"
+                          : "danger"
+                      }
+                      className="mx-2"
+                      value="Like"
+                      disabled={
+                        comment.user === userInfo._id ? "disabled" : null
+                      }
+                      onClick={() =>
+                        likeHandler(
+                          comment._id,
+                          comment.title,
+                          comment.content,
+                          comment.likes
+                        )
+                      }
+                    >
+                      {comment.usersThatLikedTheComment.includes(
+                        userInfo.username
+                      ) == false ? (
+                        <FaRegHeart />
+                      ) : (
+                        <FaHeart />
+                      )}{" "}
+                      {comment.likes}
                     </Button>
                   </div>
                 </Card.Header>
@@ -181,7 +242,8 @@ function MyComments() {
                   <Card.Body>
                     <h4>
                       <Badge variant="success">
-                        <FaRegUserCircle/>{comment.username}
+                        <FaRegUserCircle />
+                        {comment.username}
                       </Badge>
                     </h4>
                     <blockquote className="blockquote mb-0">

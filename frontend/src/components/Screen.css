@@ -9,6 +9,7 @@
   width: 100%;
 }
 .heading {
+  text-align: center;
   font-size: 60px;
   /* font-family: "Ubuntu", sans-serif; */
   font-family: "Work Sans", sans-serif;

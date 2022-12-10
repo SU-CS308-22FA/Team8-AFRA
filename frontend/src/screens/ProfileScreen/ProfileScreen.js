@@ -10,7 +10,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
 import axios from 'axios'
 
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ location }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");

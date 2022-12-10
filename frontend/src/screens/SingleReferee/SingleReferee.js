@@ -61,6 +61,7 @@ function SingleReferee({ match, history }) {
   const [dateOfBirth, setDateOfBirth] = useState();
   const [placeOfBirth, setPlaceOfBirth] = useState();
   const [firstMatch, setFirstMatch] = useState();
+  const [biography, setBiography] = useState();
   const [matchCount, setMatchCount] = useState();
   const [yellowCard, setYellowCard] = useState();
   const [yellowRedCard, setYellowRedCard] = useState();
@@ -79,6 +80,7 @@ function SingleReferee({ match, history }) {
             setDateOfBirth(element.dateOfBirth);
             setPlaceOfBirth(element.placeOfBirth);
             setFirstMatch(element.firstMatch);
+            setBiography(element.biography);
             setMatchCount(element.matchCount);
             setYellowCard(element.yellowCard);
             setYellowRedCard(element.yellowRedCard);
@@ -201,7 +203,7 @@ function SingleReferee({ match, history }) {
           <Row className="allRows">
             <Col>
               <Row>
-                <h6>{refereeName}</h6>
+                <h6>{biography}</h6>
               </Row>
             </Col>
           </Row>

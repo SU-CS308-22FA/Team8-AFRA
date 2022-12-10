@@ -29,7 +29,7 @@ import YasarKemalUgurlu from "../../screens/SingleReferee/refereeImages/yasar-ke
 import YasinKol from "../../screens/SingleReferee/refereeImages/yasin-kol.jpg";
 import ZorbayKucuk from "../../screens/SingleReferee/refereeImages/zorbay-kucuk.jpg";
 
-function SingleReferee({ match, history }) {
+function SingleReferee() {
   const params = useParams();
   const refereeName = params.refereeName;
   const images = [

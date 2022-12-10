@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { login } from "../../actions/userActions";
@@ -13,15 +13,15 @@ function LoginScreen({ history }) {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/mycomments");
+      navigate("/profile")
     }
-  }, [history, userInfo]);
+  }, [userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();

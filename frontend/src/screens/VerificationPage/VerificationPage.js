@@ -8,7 +8,7 @@ import {updateProfile} from "../../actions/userActions";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
-const VerificationPage = ({ location, history }) => {
+const VerificationPage = ({ location}) => {
     const [selectedFile, setSelectedFile] = useState();
     const dispatch = useDispatch();
     const userLogin = useSelector((state) => state.userLogin);

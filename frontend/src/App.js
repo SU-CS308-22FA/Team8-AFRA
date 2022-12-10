@@ -33,12 +33,7 @@ function App() {
         <Route path="/adminpage" component={AdminPage} />
         <Route path="/fixture" component={FixturePage} />
         <Route path="/standings" component={StandingPage} />
-        <Route
-          path="/referees"
-          component={({ history }) => (
-            <RefereesScreen search={search} history={history} />
-          )}
-        />
+        <Route path="/referees" component={RefereesScreen} />
         <Route path="/referee/:refereeName" component={SingleReferee} />
         <Route
           path="/mycomments"

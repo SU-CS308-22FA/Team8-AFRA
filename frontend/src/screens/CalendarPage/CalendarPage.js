@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Dropdown, DropdownButton, Col, Row, Table, Checkbox } from "react-bootstrap";
 import {GoogleLogin} from "react-google-login";
 import axios from "axios";
@@ -151,7 +151,7 @@ const handleCheck = (e) => {
       <br></br>
       <br></br>
       <Table responsive>
-            <thead class="thead">
+            <thead className="thead">
               <tr>
                 <th>DATE</th>
                 <th>TIME</th>

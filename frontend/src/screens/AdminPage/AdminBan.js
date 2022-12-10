@@ -1,157 +1,92 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  Card,
   Dropdown,
   DropdownButton,
   Row,
   Col,
   Table,
-  Form,
-  Button,
 } from "react-bootstrap";
 import axios from "axios";
+
 function AdminBan() {
-  const [requestdata, setRequestData] = useState([]);
-  const [headData, setHeadData] = useState([]);
-  const [seasonVar, setSeasonVar] = useState();
+  const [data, setData] = useState([]);
   const [message, setMessage] = useState("");
-  const [role, setRole] = useState();
+  const [changed, setChanged] = useState(0);
 
-  const handleSelectSeason = (e) => {
-    setSeasonVar(e);
-  };
+  useEffect(()=> {
+    axios.get(`${process.env.REACT_APP_URL}/api/admin`)
+    .then((response) => setData(response.data)).catch((err) => console.log(err) );
+  }, [changed])
 
-  const handleSelectRole = (e) => {
-    setRole(e);
-
-    const myArray = role.split(",");
-    const bob = {
-      id: myArray[1],
-      role: myArray[0],
-    };
-    axios
-      .post(`${process.env.REACT_APP_URL}/api/requests/verify`, bob)
-      .then((response) => window.location.reload());
-
-    console.log(role);
-  };
-
-  const submitSeasonHandler = async (e) => {
-    setMessage("");
-    e.preventDefault();
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-
-    await axios
-      .post(`${process.env.REACT_APP_URL}/api/matches`, { seasonVar })
-      .then((response) => {
-        setMessage(response.data);
-      });
-  };
-
-  const submitRequestHandler = async (e) => {
-    console.log("submitted");
-
-    const newHead = [
-      { date: "Request Date" },
-      { name: "Name" },
-      { licence: "License" },
-      { userID: "User ID" },
-      { acceptance: "Accept/Reject" },
-    ];
-
-    setHeadData(newHead);
-
-    e.preventDefault();
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-
-    try {
-      const { requestdata } = await axios
-        .get(`${process.env.REACT_APP_URL}/api/requests`)
-        .then((response) => setRequestData(response.data));
-      console.log(requestdata);
-    } catch (error) {}
-  };
+  const handleSelect = (eventKey, d, e) => {
+   
+    e.preventDefault()
+    if(eventKey === "ban"){
+        axios.post(`${process.env.REACT_APP_URL}/api/admin/ban`, {user: d.user, comment: d.comment, report: d._id, cause: d.cause})
+        .then(()=> { 
+            console.log("Succesfully Banned") 
+            setChanged((c) => c + 1)})
+        .catch((err)=> console.log(err))
+    }
+    else{
+        axios.post(`${process.env.REACT_APP_URL}/api/admin/false-report`, {reportedBy: d.reportedBy, report: d._id})
+        .then(()=> { 
+            console.log("Its a false report") 
+            setChanged((c) => c + 1)})
+        .catch((err)=> console.log(err))
+    }
+  }
 
   return (
     <div>
+        <Row>
+        <Col>
+        <br></br>
+           <h2 style={{textAlign: "center"}}> Here are the reports </h2>
+        </Col>
+      </Row>
       <Row>
         <Col>
-          <Card.Body>
-            <Card.Title>GET REQUESTS</Card.Title>
-            <Card.Text>
-              {" "}
-              To see the current requests press Get Requests{" "}
-            </Card.Text>
-            <Form onSubmit={submitRequestHandler} className="getSubmit">
-              <Button variant="primary" type="submit">
-                {" "}
-                Get Requests{" "}
-              </Button>
-            </Form>
-          </Card.Body>
           <Table responsive>
             <thead>
               <tr>
-                {headData.map((headData) => {
-                  return (
-                    <th>
-                      <a>{headData.date}</a>
-                      <a>{headData.name}</a>
-                      <a>{headData.licence}</a>
-                      <a>{headData.userID}</a>
-                      <a>{headData.acceptance}</a>
-                    </th>
-                  );
-                })}
+                <th>Email of reported user</th>
+                <th>Reported By</th>
+                <th>Report Cause</th>
+                <th>Related Comment</th>
+                <th>Report Date</th>
+                <th>Ban ?</th>
               </tr>
             </thead>
-            <tbody>
-              {requestdata.map((requestdata) => {
+            <tbody className= "tbo">
+              {data.map((d) => {
                 return (
                   <tr>
-                    <td>{requestdata.date.split("T")[0]}</td>
-                    <td>{requestdata.name}</td>
-                    <td>
-                      {" "}
-                      <a href={requestdata.licence}>
-                        Drive link of uploaded license
-                      </a>{" "}
-                    </td>
-                    <td>{requestdata.user}</td>
-                    <td>
-                      {" "}
+                    <td>{d.userEmail}</td>
+                    <td>{d.reportedByusername}</td>
+                    <td>{d.cause}</td>
+                    <td>{d.commentContent}</td>
+                    <td>{d.date.split("T")[0]}</td>
+                    <td>  {" "}
                       <DropdownButton
                         id="dropdown-basic-button"
-                        title="Choose a role"
-                        onSelect={handleSelectRole}
+                        title="Ban or Not"
+                        onSelect={(e,eventKey)=> {handleSelect(e,d,eventKey)}}
                       >
                         <Dropdown.Item
-                          eventKey={"journalist" + "," + requestdata._id}
+                          eventKey={"ban"}
                         >
-                          Accept as journalist
+                          BAN
                         </Dropdown.Item>
                         <Dropdown.Item
-                          eventKey={"referee" + "," + requestdata._id}
+                          eventKey={"not"}
                         >
-                          Accept as referee
+                          DO NOT BAN
                         </Dropdown.Item>
-                        <Dropdown.Item
-                          eventKey={"deny" + "," + requestdata._id}
-                        >
-                          Deny
-                        </Dropdown.Item>
-                      </DropdownButton>
+                      </DropdownButton> 
                     </td>
                   </tr>
-                );
+                )
               })}
             </tbody>
           </Table>

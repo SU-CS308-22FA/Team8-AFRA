@@ -16,6 +16,12 @@ h5 {
   text-align: center;
   color: rgb(56, 28, 180);
 }
+
+h6 {
+  font-size: 25px;
+  color: rgb(59, 10, 7);
+}
+
 .mtitle {
   font-size: 50px;
   text-align: center;

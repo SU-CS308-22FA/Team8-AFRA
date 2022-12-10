@@ -5,15 +5,11 @@ const router = express.Router();
 import User from "../models/userModel.js";
 import Fixture from "../models/matchModel.js";
 
-const GOOGLE_CLIENT_ID = '930549873699-q4im77aiuv2m72mqkup5nn8vf7puf2bt.apps.googleusercontent.com'
-const GOOGLE_CLIENT_SECRET = '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'
-var busy = [];
-
 //GOTTA FIX -ZEYNEP
 const oauth2Client = new google.auth.OAuth2(
-    GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET,
-    'http://localhost:3000'
+    process.env.GOOGLE_CLIENT_ID,
+    process.env.GOOGLE_CLIENT_SECRET,
+    process.env.REACT_APP_URL
 )
 function addHoursToDate(date, hours) {
   return new Date(new Date(date).setHours(date.getHours() + hours));

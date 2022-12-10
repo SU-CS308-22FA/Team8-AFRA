@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Accordion, Badge, Button, Card } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -15,36 +15,13 @@ import ErrorMessage from "../../components/ErrorMessage";
 
 import Dropdown from "react-bootstrap/Dropdown";
 import { FaHeart, FaRegHeart, FaRegUserCircle } from "react-icons/fa";
-import { BsXCircleFill, BsXCircle } from "react-icons/bs";
-import { $CombinedState } from "redux";
+import { BsXCircle } from "react-icons/bs";
 
-/*
-function BasicExample() {
-  return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Dropdown Button
-      </Dropdown.Toggle>
-
-      <Dropdown.Menu>
-        <Dropdown.Item onClick={() => sortToLike} > Action </Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-        <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
-      </Dropdown.Menu>
-    </Dropdown>
-  );
-}
-*/
-function MyComments({ history, search }) {
+function MyComments() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const commentList = useSelector((state) => state.commentList);
   const { loading, error, comments } = commentList;
-  //const filteredComments = comments.filter((comment) =>
-  //   comment.title.toLowerCase().includes(search.toLowerCase())
-  //);
-  //const [tempcomments,setComments] = useState(comments);
-  //const [sorted, setSorted] = useState({sorted: "_id", reversed: false});
-
   console.log(comments);
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -80,16 +57,9 @@ function MyComments({ history, search }) {
   useEffect(() => {
     dispatch(listComments(0));
     if (!userInfo) {
-      history.push("/");
+      navigate("/");
     }
-  }, [
-    dispatch,
-    history,
-    userInfo,
-    successDelete,
-    successCreate,
-    successUpdate,
-  ]);
+  }, [dispatch, userInfo, successDelete, successCreate, successUpdate]);
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
@@ -120,7 +90,7 @@ function MyComments({ history, search }) {
             <th>
               <Dropdown>
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  Sort Comments
+                  Filter Comments
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
@@ -152,114 +122,103 @@ function MyComments({ history, search }) {
       {loading && <Loading />}
       {loadingDelete && <Loading />}
       {comments &&
-        comments
-          .filter((filteredComment) =>
-            filteredComment.content.toLowerCase().includes(search.toLowerCase())
-          )
-          .reverse()
-          .map((comment) => (
-            <Accordion>
-              <Card style={{ margin: 10 }} key={comment._id}>
-                <Card.Header style={{ display: "flex" }}>
-                  <span
-                    // onClick={() => ModelShow(note)}
-                    style={{
-                      color: "black",
-                      textDecoration: "none",
-                      flex: 1,
-                      cursor: "pointer",
-                      alignSelf: "center",
-                      fontSize: 18,
-                    }}
-                  >
-                    <Accordion.Toggle
-                      as={Card.Text}
-                      variant="link"
-                      eventKey="0"
-                    >
-                      {comment.title}
-                    </Accordion.Toggle>
-                  </span>
-                  {comment.user === userInfo._id ? (
-                    <div>
-                      <Button href={`/comment/${comment._id}`}>Edit</Button>
-                      <Button
-                        variant={
-                          comment.user === userInfo._id ? "danger" : "secondary"
-                        }
-                        className="mx-2"
-                        disabled={
-                          comment.user !== userInfo._id ? "disabled" : null
-                        }
-                        onClick={() =>
-                          comment.user === userInfo._id
-                            ? deleteHandler(comment._id)
-                            : null
-                        }
-                        //onClick={() => deleteHandler(comment._id)}
-                      >
-                        Delete <BsXCircle />
-                      </Button>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
+        comments.reverse().map((comment) => (
+          <Accordion>
+            <Card style={{ margin: 10 }} key={comment._id}>
+              <Card.Header style={{ display: "flex" }}>
+                <span
+                  // onClick={() => ModelShow(note)}
+                  style={{
+                    color: "black",
+                    textDecoration: "none",
+                    flex: 1,
+                    cursor: "pointer",
+                    alignSelf: "center",
+                    fontSize: 18,
+                  }}
+                >
+                  <Accordion.Toggle as={Card.Text} variant="link" eventKey="0">
+                    {comment.title}
+                  </Accordion.Toggle>
+                </span>
+                {comment.user === userInfo._id ? (
                   <div>
+                    <Button href={`/comment/${comment._id}`}>Edit</Button>
                     <Button
                       variant={
-                        comment.usersThatLikedTheComment.includes(
-                          userInfo.username
-                        ) == false
-                          ? "secondary"
-                          : "danger"
+                        comment.user === userInfo._id ? "danger" : "secondary"
                       }
                       className="mx-2"
-                      value="Like"
                       disabled={
-                        comment.user === userInfo._id ? "disabled" : null
+                        comment.user !== userInfo._id ? "disabled" : null
                       }
                       onClick={() =>
-                        likeHandler(
-                          comment._id,
-                          comment.title,
-                          comment.content,
-                          comment.likes
-                        )
+                        comment.user === userInfo._id
+                          ? deleteHandler(comment._id)
+                          : null
                       }
+                      //onClick={() => deleteHandler(comment._id)}
                     >
-                      {comment.usersThatLikedTheComment.includes(
-                        userInfo.username
-                      ) == false ? (
-                        <FaRegHeart />
-                      ) : (
-                        <FaHeart />
-                      )}{" "}
-                      {comment.likes}
+                      Delete <BsXCircle />
                     </Button>
                   </div>
-                </Card.Header>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    <h4>
-                      <Badge variant="success">
-                        <FaRegUserCircle />
-                        {comment.username}
-                      </Badge>
-                    </h4>
-                    <blockquote className="blockquote mb-0">
-                      <ReactMarkdown>{comment.content}</ReactMarkdown>
-                      <footer className="blockquote-footer">
-                        Created on{" "}
-                        <cite title="Source Title">
-                          {comment.createdAt.substring(0, 10)}
-                        </cite>
-                      </footer>
-                    </blockquote>
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
-          ))}
+                ) : (
+                  <></>
+                )}
+                <div>
+                  <Button
+                    variant={
+                      comment.usersThatLikedTheComment.includes(
+                        userInfo.username
+                      ) == false
+                        ? "secondary"
+                        : "danger"
+                    }
+                    className="mx-2"
+                    value="Like"
+                    disabled={comment.user === userInfo._id ? "disabled" : null}
+                    onClick={() =>
+                      likeHandler(
+                        comment._id,
+                        comment.title,
+                        comment.content,
+                        comment.likes
+                      )
+                    }
+                  >
+                    {comment.usersThatLikedTheComment.includes(
+                      userInfo.username
+                    ) == false ? (
+                      <FaRegHeart />
+                    ) : (
+                      <FaHeart />
+                    )}{" "}
+                    {comment.likes}
+                  </Button>
+                </div>
+              </Card.Header>
+              <Accordion.Collapse eventKey="0">
+                <Card.Body>
+                  <h4>
+                    <Badge variant="success">
+                      <FaRegUserCircle />
+                      {comment.username}
+                    </Badge>
+                  </h4>
+                  <blockquote className="blockquote mb-0">
+                    <ReactMarkdown>{comment.content}</ReactMarkdown>
+                    <footer className="blockquote-footer">
+                      Created on{" "}
+                      <cite title="Source Title">
+                        {comment.createdAt.substring(0, 10)}
+                      </cite>
+                    </footer>
+                  </blockquote>
+                </Card.Body>
+              </Accordion.Collapse>
+            </Card>
+          </Accordion>
+        ))}
     </MainScreen>
   );
 }

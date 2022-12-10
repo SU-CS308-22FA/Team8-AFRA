@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Accordion, Badge, Button, Card } from "react-bootstrap";
+import { Accordion, Badge, Button, Card, Col, Row } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
 import { Link, useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCommentAction,
   listComments,
+  listFilteredComments,
   updateLikeAction,
 } from "../../actions/commentsActions";
 import Loading from "../../components/Loading";
@@ -54,6 +55,18 @@ function MyComments() {
     dispatch(listComments(0));
   };
 
+  const filterForReferee = async () => {
+    dispatch(listFilteredComments("referee"));
+  };
+
+  const filterForJournalist = async () => {
+    dispatch(listFilteredComments("journalist"));
+  };
+
+  const filterForUser = async () => {
+    dispatch(listFilteredComments("user"));
+  };
+
   useEffect(() => {
     dispatch(listComments(0));
     if (!userInfo) {
@@ -88,29 +101,50 @@ function MyComments() {
         <thead>
           <tr>
             <th>
-              <Dropdown>
-                <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  Filter Comments
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => sortByDate()}>
-                    {" "}
-                    Sorted by Date(Oldest to Newest){" "}
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => sortByLike()}>
-                    {" "}
-                    Sorted by Like(Most to Least)
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => sortByLikeReverse()}>
-                    {" "}
-                    Sorted by Like(Least to Most)
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => sortByDefault()}>
-                    Default
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <Row>
+                <Col>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic">
+                      Sort Comments
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => sortByDate()}>
+                        {" "}
+                        Sorted by Date(Oldest to Newest){" "}
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => sortByLike()}>
+                        {" "}
+                        Sorted by Like(Most to Least)
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => sortByLikeReverse()}>
+                        {" "}
+                        Sorted by Like(Least to Most)
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => sortByDefault()}>
+                        Default
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+                <Col>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic">
+                      Filter Comments
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => filterForReferee()}>
+                        See Referee Comments
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterForJournalist()}>
+                        See Journalist Comments
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterForUser()}>
+                        See User Comments
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
+              </Row>
             </th>
           </tr>
         </thead>

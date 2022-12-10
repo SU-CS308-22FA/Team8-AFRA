@@ -28,6 +28,51 @@ const getCommentsByDate = asyncHandler(async (req, res) => {
   res.json(comments);
 });
 
+const getCommentsByReferee = asyncHandler(async (req, res) => {
+  let the = [];
+  try {
+    const data = await Comment.find();
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].userrole == "referee") {
+        the.push(data[i]);
+      }
+    }
+    res.status(200).json(the);
+  } catch {
+    res.status(400).send("ERROR");
+  }
+});
+
+const getCommentsByJournalist = asyncHandler(async (req, res) => {
+  let the = [];
+  try {
+    const data = await Comment.find();
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].userrole == "journalist") {
+        the.push(data[i]);
+      }
+    }
+    res.status(200).json(the);
+  } catch {
+    res.status(400).send("ERROR");
+  }
+});
+
+const getCommentsByUser = asyncHandler(async (req, res) => {
+  let the = [];
+  try {
+    const data = await Comment.find();
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].userrole == "user") {
+        the.push(data[i]);
+      }
+    }
+    res.status(200).json(the);
+  } catch {
+    res.status(400).send("ERROR");
+  }
+});
+
 //@description     Fetch single Comment
 //@route           GET /api/comments/:id
 //@access          Public
@@ -155,4 +200,7 @@ export {
   getCommentsByLike,
   getCommentsByDate,
   getCommentsByLikeReverse,
+  getCommentsByReferee,
+  getCommentsByJournalist,
+  getCommentsByUser,
 };

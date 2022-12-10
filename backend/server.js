@@ -13,6 +13,7 @@ import googleDrive from "./routes/googledrive.js";
 import calendarRoutes from "./routes/calenderRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import refereeRoutes from "./routes/refereeRoutes.js";
 
 dotenv.config();
 
@@ -30,6 +31,7 @@ app.use("/api/requests", requestRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/calendar", calendarRoutes);
+app.use("/api/referees", refereeRoutes);
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();

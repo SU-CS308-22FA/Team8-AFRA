@@ -6,20 +6,24 @@ const getAllReferees = asyncHandler(async (req, res) => {
   res.json(referees);
 });
 
-/*
-const getRefereeById = asyncHandler(async (req, res) => {
-  const referee = await Referee.findById(req.params.id);
-
-  if (referee) {
-    res.json(referee);
-  } else {
-    res.status(404).json({ message: "Referee not found" });
-  }
-
+const getRefereeNameSorted = asyncHandler(async (req, res) => {
+  const referee = await Referee.find().sort({ name: 1 });
   res.json(referee);
 });
 
-export { getAllReferees, getRefereeById };
-*/
+const getRefereeRankSorted = asyncHandler(async (req, res) => {
+  const referee = await Referee.find().sort({ rank: -1 });
+  res.json(referee);
+});
 
-export { getAllReferees };
+const getRefereeMatchCountSorted = asyncHandler(async (req, res) => {
+  const referee = await Referee.find().sort({ matchCount: -1 });
+  res.json(referee);
+});
+
+export {
+  getAllReferees,
+  getRefereeNameSorted,
+  getRefereeRankSorted,
+  getRefereeMatchCountSorted,
+};

@@ -197,7 +197,7 @@ function SingleReferee({ match, history }) {
           </Row>
         </div>
         <div>
-          <h3 className="subTitle"> {refereeName}'s Short Biography </h3>
+          <h3 className="subTitle-bio"> {refereeName}'s Short Biography </h3>
           <Row className="allRows">
             <Col>
               <Row>

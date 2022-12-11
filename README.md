@@ -44,8 +44,32 @@ The project is made using MERN stack.
 
 Here is our backlog => https://github.com/orgs/SU-CS308-22FA/projects/40
 All the source code is in one repository, we have seperate directories for the frontend and the backend.
-Frontend -> Has all the screens the user can display
-Backend -> Includes everything that happens behind the scenes.
+
+This app can be deployed directly to heroku since there is a script defined in package.json which will automatically handle building and deploying the app. For more information on deploying to heroku reference the extra resources at the bottom of this file. 
+
+## File structure
+#### `frontend` - Holds the client application
+- #### `public` - This holds all of our static files
+- #### `src`
+    - #### `actions` - This folder holds actions done for comments and users deals with axios requests and setting local storage
+    - #### `constants` - This folder holds the constants that the reducers use
+    - #### `reducers` - This folder holds the actions that switches depending on the state
+    - #### `components` - This folder holds all of the different components that will be a part of the different screens
+    - #### `screens` - These represent a unique page on the website i.e. Profile, Calendar, Standings... These are normal react components.
+    - #### `App.js` - This is what renders all of our browser routes and different views
+    - #### `index.js` - This is what renders the react app by rendering App.js
+- #### `package.json` - Defines npm behaviors and packages for the frontend
+#### `backend` - Holds the server application
+- #### `config` - This holds our configuration files, like mongoDB configuration
+- #### `controllers` - These hold all of the callback functions that each route will call
+- #### `googledrive` - These hold all the callback functions for google drive api
+- #### `models` - This holds all of our data models for mongo
+- #### `routes` - This holds all of our HTTP to URL path associations for each unique url
+- #### `utils` - This holds all the utilities we use such as: generating tokens
+- #### `server.js` - Defines all the behaviours of the backend application
+#### `package.json` - Defines npm behaviors and holds the scripts to start the application
+#### `.gitignore` - Tells git which files to ignore
+#### `README` - This file!
 
 ## How to use AFRA ?
 

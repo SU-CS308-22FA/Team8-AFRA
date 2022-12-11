@@ -4,8 +4,6 @@ import Comment from "../models/commentModel.js";
 import Report from "../models/reportModel.js";
 import Blacklist from "../models/blacklist.js";
 import nodemailer from 'nodemailer'
-import dotenv from 'dotenv';
-const config = dotenv.config();
 
 const getReports = asyncHandler(async (req, res) => {
   let the = []; 
@@ -52,6 +50,7 @@ const banUser = asyncHandler(async (req, res) => {
     const { user, comment, report, cause } = req.body;
 
    try{
+    console.log(process.env)
     const theuser = await User.findById(user);
     theuser.banned = true;
     const yes = await theuser.save();

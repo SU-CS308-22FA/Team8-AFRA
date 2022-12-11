@@ -4,11 +4,20 @@ import {GoogleLogin} from "react-google-login";
 import axios from "axios";
 import "./CalendarPage.css";
 import { useDispatch, useSelector } from "react-redux";
+import { gapi} from "gapi-script"
 import { updateProfile } from "../../actions/userActions";
 import ErrorMessage from "../../components/ErrorMessage";
 
 
 function CalendarPage() {
+  
+  gapi.load("client:auth2", () => {
+    gapi.client.init({
+      clientId:
+        "*****.apps.googleusercontent.com",
+      plugin_name: "chat",
+    });
+  });
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
   const [signedIn, setSignedIn] = useState(false); //i like ugly and simple solutions

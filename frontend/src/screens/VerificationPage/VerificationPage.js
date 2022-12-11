@@ -91,11 +91,11 @@ const VerificationPage = ({ location}) => {
                 <img src={userInfo.pic} alt={userInfo.name} className="profilePic" />
                 {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
                 <br></br>
-                <h5> This is your current email address:   <b>{userInfo.email}</b> </h5>
+                <h5 style={{textAlign: 'left'}}> This is your current email address:   <b>{userInfo.email}</b> </h5>
                 <br></br>
-                <h5> Status:   <b>{userInfo.role}</b> </h5>
+                <h5 style={{textAlign: 'left'}}> Status:   <b>{userInfo.role}</b> </h5>
                 <br></br>
-                <h5> Your account is:   <b>{verified}</b> </h5>
+                <h5 style={{textAlign: 'left'}}> Your account is:   <b>{verified}</b> </h5>
                 <Button type="submit" varient="primary">
                   Send a verification email
                 </Button>

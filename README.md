@@ -7,37 +7,32 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 
 ## Why AFRA ?
   Our server has many useful features for many different actors such as: The admins, the users, referees and journalists.
-  
-### Completed
 
-All users
-* AFRA has a login/register system that allows the users to get all the benefits.
-* Login is done via tokens so the users does not have to login each time.
-* Users can display the matches in the selected season and week
+#### All users
+- [x] AFRA has a login/register system that allows the users to get all the benefits.[#8](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/8) [#9](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/9)
+- [x] Login is done via tokens so the users does not have to login each time. [#23](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/23)
+- [x] Users can display the matches in the selected season and week [#18](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/18)
 - [x] Users can display the standings of the teams [#13](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/13)
-* Users can add comments to matches and express their opinions
-* Users can sort the comments to see them the way they wish
-* Each user has a profile that they can edit their information in
-* Users can select any match they want from upcoming matches and add it to their Google Calendar
-* Users can display detailed referee information
+- [x] Users can add comments to matches and express their opinions [#19](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/19)
+- [x] Users can sort the comments to see them the way they wish [#20](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/20)
+- [x] Each user has a profile that they can edit their information in [#10](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/10) [#11](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/11)
+- [x] Users can select any match they want from upcoming matches and add it to their Google Calendar [#46](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/46)
+- [x] Users can display detailed referee information [#49](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/49)
 
-Verified Professions
-* Referees and Journalists can apply for verifying their occupations
+#### Verified Professions
+- [x] Referees and Journalists can apply for verifying their occupations [#15](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/15)
 
-The Admins
-* Admins can approve or reject the requests for occupation verification
-* Admins can fetch the match data using an API thereby it is automatic
-* Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in they get kicked to main page.
+#### The Admins
+- [x] Admins can approve or reject the requests for occupation verification [#34](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/34)
+- [x] Admins can fetch the match data using an API thereby it is automatic [#16](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/16)
+- [x] Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in they get kicked to main page. [#47](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/47)
 
-### In Progress
-* Users can verify their emails by typing the code they received in their email.
-* Users can report the owners of comments that has bad words.
-* Users can display detailed match information.
-* Users can filter the comments in many different ways
-* Users can reply to other comments
+- [] Users can verify their emails by typing the code they received in their email. [#55](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/55)
+- [] Users can report the owners of comments that has bad words. [#54](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/54)
+- [] Users can display detailed match information. [#53](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/53)
+- [] Users can filter the comments in many different ways [#52](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/52)
+- [] Users can reply to other comments [#56](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/56)
 
-### To be Done
-* Many more cool features
 
 ## Repository and Code Structure
 

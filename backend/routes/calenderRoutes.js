@@ -4,7 +4,9 @@ import {google} from "googleapis";
 const router = express.Router();
 import User from "../models/userModel.js";
 import Fixture from "../models/matchModel.js";
+import dotenv from "dotenv"
 
+dotenv.config()
 //GOTTA FIX -ZEYNEP
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,

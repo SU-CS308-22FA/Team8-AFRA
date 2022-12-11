@@ -8,7 +8,6 @@ import { gapi} from "gapi-script"
 import { updateProfile } from "../../actions/userActions";
 import ErrorMessage from "../../components/ErrorMessage";
 
-
 function CalendarPage() {
   
   gapi.load("client:auth2", () => {

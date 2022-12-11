@@ -129,7 +129,7 @@ function MyComments() {
                 <Col>
                   <Dropdown>
                     <Dropdown.Toggle variant="light" id="dropdown-basic">
-                      Filter Comments
+                      Filter Comments According to User Type
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={() => filterForReferee()}>
@@ -161,7 +161,6 @@ function MyComments() {
             <Card style={{ margin: 10 }} key={comment._id}>
               <Card.Header style={{ display: "flex" }}>
                 <span
-                  // onClick={() => ModelShow(note)}
                   style={{
                     color: "black",
                     textDecoration: "none",
@@ -191,7 +190,6 @@ function MyComments() {
                           ? deleteHandler(comment._id)
                           : null
                       }
-                      //onClick={() => deleteHandler(comment._id)}
                     >
                       Delete <BsXCircle />
                     </Button>

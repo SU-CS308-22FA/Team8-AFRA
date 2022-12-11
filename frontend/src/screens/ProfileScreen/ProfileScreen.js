@@ -3,15 +3,12 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
 import "./ProfileScreen.css";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteProfile,
-  updateProfile,
-  logout,
-} from "../../actions/userActions";
+import { useNavigate } from "react-router-dom";
+import { deleteProfile, updateProfile, logout } from "../../actions/userActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios'
 
 const ProfileScreen = ({ location }) => {
   const [name, setName] = useState("");
@@ -22,6 +19,7 @@ const ProfileScreen = ({ location }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [picMessage, setPicMessage] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -31,14 +29,14 @@ const ProfileScreen = ({ location }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/");
+      navigate("/");
     } else {
       setName(userInfo.name);
       setEmail(userInfo.email);
       setUsername(userInfo.username);
       setPic(userInfo.pic);
     }
-  }, [history, userInfo]);
+  }, [userInfo]);
 
   const postDetails = (pics) => {
     setPicMessage(null);
@@ -68,20 +66,23 @@ const ProfileScreen = ({ location }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    dispatch(updateProfile({ name, email, password, pic, username }));
+    dispatch(updateProfile({ name, email, password, pic, username}));
   };
 
   const deleteHandler = (e) => {
-    if (window.confirm("Are you sure?")) {
-      dispatch(deleteProfile());
-      console.log("profile deleted");
+    if (window.confirm("Are you sure?"))
+    {
+      dispatch(deleteProfile())
+      console.log("profile deleted")
 
-      dispatch(logout());
-      console.log("logging out");
+      dispatch(logout())
+      console.log("logging out")
+      navigate('/')
 
-      axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo);
+      axios.post(`${process.env.REACT_APP_URL}/app/drivedelete`, userInfo)
     }
-  };
+  }
+  
 
   return (
     <MainScreen title="EDIT PROFILE">
@@ -167,11 +168,13 @@ const ProfileScreen = ({ location }) => {
             }}
           >
             <img src={pic} alt={name} className="profilePic" />
-            <Button type="submit" onClick={() => deleteHandler()}>
-              Delete Account
-            </Button>
-            <Link to="/verification">
-              <Button>Account Verification</Button>
+            <Button type="submit" onClick={() => deleteHandler() }>
+                Delete Account 
+           </Button>
+           <Link to="/verification">
+                <Button>
+                  Account Verification
+                </Button>
             </Link>
           </Col>
         </Row>

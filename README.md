@@ -18,6 +18,11 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 - [x] Each user has a profile that they can edit their information in [#10](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/10) [#11](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/11)
 - [x] Users can select any match they want from upcoming matches and add it to their Google Calendar [#46](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/46)
 - [x] Users can display detailed referee information [#49](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/49)
+- [ ] Users can verify their emails by typing the code they received in their email. [#55](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/55)
+- [ ] Users can report the owners of comments that has bad words. [#54](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/54)
+- [ ] Users can display detailed match information. [#53](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/53)
+- [ ] Users can filter the comments in many different ways [#52](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/52)
+- [ ] Users can reply to other comments [#56](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/56)
 
 #### Verified Professions
 - [x] Referees and Journalists can apply for verifying their occupations [#15](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/15)
@@ -26,12 +31,6 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 - [x] Admins can approve or reject the requests for occupation verification [#34](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/34)
 - [x] Admins can fetch the match data using an API thereby it is automatic [#16](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/16)
 - [x] Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in they get kicked to main page. [#47](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/47)
-
-- [ ] Users can verify their emails by typing the code they received in their email. [#55](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/55)
-- [ ] Users can report the owners of comments that has bad words. [#54](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/54)
-- [ ] Users can display detailed match information. [#53](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/53)
-- [ ] Users can filter the comments in many different ways [#52](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/52)
-- [ ] Users can reply to other comments [#56](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/56)
 
 
 ## Repository and Code Structure

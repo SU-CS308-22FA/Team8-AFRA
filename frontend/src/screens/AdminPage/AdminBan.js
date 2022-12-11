@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import axios from "axios";
 import ErrorMessage from "../../components/ErrorMessage";
+import "./AdminBan.css"
 
 function AdminBan() {
   const [data, setData] = useState([]);
@@ -43,7 +44,7 @@ function AdminBan() {
         <Row>
         <Col>
         <br></br>
-           <h2 style={{textAlign: "center"}}> Here are the reports </h2>
+           <h2 className="caltitle" > Here are the reports </h2>
         </Col>
       </Row>
       <Row style={{textAlign:'center'}}>
@@ -60,7 +61,7 @@ function AdminBan() {
       
         <Col>
           <Table responsive>
-            <thead style={{textAlign : 'center'}}>
+            <thead thead className="thead">
               <tr>
                 <th>Email of reported user</th>
                 <th>Reported By</th>

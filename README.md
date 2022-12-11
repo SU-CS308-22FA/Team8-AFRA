@@ -30,7 +30,7 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 #### The Admins
 - [x] Admins can approve or reject the requests for occupation verification [#34](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/34)
 - [x] Admins can fetch the match data using an API thereby it is automatic [#16](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/16)
-- [x] Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in they get kicked to main page. [#47](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/47)
+- [x] Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in, they get kicked to main page. [#47](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/47)
 
 
 ## Repository and Code Structure

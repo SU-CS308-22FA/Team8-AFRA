@@ -5,6 +5,8 @@ import axios from "axios";
 import "./CalendarPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../actions/userActions";
+import ErrorMessage from "../../components/ErrorMessage";
+
 
 function CalendarPage() {
   const userLogin = useSelector((state) => state.userLogin);
@@ -12,6 +14,7 @@ function CalendarPage() {
   const [signedIn, setSignedIn] = useState(false); //i like ugly and simple solutions
   const [data, setData] = useState([]);
   const [cal, setCal] = useState([]);
+  const [message, setMesage] = useState();
   const [team, setTeam] = useState();
   const [color, setColor] = useState();
   const dispatch = useDispatch();
@@ -36,15 +39,14 @@ function CalendarPage() {
 const submitHandler = (e) => {
   e.preventDefault();
   if (cal.length === 0)
-    alert("SELECT SOMETHING!!")
+     setMesage("Your selection is empty, please select something")
   else if(window.confirm("The selected ones will be added to your calendar.")){
     axios.post(`${process.env.REACT_APP_URL}/api/calendar/create-event`, {userInfo: userInfo, cal: cal, color:color}).then(res => { 
-      alert(res.data)
+      setMesage(res.data)
     }).catch(err => {console.log(err)
-      alert("Failed to add to the calendar, try again later")
+      setMesage("Failed to add to the calendar, error with calendar servers.")
     })
   }
-
 };
 
 const handleColor = (e, event) => {
@@ -55,7 +57,7 @@ const handleColor = (e, event) => {
 const submitTeam = (e) => {
   e.preventDefault();
   if(!team)
-    alert("Enter Something!")
+    setMesage("Enter Something!")
   else
   {
       console.log("Team submitted here it is " + team)
@@ -63,7 +65,7 @@ const submitTeam = (e) => {
       team: team,
     },}).then(res =>
       setData(res.data)
-    ).catch(err => alert("Enter a valid team"))
+    ).catch(err => setMesage("Enter a valid team"))
     console.log(data)
   }
 };
@@ -150,6 +152,11 @@ const handleCheck = (e) => {
       </Row>
       <br></br>
       <br></br>
+      {message && (
+                <ErrorMessage variant="info">
+                  {message}
+                </ErrorMessage>
+              )}
       <Table responsive>
             <thead className="thead">
               <tr>
@@ -185,8 +192,6 @@ const handleCheck = (e) => {
                 Add To My Calendar{" "}
               </Button>
             </Form>
-
-
       </div>}
    </div>
   )

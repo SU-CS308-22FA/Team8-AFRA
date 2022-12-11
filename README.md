@@ -5,10 +5,10 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 ## What is AFRA ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they wish for and more, in a single webpage.
 
-###Features -> What AFRA does
+## Features -> What AFRA does
   Our server has many useful features for many different actors such as: The admins, the users, referees and journalists.
   
-####Completed
+#####Completed
 
 All users
 * AFRA has a login/register system that allows the users to get all the benefits.

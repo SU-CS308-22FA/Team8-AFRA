@@ -42,7 +42,7 @@ The project is made using MERN stack.
 - [Mongo DB](https://www.mongodb.com/)
 - [Bootstrap](http://getbootstrap.com/)
 
-Here is our backlog => https://github.com/orgs/SU-CS308-22FA/projects/40
+Here is our backlog => [`BACKLOG`](https://github.com/orgs/SU-CS308-22FA/projects/40)
 
 ### File structure
 ##### `frontend` - Holds the client application
@@ -73,9 +73,27 @@ Here is our backlog => https://github.com/orgs/SU-CS308-22FA/projects/40
 
 ### Using the deployed server
 Simply click the link to our Heroku Deploy => https://coolafra.herokuapp.com
-You can create an account and get all the benefits!
+You can create an account and get all the benefits! 
+Some Notes:
+* Some pages are accesible without needing to Register
+  - Such as displaying the standings, seeing the referee information and fixture information
+* To benefit from other features you will need to have an account and following the community guidelines
+  - Such as respecting the other users and not using mean words in the comment section, or you will get banned.
+* After registering you need to verify your email adress in order to add comments
+* If you are a user with a verified profession you can upload your licence in the verification page and wait for the admins to verify it.
+* After these steps you can use all our features
+  - Setting up your Calendar with the matches you wish, adding/liking comments to express your opinions...
 
-### Set it up on your local machine
+### How to report a bug ?
+
+### Known bugs
+Currently there are no known bugs..
+
+
+
+
+## Set up instructions for developers
+### For your local machine
 
 1. Download an IDE
 2. Clone the repo
@@ -101,13 +119,8 @@ You can create an account and get all the benefits!
    $ npm run dev
    ```
 
-### Deploy the app to Heroku
-The code has the necessary scripts for heroku deployment. All thats necessary is to set the env variables (as described above) from your heroku app settings!
-
-
-## How to report a bug ?
-## Known bugs
+### For deploying the app to Heroku
+The code has all the necessary scripts for heroku deployment. All thats necessary is to set the env variables (as described above) from your heroku app settings!
 
 
 
-## Developer Documentation

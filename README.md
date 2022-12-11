@@ -11,6 +11,7 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 ### Completed
 
 All users
+- [x] #13
 * AFRA has a login/register system that allows the users to get all the benefits.
 * Login is done via tokens so the users does not have to login each time.
 * Users can display the matches in the selected season and week
@@ -47,6 +48,8 @@ The project is made using MERN stack.
 - [Express JS](https://expressjs.com/)
 - [Mongo DB](https://www.mongodb.com/)
 - [Bootstrap](http://getbootstrap.com/)
+
+Here is our backlog => https://github.com/orgs/SU-CS308-22FA/projects/40
 All the source code is in one repository, we have seperate directories for the frontend and the backend.
 Frontend -> Has all the screens the user can display
 Backend -> Includes everything that happens behind the scenes.

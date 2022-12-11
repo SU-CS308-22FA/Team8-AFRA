@@ -43,34 +43,31 @@ The project is made using MERN stack.
 - [Bootstrap](http://getbootstrap.com/)
 
 Here is our backlog => https://github.com/orgs/SU-CS308-22FA/projects/40
-All the source code is in one repository, we have seperate directories for the frontend and the backend.
 
-This app can be deployed directly to heroku since there is a script defined in package.json which will automatically handle building and deploying the app. For more information on deploying to heroku reference the extra resources at the bottom of this file. 
-
-## File structure
-#### `frontend` - Holds the client application
-- #### `public` - This holds all of our static files
-- #### `src`
-    - #### `actions` - This folder holds actions done for comments and users deals with axios requests and setting local storage
-    - #### `constants` - This folder holds the constants that the reducers use
-    - #### `reducers` - This folder holds the actions that switches depending on the state
-    - #### `components` - This folder holds all of the different components that will be a part of the different screens
-    - #### `screens` - These represent a unique page on the website i.e. Profile, Calendar, Standings... These are normal react components.
-    - #### `App.js` - This is what renders all of our browser routes and different views
-    - #### `index.js` - This is what renders the react app by rendering App.js
-- #### `package.json` - Defines npm behaviors and packages for the frontend
-#### `backend` - Holds the server application
-- #### `config` - This holds our configuration files, like mongoDB configuration
-- #### `controllers` - These hold all of the callback functions that each route will call
-- #### `googledrive` - These hold all the callback functions for google drive api
-- #### `models` - This holds all of our data models for mongo
-- #### `routes` - This holds all of our HTTP to URL path associations for each unique url
-- #### `utils` - This holds all the utilities we use such as: generating tokens
-- #### `server.js` - Defines all the behaviours of the backend application
-- #### `key.json` - Holds the key information for Google Drive API
-#### `package.json` - Defines npm behaviors and holds the scripts to start the application
-#### `.gitignore` - Tells git which files to ignore
-#### `README` - This file!
+### File structure
+##### `frontend` - Holds the client application
+- ##### `public` - This holds all of our static files
+- ##### `src`
+    - ##### `actions` - This folder holds actions done for comments and users deals with axios requests and setting local storage
+    - ##### `constants` - This folder holds the constants that the reducers use
+    - ##### `reducers` - This folder holds the actions that switches depending on the state
+    - ##### `components` - This folder holds all of the different components that will be a part of the different screens
+    - ##### `screens` - These represent a unique page on the website i.e. Profile, Calendar, Standings... These are normal react components.
+    - ##### `App.js` - This is what renders all of our browser routes and different views
+    - ##### `index.js` - This is what renders the react app by rendering App.js
+- ##### `package.json` - Defines npm behaviors and packages for the frontend
+##### `backend` - Holds the server application
+- ##### `config` - This holds our configuration files, like mongoDB configuration
+- ##### `controllers` - These hold all of the callback functions that each route will call
+- ##### `googledrive` - These hold all the callback functions for google drive api
+- ##### `models` - This holds all of our data models for mongo
+- ##### `routes` - This holds all of our HTTP to URL path associations for each unique url
+- ##### `utils` - This holds all the utilities we use such as: generating tokens
+- ##### `server.js` - Defines all the behaviours of the backend application
+- ##### `key.json` - Holds the key information for Google Drive API
+##### `package.json` - Defines npm behaviors and holds the scripts to start the application
+##### `.gitignore` - Tells git which files to ignore
+##### `README` - This file!
 
 ## How to use AFRA ?
 
@@ -83,21 +80,30 @@ You can create an account and get all the benefits!
 1. Download an IDE
 2. Clone the repo
    ```sh
-   git clone https://github.com/SU-CS308-22FA/Team8-AFRA.git
+   $ git clone https://github.com/SU-CS308-22FA/Team8-AFRA.git
    ```
 3. Install NPM packages both for frontend and the backend
    ```sh
-   npm install
+   $ npm install && cd frontend && npm install
    ```
-    ```sh
-   cd frontend && npm install
-   ```
-4. Change the REACT_APP_URL in the env variables as -> 'http://localhost:4000'
-5. Change other env variables according to your preferences
-6. To start the application
+4. Setting the env variables
+   - MONGO_URI = the uri string for your database
+   - REACT_APP_URL = backend url that axios requests are sent to
+   - REDIRECT_URL = the frontent URL you will be redirected to after using OAuth2 by Google
+   - JWT_SECRET = to generate and decode JWT
+   - X_RAPIDAPI_KEY = key for the API for data collection
+   - GOOGLE_CLIENT_ID = used for OAuth2, you can set it up from here [Google Console](https://console.cloud.google.com/getting-started)
+   - GOOGLE_CLIENT_SECRET = same as above
+   - MAIL = the email adress that will send the emails for the verification and notify when you are banned
+   - MAIL_PASS = the dedicaded password for the above email (Important Note = Gmail no longer supports regular passwords, you need to set up an APP password)
+5. To start the application
    ```sh
    npm run dev
    ```
+
+### Deploy it to heroku
+The code has the necessary scripts for heroku deployment. All thats necessary is to set the env variables (as described above) from your heroku app settings!
+
 
 ## How to report a bug ?
 ## Known bugs

@@ -5,7 +5,7 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 ## What is AFRA ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they wish for and more, in a single webpage.
 
-## Features -> What AFRA does
+## Why AFRA ?
   Our server has many useful features for many different actors such as: The admins, the users, referees and journalists.
   
 ### Completed
@@ -36,25 +36,51 @@ The Admins
 * Users can filter the comments in many different ways
 * Users can reply to other comments
 
-
 ### To be Done
 * Many more cool features
- 
 
-## User Documentation
-### Using the Website
-### Deployment Setup
-### Local Setup
-How to install the software
-How to run the software
-How to report a bug
-Known bugs
-* You can join without needing to login register
+## Repository and Code Structure
 
-
-## Developer Documentation
+The project is made using MERN stack.
 - [React JS](https://reactjs.org/)
 - [Node JS](https://nodejs.org/) 
 - [Express JS](https://expressjs.com/)
 - [Mongo DB](https://www.mongodb.com/)
 - [Bootstrap](http://getbootstrap.com/)
+All the source code is in one repository, we have seperate directories for the frontend and the backend.
+Frontend -> Has all the screens the user can display
+Backend -> Includes everything that happens behind the scenes.
+
+## How to use AFRA ?
+
+### Using the deployed server
+Simply click the link to our Heroku Deploy => https://coolafra.herokuapp.com
+You can create an account and get all the benefits!
+
+### Set it up on your local machine
+
+1. Download an IDE
+2. Clone the repo
+   ```sh
+   git clone https://github.com/SU-CS308-22FA/Team8-AFRA.git
+   ```
+3. Install NPM packages both for frontend and the backend
+   ```sh
+   npm install
+   ```
+    ```sh
+   cd frontend && npm install
+   ```
+4. Change the REACT_APP_URL in the env variables as -> 'http://localhost:4000'
+5. Change other env variables according to your preferences
+6. To start the application
+   ```sh
+   npm run dev
+   ```
+
+## How to report a bug ?
+## Known bugs
+
+
+
+## Developer Documentation

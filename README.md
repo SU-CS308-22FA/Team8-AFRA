@@ -87,15 +87,15 @@ You can create an account and get all the benefits!
    $ npm install && cd frontend && npm install
    ```
 4. Setting the env variables
-   - MONGO_URI = the uri string for your database
-   - REACT_APP_URL = backend url that axios requests are sent to
-   - REDIRECT_URL = the frontent URL you will be redirected to after using OAuth2 by Google
-   - JWT_SECRET = to generate and decode JWT
-   - X_RAPIDAPI_KEY = key for the API for data collection
-   - GOOGLE_CLIENT_ID = used for OAuth2, you can set it up from here [Google Console](https://console.cloud.google.com/getting-started)
-   - GOOGLE_CLIENT_SECRET = same as above
-   - MAIL = the email adress that will send the emails for the verification and notify when you are banned
-   - MAIL_PASS = the dedicaded password for the above email (Important Note = Gmail no longer supports regular passwords, you need to set up an APP password)
+   - `MONGO_URI` = the uri string for your database
+   - `REACT_APP_URL` = backend url that axios requests are sent to
+   - `REDIRECT_URL` = the frontent URL you will be redirected to after using OAuth2 by Google
+   - `JWT_SECRET` = to generate and decode JWT
+   - `X_RAPIDAPI_KEY` = key for the API for data collection
+   - `GOOGLE_CLIENT_ID` = used for OAuth2, you can set it up from here [Google Console](https://console.cloud.google.com/getting-started)
+   - `GOOGLE_CLIENT_SECRET` = same as above
+   - `MAIL` = the email adress that will send the emails for the verification and notify when you are banned
+   - `MAIL_PASS` = the dedicaded password for the above email (Important Note = Gmail no longer supports regular passwords, you need to set up an APP password)
 5. To start the application
    ```sh
    npm run dev

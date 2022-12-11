@@ -14,6 +14,7 @@ import {
   getCommentsByUser,
   getCommentsLikeFive,
   getCommentsLikeTen,
+  getCommentsBySearchUser,
 } from "../controllers/commentController.js";
 const router = express.Router();
 import { protect } from "../middleware/authMiddleware.js";
@@ -22,6 +23,7 @@ router.route("/").get(getComments); // protect,
 router.route("/SortedByLike").get(getCommentsByLike);
 router.route("/SortedByLikeReverse").get(getCommentsByLikeReverse);
 router.route("/SortedByDate").get(getCommentsByDate);
+router.route("/ListByUser/:username").get(getCommentsBySearchUser);
 router.route("/FilteredByReferee").get(getCommentsByReferee);
 router.route("/FilteredByJournalist").get(getCommentsByJournalist);
 router.route("/FilteredByUser").get(getCommentsByUser);

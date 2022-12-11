@@ -28,6 +28,24 @@ const getCommentsByDate = asyncHandler(async (req, res) => {
   res.json(comments);
 });
 
+const getCommentsBySearchUser = asyncHandler(async (req, res) => {
+  /////////////////////7*********************************/////////////////////7
+  const searchUser = req.params.username;
+  console.log(searchUser);
+  let the = [];
+  try {
+    const data = await Comment.find();
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].username == searchUser) {
+        the.push(data[i]);
+      }
+    }
+    res.status(200).json(the);
+  } catch {
+    res.status(400).send("ERROR");
+  }
+});
+
 const getCommentsByReferee = asyncHandler(async (req, res) => {
   let the = [];
   try {
@@ -230,6 +248,7 @@ export {
   getCommentsByLike,
   getCommentsByDate,
   getCommentsByLikeReverse,
+  getCommentsBySearchUser,
   getCommentsByReferee,
   getCommentsByJournalist,
   getCommentsByUser,

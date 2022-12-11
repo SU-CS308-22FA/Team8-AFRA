@@ -164,6 +164,42 @@ export const listFilteredComments =
     }
   };
 
+export const listWordComments = (searchWord) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: COMMENTS_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/comments/ListByWord/${searchWord}`,
+      config
+    );
+    dispatch({
+      type: COMMENTS_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: COMMENTS_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
 export const listUserComments = (searchUser) => async (dispatch, getState) => {
   try {
     dispatch({

@@ -11,7 +11,7 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 ### Completed
 
 All users
-- [x] #13
+- [x] [#13](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/13)
 * AFRA has a login/register system that allows the users to get all the benefits.
 * Login is done via tokens so the users does not have to login each time.
 * Users can display the matches in the selected season and week

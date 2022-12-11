@@ -26,7 +26,7 @@ function AdminBan() {
     if(eventKey === "ban"){
         axios.post(`${process.env.REACT_APP_URL}/api/admin/ban`, {user: d.user, comment: d.comment, report: d._id, cause: d.cause})
         .then(()=> { 
-            setMessage("Succesfully banned and sent the notfication email to = " + d.userEmail) 
+            setMessage("Succesfully banned and sent the notification email to = " + d.userEmail) 
             setChanged((c) => c + 1)})
         .catch((err)=> console.log(err))
     }

@@ -84,13 +84,6 @@ Some Notes:
 * After these steps you can use all our features
   - Setting up your Calendar with the matches you wish, adding/liking comments to express your opinions...
 
-### How to report a bug ?
-
-### Known bugs
-Currently there are no known bugs..
-
-
-
 
 ## Set up instructions for developers
 ### For your local machine
@@ -122,5 +115,16 @@ Currently there are no known bugs..
 ### For deploying the app to Heroku
 The code has all the necessary scripts for heroku deployment. All thats necessary is to set the env variables (as described above) from your heroku app settings!
 
+## How to report bugs?
+After finding a bug, here are some steps you should follow...
+
+1. Write down what happened, and your thoughts on what you think caused it. 
+2. Try to reproduce it by understanding what happened and when the bug happened. At this step documenting the action is key, you can do it by taking a video or screenshots. 
+3. If it can be reproduced -> Simply explain what happens when it occurs and what triggers it.
+4. If it can't be reproduced -> Try to explain as much as you can so we can try to find a testing scenario to see the bug in action.
+5. Here is a template to make things simpler for you => [Template](https://docs.google.com/document/d/1nIhCb6WBJm_DoLVL-eXjm0CvYocSIvEVLZNPki6TEkI/edit?usp=sharing)
+6. Send an email with the documentation to => afra.project.308@gmail.com 
 
 
+### Known bugs
+Currently there are no known bugs :tada:

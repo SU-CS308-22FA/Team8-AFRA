@@ -1,5 +1,5 @@
 # AFRA = Automated Fixture and Referee Assignment
-[Link to Heroku Deploy] (https://coolafra.herokuapp.com)
+Link to Heroku Deploy => https://coolafra.herokuapp.com
 
 
 ## What is AFRA ?

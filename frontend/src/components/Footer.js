@@ -13,7 +13,7 @@ const Footer = () => {
       }}
     >
       <Container>
-        <h4 style={{ color: "green", textAlign: "center" }}>
+        <h4 style={{ color: '#0f6375', textAlign: "center" }}>
           Copyright &copy; AFRA
         </h4>
       </Container>

@@ -98,10 +98,10 @@ You can create an account and get all the benefits!
    - `MAIL_PASS` = the dedicaded password for the above email (Important Note = Gmail no longer supports regular passwords, you need to set up an APP password)
 5. To start the application
    ```sh
-   npm run dev
+   $ npm run dev
    ```
 
-### Deploy it to heroku
+### Deploy the app to Heroku
 The code has the necessary scripts for heroku deployment. All thats necessary is to set the env variables (as described above) from your heroku app settings!
 
 

@@ -23,20 +23,12 @@ import StandingPage from "./screens/StandingPage/StandingPage";
 import CreateComment from "./screens/CreateComment/CreateComment";
 import MyComments from "./screens/MyComments/MyComments";
 import SingleComment from "./screens/CreateComment/SingleComment";
-import { gapi} from "gapi-script"
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
 import SingleReferee from "./screens/SingleReferee/SingleReferee";
 
 
 function App() {
   const [search, setSearch] = useState("");
-  gapi.load("client:auth2", () => {
-    gapi.client.init({
-      clientId:
-        "*****.apps.googleusercontent.com",
-      plugin_name: "chat",
-    });
-  });
 
   return (
     <Router>

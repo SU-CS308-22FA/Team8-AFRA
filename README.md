@@ -1,4 +1,5 @@
 # AFRA
+<img width="465" alt="Afra" src="https://user-images.githubusercontent.com/75041108/206916030-69d33ce6-c9ad-4d82-9311-0fdaf6e471ee.png">
 
 ...
 

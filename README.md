@@ -67,6 +67,7 @@ This app can be deployed directly to heroku since there is a script defined in p
 - #### `routes` - This holds all of our HTTP to URL path associations for each unique url
 - #### `utils` - This holds all the utilities we use such as: generating tokens
 - #### `server.js` - Defines all the behaviours of the backend application
+- #### `key.json` - Holds the key information for Google Drive API
 #### `package.json` - Defines npm behaviors and holds the scripts to start the application
 #### `.gitignore` - Tells git which files to ignore
 #### `README` - This file!

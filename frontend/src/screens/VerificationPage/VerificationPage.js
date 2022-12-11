@@ -77,10 +77,10 @@ const VerificationPage = ({ location, history }) => {
       dispatch(sendOTPmail(userInfo));
     }
 
-    const verifyOTPmessage =  (otp)=>{
-      
+    const verifyOTPmessage =  (e)=>{
+      e.preventDefault();
       //await dispatch(verifyOTPmail(otp));
-  
+      
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const VerificationPage = ({ location, history }) => {
         },
       };
       const userId=userInfo._id;
-      axios.post(`${process.env.REACT_APP_URL}/api/users/verifyotp`, {userId: userId,otp :otp}).then(response=>{
+      axios.post(`${process.env.REACT_APP_URL}/api/users/verifyotp`, {userId: userId,otp :passOfOTP}).then(response=>{
         console.log(response.data);
         if(response.data==="VERIFIED"){
           console.log("verification done")
@@ -129,7 +129,7 @@ const VerificationPage = ({ location, history }) => {
                 <br></br>
             
                 <h5> Your account is:   <b>{userInfo.verified===true? "verified": "Not verified yet!"}</b> </h5>
-                {verified ? (
+                {userInfo.verified===false ? (
                   <Form onSubmit={emailHandler}>
                   <Button type="submit" varient="primary" onClick={()=> sendOTPmessage()}>
                   Send a verification email
@@ -144,7 +144,7 @@ const VerificationPage = ({ location, history }) => {
                 ></Form.Control>
                 </Form.Group>
                 
-                <Button type="submit" varient="primary" onClick={()=>{verifyOTPmessage(passOfOTP)}}>
+                <Button type="submit" varient="primary" onClick={verifyOTPmessage}>
                 Check OTP
               </Button>
               </Form>

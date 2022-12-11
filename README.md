@@ -8,7 +8,7 @@ Link to Heroku Deploy => https://coolafra.herokuapp.com
 ## Features -> What AFRA does
   Our server has many useful features for many different actors such as: The admins, the users, referees and journalists.
   
-##### Completed
+### Completed
 
 All users
 * AFRA has a login/register system that allows the users to get all the benefits.
@@ -29,7 +29,7 @@ The Admins
 * Admins can fetch the match data using an API thereby it is automatic
 * Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in they get kicked to main page.
 
-##### In Progress
+### In Progress
 * Users can verify their emails by typing the code they received in their email.
 * Users can report the owners of comments that has bad words.
 * Users can display detailed match information.
@@ -37,12 +37,13 @@ The Admins
 * Users can reply to other comments
 
 
-##### To be Done
+### To be Done
 * Many more cool features
  
 
 ## User Documentation
-###
+### Using the Website
+### Deployment Setup
 ### Local Setup
 How to install the software
 How to run the software

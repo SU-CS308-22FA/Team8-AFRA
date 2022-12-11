@@ -1,11 +1,21 @@
 # AFRA
-<table>
-<tr>
-<td>
-  AFRA IS COOL
-</td>
-</tr>
-</table>
+
+...
+
+## What is AFRA ?
+
+.....
+
+
+```bash
+write code here
+```
+
+## User Documentation
+
+
+
+## Developer Documentation
 - [React JS](https://reactjs.org/)
 - [Node JS](https://nodejs.org/) 
 - [Express JS](https://expressjs.com/)

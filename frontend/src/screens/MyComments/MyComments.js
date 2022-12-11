@@ -67,6 +67,14 @@ function MyComments() {
     dispatch(listFilteredComments("user"));
   };
 
+  const filterMoreThanFive = async () => {
+    dispatch(listFilteredComments(5));
+  };
+
+  const filterMoreThanTen = async () => {
+    dispatch(listFilteredComments(10));
+  };
+
   useEffect(() => {
     dispatch(listComments(0));
     if (!userInfo) {
@@ -144,6 +152,21 @@ function MyComments() {
                     </Dropdown.Menu>
                   </Dropdown>
                 </Col>
+                <Col>
+                  <Dropdown>
+                    <Dropdown.Toggle variant="light" id="dropdown-basic">
+                      Filter Comments By Number of Likes
+                    </Dropdown.Toggle>
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={() => filterMoreThanFive()}>
+                        See comments recieved more than 5 likes
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={() => filterMoreThanTen()}>
+                        See comments recieved more than 10 likes
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Col>
               </Row>
             </th>
           </tr>
@@ -161,6 +184,7 @@ function MyComments() {
             <Card style={{ margin: 10 }} key={comment._id}>
               <Card.Header style={{ display: "flex" }}>
                 <span
+                  // onClick={() => ModelShow(note)}
                   style={{
                     color: "black",
                     textDecoration: "none",
@@ -190,6 +214,7 @@ function MyComments() {
                           ? deleteHandler(comment._id)
                           : null
                       }
+                      //onClick={() => deleteHandler(comment._id)}
                     >
                       Delete <BsXCircle />
                     </Button>

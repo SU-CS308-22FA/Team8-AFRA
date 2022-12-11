@@ -67,6 +67,7 @@ function App() {
                 <Route path="adminpage" element={<AdminPage/>} />
                 <Route path="adminban" element={<AdminBan/>} />
               </Route>
+              <Route path="*" element={<LandingPage />} />
           </Routes>
           <Footer />
     </Router>

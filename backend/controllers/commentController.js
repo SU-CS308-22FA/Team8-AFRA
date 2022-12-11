@@ -58,6 +58,36 @@ const getCommentsByJournalist = asyncHandler(async (req, res) => {
   }
 });
 
+const getCommentsLikeFive = asyncHandler(async (req, res) => {
+  let the = [];
+  try {
+    const data = await Comment.find();
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].likes >= 5) {
+        the.push(data[i]);
+      }
+    }
+    res.status(200).json(the);
+  } catch {
+    res.status(400).send("ERROR");
+  }
+});
+
+const getCommentsLikeTen = asyncHandler(async (req, res) => {
+  let the = [];
+  try {
+    const data = await Comment.find();
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].likes >= 10) {
+        the.push(data[i]);
+      }
+    }
+    res.status(200).json(the);
+  } catch {
+    res.status(400).send("ERROR");
+  }
+});
+
 const getCommentsByUser = asyncHandler(async (req, res) => {
   let the = [];
   try {
@@ -203,4 +233,6 @@ export {
   getCommentsByReferee,
   getCommentsByJournalist,
   getCommentsByUser,
+  getCommentsLikeFive,
+  getCommentsLikeTen,
 };

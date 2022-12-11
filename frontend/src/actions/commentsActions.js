@@ -132,6 +132,26 @@ export const listFilteredComments =
           payload: data,
         });
       }
+      if (selection === 5) {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_URL}/api/comments/FilteredByLikeFive`,
+          config
+        );
+        dispatch({
+          type: COMMENTS_LIST_SUCCESS,
+          payload: data,
+        });
+      }
+      if (selection === 10) {
+        const { data } = await axios.get(
+          `${process.env.REACT_APP_URL}/api/comments/FilteredByLikeTen`,
+          config
+        );
+        dispatch({
+          type: COMMENTS_LIST_SUCCESS,
+          payload: data,
+        });
+      }
     } catch (error) {
       const message =
         error.response && error.response.data.message

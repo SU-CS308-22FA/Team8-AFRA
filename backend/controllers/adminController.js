@@ -3,8 +3,9 @@ import User from "../models/userModel.js";
 import Comment from "../models/commentModel.js";
 import Report from "../models/reportModel.js";
 import Blacklist from "../models/blacklist.js";
-
-
+import nodemailer from 'nodemailer'
+import dotenv from 'dotenv';
+const config = dotenv.config();
 
 const getReports = asyncHandler(async (req, res) => {
   let the = []; 
@@ -19,7 +20,7 @@ const getReports = asyncHandler(async (req, res) => {
         const comment = commentContent || "deleted comment";
         const reported = reportedByusername || "deleted user";
 
-        if(reportedByusername &&  username) //reported or the reporter no longer have an account
+        if(reportedByusername &&  username)
         {
           var item = {
             user: data[i].user,
@@ -34,7 +35,7 @@ const getReports = asyncHandler(async (req, res) => {
           }
           the.push(item);
         }
-        else 
+        else  //reported or the reporter no longer have an account
         {
           const theReport = await Report.deleteOne({_id: data[i]._id})
         }
@@ -56,7 +57,35 @@ const banUser = asyncHandler(async (req, res) => {
     const yes = await theuser.save();
     let black = new Blacklist({ user: theuser._id, cause: cause, email: theuser.email})
     black.save()
-    const thecomment = await Comment.deleteOne({_id: comment});
+    //send an email to the user to notify he is banned 
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.MAIL,
+        pass: process.env.MAIL_PASS
+      }
+    });
+    const text = "Hello, " + theuser.name + "\n \t I'm here to notify you that you have been banned from AFRA for the following reason: " + cause;
+
+    var mailOptions = {
+      from: process.env.MAIL,
+      to: theuser.email,
+      subject: 'You have been banned',
+      text: text
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+
+    if(comment !== "deleted comment")
+    {
+      const thecomment = await Comment.deleteOne({_id: comment});
+    }
     const theReport = await Report.deleteOne({_id: report})
     const theReport2 = await Report.deleteMany({user: user}); //delete all the reports corresponding to that user
     res.status(200).send("DONE")

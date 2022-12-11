@@ -7,6 +7,7 @@ import {
   Table,
 } from "react-bootstrap";
 import axios from "axios";
+import ErrorMessage from "../../components/ErrorMessage";
 
 function AdminBan() {
   const [data, setData] = useState([]);
@@ -24,14 +25,14 @@ function AdminBan() {
     if(eventKey === "ban"){
         axios.post(`${process.env.REACT_APP_URL}/api/admin/ban`, {user: d.user, comment: d.comment, report: d._id, cause: d.cause})
         .then(()=> { 
-            console.log("Succesfully Banned") 
+            setMessage("Succesfully banned and sent the notfication email to = " + d.userEmail) 
             setChanged((c) => c + 1)})
         .catch((err)=> console.log(err))
     }
     else{
         axios.post(`${process.env.REACT_APP_URL}/api/admin/false-report`, {reportedBy: d.reportedBy, report: d._id})
         .then(()=> { 
-            console.log("Its a false report") 
+            setMessage("The report has been set as a false report -> made by = " + d.reportedByusername) 
             setChanged((c) => c + 1)})
         .catch((err)=> console.log(err))
     }
@@ -45,10 +46,21 @@ function AdminBan() {
            <h2 style={{textAlign: "center"}}> Here are the reports </h2>
         </Col>
       </Row>
+      <Row style={{textAlign:'center'}}>
+      {message && (
+                <ErrorMessage variant="info">
+                  {message}
+                </ErrorMessage>
+              )}
+      </Row>
       <Row>
+        
+       
+
+      
         <Col>
           <Table responsive>
-            <thead>
+            <thead style={{textAlign : 'center'}}>
               <tr>
                 <th>Email of reported user</th>
                 <th>Reported By</th>

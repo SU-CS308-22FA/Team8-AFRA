@@ -19,6 +19,7 @@ import {
   listFilteredComments,
   updateLikeAction,
   listUserComments,
+  listWordComments,
 } from "../../actions/commentsActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -85,11 +86,10 @@ function MyComments() {
   const [searchUser, setSearchUser] = useState("");
 
   const searchByWord = async (word) => {
-    dispatch(listFilteredComments(10));
+    dispatch(listWordComments(searchWord));
   };
 
   const searchByUser = async () => {
-    console.log("searchbyuser " + searchUser);
     dispatch(listUserComments(searchUser));
   };
 
@@ -115,9 +115,9 @@ function MyComments() {
 
   const submitWordHandler = (e) => {
     e.preventDefault();
-    if (searchWord === "") alert("Please enter a word to search in comments!");
-    else if (window.confirm("Enjoy the comments that include " + searchWord));
     console.log(searchWord);
+    if (searchWord === "") alert("Please enter a word to search in comments!");
+    else searchByWord();
   };
 
   const submitUserHandler = (e) => {
@@ -125,7 +125,7 @@ function MyComments() {
     console.log(searchUser);
     if (searchUser === "")
       alert("Please enter a username to see their comments!");
-    searchByUser();
+    else searchByUser();
   };
 
   const handleCheck = (e) => {
@@ -191,7 +191,7 @@ function MyComments() {
                     <th>User Comments</th>
                     <td>
                       <input
-                        value="referee"
+                        value="user"
                         type="checkbox"
                         onChange={handleCheck}
                       />
@@ -216,7 +216,7 @@ function MyComments() {
                     <th>0-5 Likes</th>
                     <td>
                       <input
-                        value="journalist"
+                        value="fiveLikes"
                         type="checkbox"
                         onChange={handleCheck}
                       />
@@ -226,7 +226,7 @@ function MyComments() {
                     <th>6-10 Likes</th>
                     <td>
                       <input
-                        value="referee"
+                        value="tenLikes"
                         type="checkbox"
                         onChange={handleCheck}
                       />

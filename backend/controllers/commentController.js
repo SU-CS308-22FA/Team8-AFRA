@@ -28,8 +28,20 @@ const getCommentsByDate = asyncHandler(async (req, res) => {
   res.json(comments);
 });
 
+const getCommentsBySearchWord = asyncHandler(async (req, res) => {
+  const searchWord = req.params.word;
+  console.log(searchWord);
+
+  Comment.find({
+    '$or': [
+        { 'content': {'$regex': searchWord, '$options': 'i'} }, 
+        { 'title': {'$regex': searchWord, '$options': 'i'}}
+    ]}, function(err, docs){
+      res.status(200).json(docs);
+    })
+});
+
 const getCommentsBySearchUser = asyncHandler(async (req, res) => {
-  /////////////////////7*********************************/////////////////////7
   const searchUser = req.params.username;
   console.log(searchUser);
   let the = [];
@@ -248,6 +260,7 @@ export {
   getCommentsByLike,
   getCommentsByDate,
   getCommentsByLikeReverse,
+  getCommentsBySearchWord,
   getCommentsBySearchUser,
   getCommentsByReferee,
   getCommentsByJournalist,

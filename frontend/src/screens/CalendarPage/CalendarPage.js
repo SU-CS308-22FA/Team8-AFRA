@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Form, Button, Dropdown, DropdownButton, Col, Row, Table, Checkbox } from "react-bootstrap";
+import React, { useState } from "react";
+import { Form, Button, Dropdown, DropdownButton, Col, Row, Table,} from "react-bootstrap";
 import {GoogleLogin} from "react-google-login";
 import axios from "axios";
 import "./CalendarPage.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { gapi} from "gapi-script"
-import { updateProfile } from "../../actions/userActions";
 import ErrorMessage from "../../components/ErrorMessage";
 
 function CalendarPage() {
@@ -25,7 +24,6 @@ function CalendarPage() {
   const [message, setMesage] = useState();
   const [team, setTeam] = useState();
   const [color, setColor] = useState();
-  const dispatch = useDispatch();
 
   const config = {
       headers: {
@@ -36,12 +34,10 @@ function CalendarPage() {
   const responseGoogle = response => {
     console.log(response);
     const {code} = response;
-    axios.post(`${process.env.REACT_APP_URL}/api/calendar`, {code}).then(res => {
-      const refresh_token = res.data
-      dispatch(updateProfile({refresh_token}))
+    axios.post(`${process.env.REACT_APP_URL}/api/calendar`, {code: code, user: userInfo}).then(res => {
       setSignedIn(true);
-    }).catch(err => console.log(err))
-    alert("Succesfully Signed In!");
+      alert("Succesfully Signed In!");
+    }).catch(err => alert(err))
   }
 
 const submitHandler = (e) => {

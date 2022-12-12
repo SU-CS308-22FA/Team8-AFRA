@@ -58,6 +58,71 @@ const getCommentsBySearchUser = asyncHandler(async (req, res) => {
   }
 });
 
+const getFilteredComments = asyncHandler(async (req, res) => {
+  const { filters } = req.body;
+  console.log(filters);
+  let the = [];
+  try {
+    const data = await Comment.find();
+    for (var i = 0; i < data.length; i++) {
+      if (filters.includes("journalist") && data[i].userrole === "journalist") {
+        if (filters.includes("fiveLikes") && data[i].likes >= 5 && data[i].likes < 10) {
+          console.log("journalist fiveLikes");
+          the.push(data[i]);
+        } 
+        else if (filters.includes("tenLikes") && data[i].likes >= 10) {
+          console.log("journalist ve tenLikes");
+          the.push(data[i]);
+        } 
+        else if (!filters.includes("fiveLikes") && !filters.includes("tenLikes")){
+          console.log("just journalist");
+          the.push(data[i]);
+        }
+      } 
+      else if (filters.includes("referee") && data[i].userrole === "referee") {
+        if (filters.includes("fiveLikes") && data[i].likes >= 5 && data[i].likes < 10) {
+          console.log("referee fiveLikes");
+          the.push(data[i]);
+        } 
+        else if (filters.includes("tenLikes") && data[i].likes >= 10) {
+          console.log("referee tenLikes");
+          the.push(data[i]);
+        } 
+        else if (!filters.includes("fiveLikes") && !filters.includes("tenLikes")) {
+          console.log("just referee");
+          the.push(data[i]);
+        } 
+      } 
+      else if (filters.includes("user") && data[i].userrole === "user") {
+        if (filters.includes("fiveLikes") && data[i].likes >= 5 && data[i].likes < 10) {
+          console.log("user fiveLikes");
+          the.push(data[i]);
+        } 
+        else if (filters.includes("tenLikes") && data[i].likes >= 10) {
+          console.log("user tenLikes");
+          the.push(data[i]);
+        } 
+        else if (!filters.includes("fiveLikes") && !filters.includes("tenLikes")){
+          console.log("just user");
+          the.push(data[i]);
+        } 
+      } 
+      else if ( !filters.includes("journalist") && !filters.includes("referee") && !filters.includes("user") && filters.includes("fiveLikes") && data[i].likes >= 5 && data[i].likes < 10) {
+        console.log("just fiveLikes");
+        the.push(data[i]);
+      } 
+      else if (!filters.includes("journalist") && !filters.includes("referee") && !filters.includes("user") && filters.includes("tenLikes") && data[i].likes >= 10) {
+        console.log("just tenLikes");
+        the.push(data[i]);
+      }
+    }
+    res.status(200).json(the);
+  } catch {
+    res.status(400).send("ERROR");
+  }
+});
+
+
 const getCommentsByReferee = asyncHandler(async (req, res) => {
   let the = [];
   try {
@@ -262,6 +327,7 @@ export {
   getCommentsByLikeReverse,
   getCommentsBySearchWord,
   getCommentsBySearchUser,
+  getFilteredComments,
   getCommentsByReferee,
   getCommentsByJournalist,
   getCommentsByUser,

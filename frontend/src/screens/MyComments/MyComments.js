@@ -18,6 +18,7 @@ import {
   listComments,
   listFilteredComments,
   updateLikeAction,
+  commentFiltered,
   listUserComments,
   listWordComments,
 } from "../../actions/commentsActions";
@@ -29,6 +30,7 @@ import { BsXCircle } from "react-icons/bs";
 import "./MyComments.css";
 
 function MyComments() {
+  console.log("Comments Page loaded")
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const commentList = useSelector((state) => state.commentList);
@@ -93,24 +95,8 @@ function MyComments() {
     dispatch(listUserComments(searchUser));
   };
 
-  const filterForReferee = async () => {
-    dispatch(listFilteredComments("referee"));
-  };
-
-  const filterForJournalist = async () => {
-    dispatch(listFilteredComments("journalist"));
-  };
-
-  const filterForUser = async () => {
-    dispatch(listFilteredComments("user"));
-  };
-
-  const filterMoreThanFive = async () => {
-    dispatch(listFilteredComments(5));
-  };
-
-  const filterMoreThanTen = async () => {
-    dispatch(listFilteredComments(10));
+  const filterComments = async () => {
+    dispatch(commentFiltered(filter));
   };
 
   const submitWordHandler = (e) => {
@@ -136,13 +122,12 @@ function MyComments() {
       updatedList.splice(filter.indexOf(e.target.value), 1);
     }
     setFilter(updatedList);
-    console.log(filter);
   };
 
   const submitFilterHandler = (e) => {
     e.preventDefault();
     if (filter.length === 0) alert("Please select at least 1 filter");
-    else if (window.confirm("Enjoy Filtered Comments."));
+    else filterComments();
   };
 
   return (
@@ -213,7 +198,7 @@ function MyComments() {
                 </thead>
                 <tbody>
                   <tr>
-                    <th>0-5 Likes</th>
+                    <th>5-9 Likes</th>
                     <td>
                       <input
                         value="fiveLikes"
@@ -223,7 +208,7 @@ function MyComments() {
                     </td>
                   </tr>
                   <tr>
-                    <th>6-10 Likes</th>
+                    <th>More Than 10 Likes</th>
                     <td>
                       <input
                         value="tenLikes"
@@ -236,11 +221,20 @@ function MyComments() {
               </Table>
             </Row>
             <Row className="filterSubmit">
+              <Col>
               <Form onSubmit={submitFilterHandler} className="getSubmit">
                 <Button variant="primary" type="submit">
                   Filter Comments
                 </Button>
               </Form>
+              </Col>
+              <Col>
+              <Form onSubmit={sortByDefault} className="getSubmit">
+                <Button variant="primary" type="submit">
+                  See Default Page
+                </Button>
+              </Form>
+              </Col>
             </Row>
             <Row>
               <p></p>
@@ -306,53 +300,6 @@ function MyComments() {
                 </tbody>
               </Table>
             </Row>
-
-            <Table>
-              <thead>
-                <tr>
-                  <th>
-                    <Row>
-                      <Col></Col>
-                      <Col>
-                        <Dropdown>
-                          <Dropdown.Toggle variant="light" id="dropdown-basic">
-                            Filter Comments According to User Type
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => filterForReferee()}>
-                              See Referee Comments
-                            </Dropdown.Item>
-                            <Dropdown.Item
-                              onClick={() => filterForJournalist()}
-                            >
-                              See Journalist Comments
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => filterForUser()}>
-                              See User Comments
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </Col>
-                      <Col>
-                        <Dropdown>
-                          <Dropdown.Toggle variant="light" id="dropdown-basic">
-                            Filter Comments By Number of Likes
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item onClick={() => filterMoreThanFive()}>
-                              See comments recieved more than 5 likes
-                            </Dropdown.Item>
-                            <Dropdown.Item onClick={() => filterMoreThanTen()}>
-                              See comments recieved more than 10 likes
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </Col>
-                    </Row>
-                  </th>
-                </tr>
-              </thead>
-            </Table>
           </Col>
 
           <Col>

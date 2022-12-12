@@ -9,11 +9,6 @@ import {
   getCommentsByLike,
   getCommentsByDate,
   getCommentsByLikeReverse,
-  getCommentsByReferee,
-  getCommentsByJournalist,
-  getCommentsByUser,
-  getCommentsLikeFive,
-  getCommentsLikeTen,
   getCommentsBySearchWord,
   getCommentsBySearchUser,
   getFilteredComments,
@@ -28,11 +23,6 @@ router.route("/SortedByDate").get(getCommentsByDate);
 router.route("/ListByWord/:word").get(getCommentsBySearchWord);
 router.route("/ListByUser/:username").get(getCommentsBySearchUser);
 router.route("/FilterComments").post(getFilteredComments);
-router.route("/FilteredByReferee").get(getCommentsByReferee);
-router.route("/FilteredByJournalist").get(getCommentsByJournalist);
-router.route("/FilteredByUser").get(getCommentsByUser);
-router.route("/FilteredByLikeFive").get(getCommentsLikeFive);
-router.route("/FilteredByLikeTen").get(getCommentsLikeTen);
 router
   .route("/:id")
   .get(getCommentById)

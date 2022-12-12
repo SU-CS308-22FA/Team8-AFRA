@@ -4,7 +4,7 @@ import Blacklist from "../models/blacklist.js";
 import proRequest from "../models/requestModel.js";
 import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
-import UserOTPVerification from "../models/userOTPVerificationModel.js";
+import UserOTPVerification from "../models/UserOTPVerificationModel.js";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
  //const {v4: uuidv4}=require("uuid");

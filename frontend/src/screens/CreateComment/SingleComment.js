@@ -3,6 +3,7 @@ import MainScreen from "../../components/MainScreen";
 import axios from "axios";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   deleteCommentAction,
   updateCommentAction,
@@ -11,11 +12,14 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import ReactMarkdown from "react-markdown";
 
-function SingleComment({ match, history }) {
+
+function SingleComment() {
+  const params = useParams();
+  const com = params.id;
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [date, setDate] = useState("");
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const commentUpdate = useSelector((state) => state.commentUpdate);
@@ -28,22 +32,21 @@ function SingleComment({ match, history }) {
     if (window.confirm("Are you sure?")) {
       dispatch(deleteCommentAction(id));
     }
-    history.push("/mycomments");
+    navigate("/mycomments");
   };
 
   useEffect(() => {
     const fetching = async () => {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/api/comments/${match.params.id}`
+        `${process.env.REACT_APP_URL}/api/comments/${com}`
       );
-
       setTitle(data.title);
       setContent(data.content);
       setDate(data.updatedAt);
     };
 
     fetching();
-  }, [match.params.id, date]);
+  }, [com, date]);
 
   const resetHandler = () => {
     setTitle("");
@@ -52,11 +55,11 @@ function SingleComment({ match, history }) {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateCommentAction(match.params.id, title, content));
+    dispatch(updateCommentAction(com, title, content));
     if (!title || !content) return;
 
     resetHandler();
-    history.push("/mycomments");
+    navigate("/mycomments");
   };
 
   return (
@@ -108,7 +111,7 @@ function SingleComment({ match, history }) {
             <Button
               className="mx-2"
               variant="danger"
-              onClick={() => deleteHandler(match.params.id)}
+              onClick={() => deleteHandler(com)}
             >
               Delete Comment
             </Button>

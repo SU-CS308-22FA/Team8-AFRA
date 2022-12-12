@@ -3,10 +3,35 @@ import User from "../models/userModel.js";
 import Blacklist from "../models/blacklist.js";
 import proRequest from "../models/requestModel.js";
 import generateToken from "../utils/generateToken.js";
-
+import bcrypt from "bcryptjs";
+import UserOTPVerification from "../models/userOTPVerificationModel.js";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+ //const {v4: uuidv4}=require("uuid");
+ dotenv.config();
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
+
+//nodemailer stuff
+const transporter= nodemailer.createTransport({
+  service:"gmail",
+  //host:"smtp-mail.outlook.com",
+  auth:{
+    user: process.env.MAIL,
+    pass: process.env.MAIL_PASS,
+  },
+});
+
+transporter.verify((error,success)=>{
+  if(error){
+    console.log(error);
+  }else{
+    console.log("Ready for messages");
+    console.log(success);
+  }
+});
+
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -106,6 +131,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.username = req.body.username || user.username;
     user.pic = req.body.pic || user.pic;
     user.refresh_token = req.body.refresh_token || user.refresh_token
+    user.verified= req.body.verified || user.verified;
     if (req.body.licence)
     {
       user.verified = false;
@@ -178,4 +204,133 @@ const checkBanned = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, updateUserProfile, registerUser, deleteUserProfile, checkBanned};
+const sendOTPVerificationEmail =asyncHandler (async (req,res) => { 
+
+  const _id= req.body._id;
+  const email=req.body.email;
+
+
+  try{
+    const otp = `${Math.floor(1000+ Math.random()*9000)}`;
+
+    //const currentUrl="process.env.REACT_APP_URL";
+    //mail options
+    const MailOptions={
+      from: process.env.AUTH_EMAIL,
+      to: email,
+      subject:"Verfiy your email",
+      html:`<p> Enter <b> ${otp}</b> in the app to verify your email address </p><p> This code expires in 1 hour </p>
+      `,
+    };
+
+    //hash the otp
+    const saltRounds=10;
+    const hashedOTP = await bcrypt.hash(otp,saltRounds).then().catch(()=>{
+      res.json({
+        status: "FAILED",
+        message:"An error happen while hashing email data",
+      })
+    });
+    await UserOTPVerification.deleteMany({userId: _id});
+    const newOTPVerification = await new UserOTPVerification({
+      userId:_id,
+      otp: hashedOTP,
+      createdAt: Date.now(),
+      expiresAt: Date.now()+3600000, 
+    });
+    //save otp record
+    await newOTPVerification.save();
+    //console.log(UserOTPVerification);
+    transporter.sendMail(MailOptions);
+    res.json({
+      status:"PENDING",
+      message: "Verification otp email send",
+      data:{
+        userId:_id,
+        email,      
+      },
+    });
+
+  }catch(error){
+    res.json({
+      status:"FAILED",
+      message: error.message,
+    });
+  }
+
+});
+
+// @route   POST /api/users/verifyotp
+const VerifyOTP =asyncHandler (async (req,res) => { 
+  try{
+    console.log("request is");
+    console.log(req.body);
+    const userId = req.body.userId;
+    const otp = req.body.otp;
+
+
+    if(!userId || !otp){
+      throw Error("Empty otp details are not allowed");
+    }else{
+      const UserOTPVerificationRecords= await UserOTPVerification.find({
+        userId,
+      });
+      //console.log("UserOTPVerificationRecors is");
+      //console.log(UserOTPVerificationRecords);
+      if(UserOTPVerificationRecords.length<=0){
+        //console.log("no record found");
+        //no record found
+        throw new Error("Account record does not exists or has been verified already");
+      }else{
+        //console.log("user otp record exists");
+        //user otp record exists
+        const {expiresAt}=UserOTPVerificationRecords[0];
+        const hashedOTP=UserOTPVerificationRecords[0].otp;
+
+        if(expiresAt<Date.now()){
+          //console.log("user otp record expired")
+          //user otp record expired
+          await UserOTPVerification.deleteMany({userId:userId});
+          throw new Error("Code has expired. Please request again");
+        }else{
+          //console.log("checking for validation");
+          //console.log(hashedOTP);
+          //console.log(otp);
+          const validOTP = await bcrypt.compare(otp,hashedOTP);
+          if(!validOTP){
+            console.log("not valid");
+            //supplied otp is wrong
+            throw new Error("Invalid code passed. Check your inbox again");
+          }else{
+            console.log("valid");
+            //success
+            const userUpOne = await User.findById(userId);
+            userUpOne.verified=true;
+            await userUpOne.save();
+           // console.log("User.updateOne");
+            //console.log(userUpOne);
+            //const printUser = await UserOTPVerification.deleteMany({userId: userId});
+            //console.log("UserOTPVerification")
+            //console.log(printUser);
+
+            res.send(
+              "VERIFIED"
+            );
+            /*
+            res.json({
+              status:"VERIFIED",
+              message:"User email verified successfully",
+            });
+            */
+          }
+        }
+      }
+    }
+  }catch(error){
+    res.status(400).send(
+      "error"
+    );
+  }
+
+});
+export { authUser, updateUserProfile, registerUser, deleteUserProfile,sendOTPVerificationEmail,VerifyOTP, checkBanned};

@@ -10,7 +10,10 @@ import matchRoutes from "./routes/matchRoutes.js";
 import requestRoutes from "./routes/requestRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import googleDrive from "./routes/googledrive.js";
+import calendarRoutes from "./routes/calenderRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import adminRoutes from "./routes/adminRoutes.js";
+import refereeRoutes from "./routes/refereeRoutes.js";
 
 dotenv.config();
 
@@ -18,13 +21,17 @@ connectDB();
 
 const app = express(); // main thing
 
-app.use(express.json()); // to accept json data
 app.use(cors());
+
+app.use(express.json()); // to accept json data
 app.use("/api/users", userRoutes);
 app.use("/app", googleDrive); //-> /app is the base path and routeUrls will be appemded to it
 app.use("/api/matches", matchRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/comments", commentRoutes);
+app.use("/api/admin", adminRoutes);
+app.use("/api/calendar", calendarRoutes);
+app.use("/api/referees", refereeRoutes);
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();

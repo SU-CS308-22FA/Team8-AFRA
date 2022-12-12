@@ -4,14 +4,14 @@ import {google} from "googleapis";
 const router = express.Router();
 import User from "../models/userModel.js";
 import Fixture from "../models/matchModel.js";
-import dotenv from 'dotenv';
-const config = dotenv.config();
+import dotenv from "dotenv"
 
+dotenv.config()
 //GOTTA FIX -ZEYNEP
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    process.env.REACT_APP_URL
+    process.env.REDIRECT_URL
 )
 function addHoursToDate(date, hours) {
   return new Date(new Date(date).setHours(date.getHours() + hours));
@@ -19,9 +19,12 @@ function addHoursToDate(date, hours) {
 
 router.post("/", async(req, res, next) => {
     try{
-      const {code} = req.body
-    const {tokens} = await oauth2Client.getToken(code);
-    res.send(tokens.refresh_token)
+      const {code, user} = req.body
+      const {tokens} = await oauth2Client.getToken(code);
+      const theuser = await User.findById(user);
+      theuser.refresh_token = tokens.refresh_token;
+      const yes = await theuser.save();
+      res.send("SUCCESS")
     }
     catch(err){
       console.log(err)

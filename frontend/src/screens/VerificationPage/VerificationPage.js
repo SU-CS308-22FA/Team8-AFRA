@@ -125,12 +125,12 @@ const VerificationPage = ({ location, history }) => {
                 <img src={userInfo.pic} alt={userInfo.name} className="profilePic" />
                 {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
                 <br></br>
-                <h5> This is your current email address:   <b>{userInfo.email}</b> </h5>
+                <h5 style={{textAlign: 'left', color:'#000000'}}> This is your current email address:   <b>{userInfo.email}</b> </h5>
                 <br></br>
-                <h5> Status:   <b>{userInfo.role}</b> </h5>
+                <h5 style={{textAlign: 'left', color:'#000000'}}> Status:   <b>{userInfo.role}</b> </h5>
                 <br></br>
             
-                <h5> Your account is:   <b>{userInfo.verified===true? "verified": "Not verified yet!"}</b> </h5>
+                <h5 style={{textAlign: 'left', color:'#000000'}}> Your account is:   <b>{userInfo.verified===true? "verified": "Not verified yet!"}</b> </h5>
                 {userInfo.verified===false ? (
                   <Form onSubmit={emailHandler}>
                   <Button type="submit" varient="primary" onClick={()=> sendOTPmessage()}>

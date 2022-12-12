@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const commentSchema = mongoose.Schema(
   {
     title: {
@@ -13,15 +12,18 @@ const commentSchema = mongoose.Schema(
     },
     username: {
       type: String,
-      required:true,
+      required: true,
       unique: false,
     },
-    likes: { 
-      type: Number, 
-      default: 0
+    userrole: {
+      type: String,
+      unique: false,
     },
-
-    usersThatLikedTheComment:{
+    likes: {
+      type: Number,
+      default: 0,
+    },
+    usersThatLikedTheComment: {
       type: Array,
       default: [],
     },

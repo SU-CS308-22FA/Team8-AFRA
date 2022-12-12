@@ -45,13 +45,20 @@ const getCommentsBySearchUser = asyncHandler(async (req, res) => {
   const searchUser = req.params.username;
   console.log(searchUser);
   let the = [];
+  let myBool = false;
   try {
     const data = await Comment.find();
     for (var i = 0; i < data.length; i++) {
       if (data[i].username == searchUser) {
+        myBool = true;
         the.push(data[i]);
       }
     }
+    
+    if (myBool === false){
+      //send frontend "There is no such user!"
+    }
+    
     res.status(200).json(the);
   } catch {
     res.status(400).send("ERROR");

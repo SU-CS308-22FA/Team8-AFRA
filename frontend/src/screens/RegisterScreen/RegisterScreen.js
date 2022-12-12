@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { register } from "../../actions/userActions";
 import MainScreen from "../../components/MainScreen";
 import "./RegisterScreen.css";
 
-function RegisterScreen({ history }) {
+function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -19,7 +19,7 @@ function RegisterScreen({ history }) {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const userRegister = useSelector((state) => state.userRegister);
@@ -56,9 +56,9 @@ function RegisterScreen({ history }) {
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/");
+      navigate("/mycomments");
     }
-  }, [history, userInfo]);
+  }, [userInfo]);
 
   const submitHandler = (e) => {
     e.preventDefault();

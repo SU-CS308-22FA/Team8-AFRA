@@ -13,11 +13,7 @@ const Footer = () => {
       }}
     >
       <Container>
-        <h3 style={{ color: "green", textAlign: "center" }}>
-          AFRA: Automated Fixture & Referee Assignment
-        </h3>
-        <p></p>
-        <h4 style={{ color: "green", textAlign: "center" }}>
+        <h4 style={{ color: '#0f6375', textAlign: "center" }}>
           Copyright &copy; AFRA
         </h4>
       </Container>

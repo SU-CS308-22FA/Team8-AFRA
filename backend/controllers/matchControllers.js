@@ -37,7 +37,8 @@ const uploadDatabase = asyncHandler(async (req, res) => {
         const referee = r.data.response[i].fixture.referee;
         const hGoal = r.data.response[i].goals.home;
         const vGoal = r.data.response[i].goals.away;
-
+        const matchID = r.data.response[i].fixture.id;
+        console.log(matchID);
         const match = new fixture({
           date,
           season,
@@ -48,6 +49,7 @@ const uploadDatabase = asyncHandler(async (req, res) => {
           referee,
           hGoal,
           vGoal,
+          matchID,
         });
         match.save();
       }

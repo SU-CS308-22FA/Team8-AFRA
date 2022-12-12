@@ -29,18 +29,12 @@ import StandingPage from "./screens/StandingPage/StandingPage";
 import CreateComment from "./screens/CreateComment/CreateComment";
 import MyComments from "./screens/MyComments/MyComments";
 import SingleComment from "./screens/CreateComment/SingleComment";
-import { gapi } from "gapi-script";
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
 import SingleReferee from "./screens/SingleReferee/SingleReferee";
+import MatchDetailPage from "./screens/MatchDetailPage/MatchDetailPage";
 
 function App() {
   const [search, setSearch] = useState("");
-  gapi.load("client:auth2", () => {
-    gapi.client.init({
-      clientId: "*****.apps.googleusercontent.com",
-      plugin_name: "chat",
-    });
-  });
 
   return (
     <Router>
@@ -56,6 +50,7 @@ function App() {
         <Route path="banned" element={<BanScreen />} />
         <Route path="/referees" element={<RefereesScreen />} />
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
+        <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />
@@ -70,6 +65,7 @@ function App() {
           <Route path="adminpage" element={<AdminPage />} />
           <Route path="adminban" element={<AdminBan />} />
         </Route>
+        <Route path="*" element={<LandingPage />} />
       </Routes>
       <Footer />
     </Router>

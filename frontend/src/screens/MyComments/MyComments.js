@@ -24,12 +24,18 @@ import {
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import Dropdown from "react-bootstrap/Dropdown";
-import { FaHeart, FaRegHeart, FaRegUserCircle } from "react-icons/fa";
+import {
+  FaHeart,
+  FaRegHeart,
+  FaRegUserCircle,
+  FaFontAwesomeFlag,
+} from "react-icons/fa";
 import { BsXCircle } from "react-icons/bs";
 import "./MyComments.css";
+import axios from "axios";
 
 function MyComments() {
-  console.log("Comments Page loaded")
+  console.log("Comments Page loaded");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const commentList = useSelector((state) => state.commentList);
@@ -73,6 +79,38 @@ function MyComments() {
   const likeHandler = async (id, title, content, likes) => {
     await dispatch(updateLikeAction(id, title, content, likes));
     dispatch(listComments(0));
+  };
+
+  const [isFlagged, setFlagged] = useState(false);
+  const [reporterId, setReporterId] = useState("");
+  const [reportedId, setReportedId] = useState("");
+  const [reportedComment, setReportedComment] = useState("");
+  const [reportCause, setReportCause] = useState("");
+  const flagHandler = async (reporterid, reportedid, reportedcommmentid, e) => {
+    e.preventDefault();
+    setReporterId(reporterid);
+    setReportedId(reportedid);
+    setReportedComment(reportedcommmentid);
+    setFlagged(true);
+  };
+
+  const submitCauseHandler = (e) => {
+    e.preventDefault();
+    if (reportCause === "") alert("Please enter a report cause!");
+    else {
+      axios
+        .post(`${process.env.REACT_APP_URL}/api/users/report`, {
+          user: reportedId,
+          reportedBy: reporterId,
+          comment: reportedComment,
+          cause: reportCause,
+        })
+        .then((res) => {
+          alert(res.data);
+          setFlagged(false);
+        })
+        .catch((err) => alert(err));
+    }
   };
 
   useEffect(() => {
@@ -221,25 +259,25 @@ function MyComments() {
             </Row>
             <Row className="filterSubmit">
               <Col>
-              <Form onSubmit={submitFilterHandler} className="getSubmit">
-                <Button variant="primary" type="submit">
-                  Filter Comments
-                </Button>
-              </Form>
+                <Form onSubmit={submitFilterHandler} className="getSubmit">
+                  <Button variant="primary" type="submit">
+                    Filter Comments
+                  </Button>
+                </Form>
               </Col>
               <Col>
-              <Form onSubmit={sortByDefault} className="getSubmit">
-                <Button variant="primary" type="submit">
-                  See Default Page
-                </Button>
-              </Form>
+                <Form onSubmit={sortByDefault} className="getSubmit">
+                  <Button variant="primary" type="submit">
+                    See Default Page
+                  </Button>
+                </Form>
               </Col>
             </Row>
             <Row>
               <p></p>
             </Row>
             <Row className="sub3title">
-              <h3 className="sub3title">***Search In Comments***</h3>
+              <h3 className="sub3title">**Search In Comments**</h3>
             </Row>
             <Row>
               <p></p>
@@ -424,6 +462,29 @@ function MyComments() {
                           )}{" "}
                           {comment.likes}
                         </Button>
+                        <Button
+                          className="mx-2"
+                          value="Like"
+                          disabled={
+                            comment.user === userInfo._id ? "disabled" : null
+                          }
+                          onClick={(e) =>
+                            flagHandler(
+                              userInfo._id,
+                              comment.user,
+                              comment._id,
+                              e
+                            )
+                          }
+                        >
+                          {comment.usersThatLikedTheComment.includes(
+                            userInfo.username
+                          ) == false ? (
+                            <FaFontAwesomeFlag />
+                          ) : (
+                            <FaFontAwesomeFlag />
+                          )}{" "}
+                        </Button>
                       </div>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
@@ -451,6 +512,32 @@ function MyComments() {
           </Col>
         </Row>
       </div>
+      {isFlagged ? (
+        <div>
+          <h5>
+            {" "}
+            Hello {userInfo.name}, why dou you want to report this user?{" "}
+          </h5>
+          <div>
+            <h6> Please explain why do you want to report this comment: </h6>
+            <Form onSubmit={submitCauseHandler}>
+              <Form.Group controlId="report">
+                <Form.Control
+                  type="text"
+                  placeholder="Enter a Cause"
+                  value={reportCause}
+                  onChange={(d) => setReportCause(d.target.value)}
+                ></Form.Control>
+              </Form.Group>
+              <Button type="submit" varient="primary">
+                Submit Cause
+              </Button>
+            </Form>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
     </MainScreen>
   );
 }

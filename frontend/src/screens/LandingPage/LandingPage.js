@@ -1,18 +1,19 @@
 import React, { useEffect } from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./LandingStyles.css";
 
-function LandingPage({ history }) {
+function LandingPage() {
   const userLogin = useSelector((state) => state.userLogin);
+  const navigate = useNavigate();
   const { userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
-      history.push("/mycomments");
+      navigate("/mycomments");
     }
-  }, [history, userInfo]);
+  }, [userInfo]);
 
   return (
     <div className="main">

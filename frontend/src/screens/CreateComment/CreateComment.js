@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { createCommentAction } from "../../actions/commentsActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import ReactMarkdown from "react-markdown";
 
-function CreateComment({ history }) {
+function CreateComment() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [likes, setLikes] = useState(0);
-
+  const navigate = useNavigate();
  
   
   const dispatch = useDispatch();
@@ -35,7 +36,7 @@ function CreateComment({ history }) {
     if ( !title || !content) return;
 
     resetHandler();
-    history.push("/mycomments");
+    navigate("/mycomments");
   };
 
   useEffect(() => {}, []);
@@ -83,7 +84,7 @@ function CreateComment({ history }) {
               Create Comment
             </Button>
             <Button className="mx-2" onClick={resetHandler} variant="danger">
-              Reset Feilds
+              Reset Fields
             </Button>
           </Form>
         </Card.Body>

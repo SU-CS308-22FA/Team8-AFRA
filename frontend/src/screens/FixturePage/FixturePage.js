@@ -54,6 +54,7 @@ function FixturePage() {
 
   return (
     <div>
+      <div>
       <h1 className="mtitle">Fixture Details by Wanted Season & Week</h1>
       <h2 className="sub"> Season</h2>
       <div className="dropdown">
@@ -152,11 +153,12 @@ function FixturePage() {
               The referee of the match was: {match.referee}{" "}
             </h5>{" "}
             <p> </p>
-            <hr />
+            <hr/>
           </>
         ))}
       </ol>
     </div>
+   </div>
   );
 }
 export default FixturePage;

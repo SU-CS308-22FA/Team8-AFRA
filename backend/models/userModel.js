@@ -29,13 +29,27 @@ const userSchema = mongoose.Schema(
     licence:{
       type:String,
       required: false
+    }, 
+    refresh_token:{
+      type:String,
+      required: false
     },
     role:{
       type:String,
       required: true,
       default: "user"
     },
+    falseReports:{
+      type: Number,
+      required: true,
+      default: 0
+    },
     verified:{
+      type: Boolean,
+      required:true,
+      default: false
+    },
+    banned:{
       type: Boolean,
       required:true,
       default: false

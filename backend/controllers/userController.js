@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import Blacklist from "../models/blacklist.js";
 import proRequest from "../models/requestModel.js";
 import generateToken from "../utils/generateToken.js";
 
@@ -11,6 +12,12 @@ const authUser = asyncHandler(async (req, res) => {
 
   const user = await User.findOne({ email });
 
+  const banned = await Blacklist.findOne({user: user});
+  if(banned)
+  {
+    res.status(404);
+    throw new Error("The user with this email has been banned for: " + banned.cause);
+  }
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -22,6 +29,7 @@ const authUser = asyncHandler(async (req, res) => {
       role: user.role,
       verified: user.verified,
       licence: user.licence,
+      banned: user.banned,
       token: generateToken(user._id),
     });
   } else {
@@ -40,6 +48,12 @@ const registerUser = asyncHandler(async (req, res) => {
   const usernameExists = await User.findOne({ username });
 
   if (userExists) {
+    const banned = await Blacklist.findOne({user: userExists});
+    if(banned)
+    {
+      res.status(404);
+      throw new Error("The user with this email has been banned for: " + banned.cause);
+    }
     res.status(404);
     throw new Error("Email is already used");
   }
@@ -67,6 +81,7 @@ const registerUser = asyncHandler(async (req, res) => {
       role: user.role,
       verified: user.verified,
       licence: user.licence,
+      banned: user.banned,
       token: generateToken(user._id),
     });
   } else {
@@ -90,6 +105,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.username = req.body.username || user.username;
     user.pic = req.body.pic || user.pic;
+    user.refresh_token = req.body.refresh_token || user.refresh_token
     if (req.body.licence)
     {
       user.verified = false;
@@ -128,6 +144,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       verified: user.verified,
       licence: user.licence,
       token: generateToken(user._id),
+      banned: user.banned
     });
   } else {
     res.status(404);
@@ -149,5 +166,16 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
+const checkBanned = asyncHandler(async (req, res) => {
+  const { user } = req.query;
 
-export { authUser, updateUserProfile, registerUser, deleteUserProfile };
+  const banned = await Blacklist.findOne({user: user});
+
+  if (banned) {
+    res.status(200).send("banned")
+  } else {
+    res.status(200).send("not banned");
+  }
+});
+
+export { authUser, updateUserProfile, registerUser, deleteUserProfile, checkBanned};

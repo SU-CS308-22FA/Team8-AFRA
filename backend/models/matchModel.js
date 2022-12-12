@@ -38,6 +38,10 @@ const fixtureSchema = mongoose.Schema({
     type: Number,
     required: false,
   },
+  matchID: {
+    type: Number,
+    required: true,
+  },
 });
 
 const fixture = mongoose.model("fixture", fixtureSchema);

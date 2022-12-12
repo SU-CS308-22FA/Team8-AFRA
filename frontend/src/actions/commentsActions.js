@@ -85,6 +85,50 @@ export const listComments = (selection) => async (dispatch, getState) => {
   }
 };
 
+export const commentFiltered = (filters) => async (dispatch, getState) => {
+  console.log(filters);
+  try {
+    dispatch({
+      type: COMMENTS_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_URL}/api/comments/FilterComments`,
+      { filters },
+      config
+    );
+    dispatch({
+      type: COMMENTS_LIST_SUCCESS,
+      payload: data,
+    });
+    if(data.length===0){
+      dispatch({
+        type: COMMENTS_LIST_FAIL,
+        payload: "There is no such comment",
+      });
+
+    }
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: COMMENTS_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
 export const listFilteredComments =
   (selection) => async (dispatch, getState) => {
     try {

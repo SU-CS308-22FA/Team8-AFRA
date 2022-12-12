@@ -3,6 +3,7 @@ import User from "../models/userModel.js";
 import Blacklist from "../models/blacklist.js";
 import proRequest from "../models/requestModel.js";
 import generateToken from "../utils/generateToken.js";
+import Report from "../models/reportModel.js";
 
 //@description     Auth the user
 //@route           POST /api/users/login
@@ -184,8 +185,9 @@ const checkBanned = asyncHandler(async (req, res) => {
 
 const reportUser = asyncHandler(async (req, res) => {
   const { user, comment, reportedBy, cause } = req.body;
-
+  console.log("I AM HEREEEEEE")
   try {
+    console.log("I AM HEREEEEEE")
     const theuser = await User.findById(user);
     if (theuser.banned === true) res.status(200).send("User is already banned");
     else {

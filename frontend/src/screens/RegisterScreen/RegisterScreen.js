@@ -8,7 +8,7 @@ import { register } from "../../actions/userActions";
 import MainScreen from "../../components/MainScreen";
 import "./RegisterScreen.css";
 
-function RegisterScreen({ history }) {
+function RegisterScreen() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
@@ -56,7 +56,7 @@ function RegisterScreen({ history }) {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/profile");
+      navigate("/mycomments");
     }
   }, [userInfo]);
 

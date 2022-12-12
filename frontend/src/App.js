@@ -1,5 +1,11 @@
 import "./App.css";
-import { BrowserRouter as Router,Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+  Outlet,
+} from "react-router-dom";
 import React from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -13,7 +19,7 @@ import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
-import { useState,Suspense } from "react";
+import { useState, Suspense } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import AdminBan from "./screens/AdminPage/AdminBan";
@@ -25,7 +31,7 @@ import MyComments from "./screens/MyComments/MyComments";
 import SingleComment from "./screens/CreateComment/SingleComment";
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
 import SingleReferee from "./screens/SingleReferee/SingleReferee";
-
+import MatchDetailPage from "./screens/MatchDetailPage/MatchDetailPage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -33,35 +39,35 @@ function App() {
   return (
     <Router>
       <Header setSearch={(s) => setSearch(s)} />
-          <Routes>
-            
-              <Route path="/" element={<LandingPage/>}/>
-              <Route path="login" element={<LoginScreen />} />
-              <Route path="register" element={<RegisterScreen />}  />
-              <Route path="unauthorized" element={<Unauthorized />}  />
-              <Route path="onlyadmins" element={<OnlyAdmins />}  />
-              <Route path="fixture" element={<FixturePage/>} />
-              <Route path="standings" element={<StandingPage/>} />
-              <Route path="banned" element={<BanScreen/>} />
-              <Route path="/referees" element={<RefereesScreen/>} />
-              <Route path="/referee/:refereeName" element={<SingleReferee/>} />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="login" element={<LoginScreen />} />
+        <Route path="register" element={<RegisterScreen />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route path="onlyadmins" element={<OnlyAdmins />} />
+        <Route path="fixture" element={<FixturePage />} />
+        <Route path="standings" element={<StandingPage />} />
+        <Route path="banned" element={<BanScreen />} />
+        <Route path="/referees" element={<RefereesScreen />} />
+        <Route path="/referee/:refereeName" element={<SingleReferee />} />
+        <Route path="/matchdetaills/:matchID" element={MatchDetailPage} />
 
-              <Route element={<RequireAuth />}>
-                 <Route path="calendar" element={<CalendarPage/>} />
-                 <Route path="profile" element={<ProfileScreen/>} />
-                 <Route path="comment/:id" element={<SingleComment/>} />
-                  <Route path="createcomment" element={<CreateComment/>} />
-                  <Route path="mycomments" element= {<MyComments/>} />
-                  <Route path="verification" element={<VerificationPage/>} />
-              </Route>
+        <Route element={<RequireAuth />}>
+          <Route path="calendar" element={<CalendarPage />} />
+          <Route path="profile" element={<ProfileScreen />} />
+          <Route path="comment/:id" element={<SingleComment />} />
+          <Route path="createcomment" element={<CreateComment />} />
+          <Route path="mycomments" element={<MyComments />} />
+          <Route path="verification" element={<VerificationPage />} />
+        </Route>
 
-              <Route element={<RequireAdmin />}>
-                <Route path="adminpage" element={<AdminPage/>} />
-                <Route path="adminban" element={<AdminBan/>} />
-              </Route>
-              <Route path="*" element={<LandingPage />} />
-          </Routes>
-          <Footer />
+        <Route element={<RequireAdmin />}>
+          <Route path="adminpage" element={<AdminPage />} />
+          <Route path="adminban" element={<AdminBan />} />
+        </Route>
+        <Route path="*" element={<LandingPage />} />
+      </Routes>
+      <Footer />
     </Router>
   );
 }

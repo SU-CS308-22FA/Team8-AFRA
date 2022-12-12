@@ -3,6 +3,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
 import "./ProfileScreen.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { deleteProfile, updateProfile, logout } from "../../actions/userActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -18,6 +19,7 @@ const ProfileScreen = ({ location, history }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [picMessage, setPicMessage] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -27,14 +29,14 @@ const ProfileScreen = ({ location, history }) => {
 
   useEffect(() => {
     if (!userInfo) {
-      history.push("/");
+      navigate("/");
     } else {
       setName(userInfo.name);
       setEmail(userInfo.email);
       setUsername(userInfo.username);
       setPic(userInfo.pic);
     }
-  }, [history, userInfo]);
+  }, [userInfo]);
 
   const postDetails = (pics) => {
     setPicMessage(null);

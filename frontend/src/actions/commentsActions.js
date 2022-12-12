@@ -232,6 +232,14 @@ export const listWordComments = (searchWord) => async (dispatch, getState) => {
       type: COMMENTS_LIST_SUCCESS,
       payload: data,
     });
+
+    if(data.length===0){
+      dispatch({
+        type: COMMENTS_LIST_FAIL,
+        payload: "There is no comment including " + searchWord,
+      });
+
+    }
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -268,6 +276,13 @@ export const listUserComments = (searchUser) => async (dispatch, getState) => {
       type: COMMENTS_LIST_SUCCESS,
       payload: data,
     });
+    if(data.length===0){
+      dispatch({
+        type: COMMENTS_LIST_FAIL,
+        payload: "There is no comment sent by " + searchUser,
+      });
+
+    }
   } catch (error) {
     const message =
       error.response && error.response.data.message

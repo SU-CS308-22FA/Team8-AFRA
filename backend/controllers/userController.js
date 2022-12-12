@@ -1,25 +1,48 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import Blacklist from "../models/blacklist.js";
 import proRequest from "../models/requestModel.js";
 import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
 import UserOTPVerification from "../models/userOTPVerificationModel.js";
-
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-//const {v4: uuidv4}=require("uuid");
-dotenv.config();
-
-
-
+ //const {v4: uuidv4}=require("uuid");
+ dotenv.config();
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
+
+//nodemailer stuff
+const transporter= nodemailer.createTransport({
+  service:"gmail",
+  //host:"smtp-mail.outlook.com",
+  auth:{
+    user: process.env.MAIL,
+    pass: process.env.MAIL_PASS,
+  },
+});
+
+transporter.verify((error,success)=>{
+  if(error){
+    console.log(error);
+  }else{
+    console.log("Ready for messages");
+    console.log(success);
+  }
+});
+
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
 
+  const banned = await Blacklist.findOne({user: user});
+  if(banned)
+  {
+    res.status(404);
+    throw new Error("The user with this email has been banned for: " + banned.cause);
+  }
   if (user && (await user.matchPassword(password))) {
     res.json({
       _id: user._id,
@@ -31,6 +54,7 @@ const authUser = asyncHandler(async (req, res) => {
       role: user.role,
       verified: user.verified,
       licence: user.licence,
+      banned: user.banned,
       token: generateToken(user._id),
     });
   } else {
@@ -49,6 +73,12 @@ const registerUser = asyncHandler(async (req, res) => {
   const usernameExists = await User.findOne({ username });
 
   if (userExists) {
+    const banned = await Blacklist.findOne({user: userExists});
+    if(banned)
+    {
+      res.status(404);
+      throw new Error("The user with this email has been banned for: " + banned.cause);
+    }
     res.status(404);
     throw new Error("Email is already used");
   }
@@ -64,6 +94,7 @@ const registerUser = asyncHandler(async (req, res) => {
     password: password,
     pic: pic,
   });
+
   if (user) {
     res.status(201).json({
       _id: user._id,
@@ -75,9 +106,9 @@ const registerUser = asyncHandler(async (req, res) => {
       role: user.role,
       verified: user.verified,
       licence: user.licence,
+      banned: user.banned,
       token: generateToken(user._id),
     });
-
   } else {
     res.status(400);
     throw new Error("User not found");
@@ -88,10 +119,8 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   GET /api/users/profile
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
-  console.log("update user body");
-  console.log(req.body);
   const user = await User.findById(req.user._id);
-  console.log(user);
+
   if (user) {
     user.name = req.body.name || user.name;
     if(req.body.email) //if user changes email the verification drops.
@@ -101,8 +130,8 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     user.email = req.body.email || user.email;
     user.username = req.body.username || user.username;
     user.pic = req.body.pic || user.pic;
+    user.refresh_token = req.body.refresh_token || user.refresh_token
     user.verified= req.body.verified || user.verified;
- 
     if (req.body.licence)
     {
       user.verified = false;
@@ -141,6 +170,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       verified: user.verified,
       licence: user.licence,
       token: generateToken(user._id),
+      banned: user.banned
     });
   } else {
     res.status(404);
@@ -148,7 +178,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-const deleteUserProfile = asyncHandler(async (req, res) => { 
+const deleteUserProfile = asyncHandler(async (req, res) => {
   const user = await User.deleteOne({_id: req.user._id});
   const request = await proRequest.deleteOne({user: req.user._id})
 
@@ -162,31 +192,23 @@ const deleteUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-  //nodemailer stuff
-  const transporter= nodemailer.createTransport({
-    service:"gmail",
-    //host:"smtp-mail.outlook.com",
-    auth:{
-      user: process.env.AUTH_EMAIL,
-      pass: process.env.AUTH_PASS,
-    },
-  });
-  
-  transporter.verify((error,success)=>{
-    if(error){
-      console.log(error);
-    }else{
-      console.log("Ready for messages");
-      console.log(success);
-    }
-  });
+const checkBanned = asyncHandler(async (req, res) => {
+  const { user } = req.query;
 
-// @route   POST /api/users/sendotpmessage
+  const banned = await Blacklist.findOne({user: user});
+
+  if (banned) {
+    res.status(200).send("banned")
+  } else {
+    res.status(200).send("not banned");
+  }
+});
+
 const sendOTPVerificationEmail =asyncHandler (async (req,res) => { 
 
   const _id= req.body._id;
   const email=req.body.email;
-  
+
 
   try{
     const otp = `${Math.floor(1000+ Math.random()*9000)}`;
@@ -235,7 +257,7 @@ const sendOTPVerificationEmail =asyncHandler (async (req,res) => {
       message: error.message,
     });
   }
-  
+
 });
 
 // @route   POST /api/users/verifyotp
@@ -290,7 +312,7 @@ const VerifyOTP =asyncHandler (async (req,res) => {
             //const printUser = await UserOTPVerification.deleteMany({userId: userId});
             //console.log("UserOTPVerification")
             //console.log(printUser);
-            
+
             res.send(
               "VERIFIED"
             );
@@ -309,6 +331,6 @@ const VerifyOTP =asyncHandler (async (req,res) => {
       "error"
     );
   }
-  
+
 });
-export { authUser, updateUserProfile, registerUser, deleteUserProfile,sendOTPVerificationEmail,VerifyOTP};
+export { authUser, updateUserProfile, registerUser, deleteUserProfile,sendOTPVerificationEmail,VerifyOTP, checkBanned};

@@ -9,6 +9,12 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
+  USER_SENDOTP_FAIL,
+  USER_SENDOTP_SUCCESS,
+  USER_SENDOTP_REQUEST,
+  USER_VERIFYOTP_SUCCESS,
+  USER_VERIFYOTP_FAIL,
+  USER_VERIFYOTP_REQUEST
 } from "../constants/userConstants";
 
 export const userLoginReducer = (state = {}, action) => {
@@ -46,6 +52,33 @@ export const userUpdateReducer = (state = {}, action) => {
     case USER_UPDATE_SUCCESS:
       return { loading: false, userInfo: action.payload, success: true };
     case USER_UPDATE_FAIL:
+      return { loading: false, error: action.payload, success: false };
+    default:
+      return state;
+  }
+};
+
+
+export const userOTPReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_SENDOTP_REQUEST:
+      return { loading: true };
+    case USER_SENDOTP_SUCCESS:
+      return { loading: false, userInfo: action.payload, success: true };
+    case USER_SENDOTP_FAIL:
+      return { loading: false, error: action.payload, success: false };
+    default:
+      return state;
+  }
+};
+
+export const userOTPVrifyReducer = (state = {}, action) => {
+  switch (action.type) {
+    case USER_VERIFYOTP_REQUEST:
+      return { loading: true };
+    case USER_VERIFYOTP_SUCCESS:
+      return { loading: false, userInfo: action.payload, success: true };
+    case USER_VERIFYOTP_FAIL:
       return { loading: false, error: action.payload, success: false };
     default:
       return state;

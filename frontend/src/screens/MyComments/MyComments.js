@@ -16,7 +16,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   deleteCommentAction,
   listComments,
-  listFilteredComments,
   updateLikeAction,
   commentFiltered,
   listUserComments,

@@ -12,6 +12,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import ReactMarkdown from "react-markdown";
 
+
 function SingleComment() {
   const params = useParams();
   const com = params.id;

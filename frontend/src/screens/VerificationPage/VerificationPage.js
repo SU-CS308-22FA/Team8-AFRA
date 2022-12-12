@@ -186,4 +186,3 @@ const VerificationPage = ({ location, history }) => {
   };
   
   export default VerificationPage;
-  

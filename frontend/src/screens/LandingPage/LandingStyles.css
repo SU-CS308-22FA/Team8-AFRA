@@ -1,10 +1,15 @@
 .title {
+  font-family: "Times New Roman";
   font-size: 95px;
+  color: #FFFFFF;
+  font-weight: bolder;
 }
 .subtitle {
-  font-size: 25px;
-  font-weight: bold;
+  font-size: 35px;
   padding-top: 10px;
+  font-family: "Times New Roman";
+  color: #FFFFFF;
+  font-weight: bolder;
 }
 .intro-text {
   width: 100%;

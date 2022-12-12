@@ -8,7 +8,7 @@ import { login } from "../../actions/userActions";
 import MainScreen from "../../components/MainScreen";
 import "./LoginScreen.css";
 
-function LoginScreen({ history }) {
+function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,7 +19,7 @@ function LoginScreen({ history }) {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/profile")
+      navigate("/mycomments")
     }
   }, [userInfo]);
 

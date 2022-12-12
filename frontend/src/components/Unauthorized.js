@@ -1,17 +1,19 @@
-import { useNavigate } from "react-router-dom"
+import { Button} from "react-bootstrap";
+import { Link } from "react-router-dom"
 
 const Unauthorized = () => {
-    const navigate = useNavigate();
-    const goBack = () => navigate(-1);
 
     return (
         <section>
-            <h1>Unauthorized</h1>
+            <h1 class="center">YOU ARE UNAUTHORIZED TO ACCESS</h1>
+            <img class="center" src="https://media.tenor.com/bz4bg1gWPYMAAAAC/afham-saul-goodman.gif"></img>
             <br />
-            <p>You do not have access to the requested page.</p>
-            <div className="flexGrow">
-                <button onClick={goBack}>Go Back</button>
-            </div>
+            <h3 class= "center">Click to go to the home page.</h3>
+            <Link to="/">
+                <Button size="lg" className="center">
+                  Go Home
+                </Button>
+            </Link>
         </section>
     )
 }

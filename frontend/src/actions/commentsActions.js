@@ -32,37 +32,47 @@ export const listComments = (selection) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    if(selection===0){
-      const { data } = await axios.get(`${process.env.REACT_APP_URL}/api/comments`, config);
-      dispatch({
-        type: COMMENTS_LIST_SUCCESS,
-        payload: data,
-      });
-    }
-    
-    if(selection===1){
-      const { data } = await axios.get(`${process.env.REACT_APP_URL}/api/comments/SortedByLike`, config);
-      dispatch({
-        type: COMMENTS_LIST_SUCCESS,
-        payload: data,
-      });
-    }
-    if(selection===2){
-      const { data } = await axios.get(`${process.env.REACT_APP_URL}/api/comments/SortedByDate`, config);
-      dispatch({
-        type: COMMENTS_LIST_SUCCESS,
-        payload: data,
-      });
-    }
-    if(selection===3){
-      const { data } = await axios.get(`${process.env.REACT_APP_URL}/api/comments/SortedByLikeReverse`, config);
+    if (selection === 0) {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_URL}/api/comments`,
+        config
+      );
       dispatch({
         type: COMMENTS_LIST_SUCCESS,
         payload: data,
       });
     }
 
-
+    if (selection === 1) {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_URL}/api/comments/SortedByLike`,
+        config
+      );
+      dispatch({
+        type: COMMENTS_LIST_SUCCESS,
+        payload: data,
+      });
+    }
+    if (selection === 2) {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_URL}/api/comments/SortedByDate`,
+        config
+      );
+      dispatch({
+        type: COMMENTS_LIST_SUCCESS,
+        payload: data,
+      });
+    }
+    if (selection === 3) {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_URL}/api/comments/SortedByLikeReverse`,
+        config
+      );
+      dispatch({
+        type: COMMENTS_LIST_SUCCESS,
+        payload: data,
+      });
+    }
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -75,13 +85,11 @@ export const listComments = (selection) => async (dispatch, getState) => {
   }
 };
 
-export const createCommentAction = (title, content) => async (
-  dispatch,
-  getState
-) => {
+export const commentFiltered = (filters) => async (dispatch, getState) => {
+  console.log(filters);
   try {
     dispatch({
-      type: COMMENTS_CREATE_REQUEST,
+      type: COMMENTS_LIST_REQUEST,
     });
 
     const {
@@ -90,31 +98,162 @@ export const createCommentAction = (title, content) => async (
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    const username = userInfo.username;
     const { data } = await axios.post(
-      `${process.env.REACT_APP_URL}/api/comments/create`,
-      {title, content,username},
+      `${process.env.REACT_APP_URL}/api/comments/FilterComments`,
+      { filters },
       config
     );
     dispatch({
-      type: COMMENTS_CREATE_SUCCESS,
+      type: COMMENTS_LIST_SUCCESS,
       payload: data,
     });
+    if(data.length===0){
+      dispatch({
+        type: COMMENTS_LIST_FAIL,
+        payload: "There is no such comment",
+      });
+
+    }
   } catch (error) {
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
     dispatch({
-      type: COMMENTS_CREATE_FAIL,
+      type: COMMENTS_LIST_FAIL,
       payload: message,
     });
   }
 };
+
+export const listWordComments = (searchWord) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: COMMENTS_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/comments/ListByWord/${searchWord}`,
+      config
+    );
+    dispatch({
+      type: COMMENTS_LIST_SUCCESS,
+      payload: data,
+    });
+
+    if(data.length===0){
+      dispatch({
+        type: COMMENTS_LIST_FAIL,
+        payload: "There is no comment including " + searchWord,
+      });
+
+    }
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: COMMENTS_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const listUserComments = (searchUser) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: COMMENTS_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/comments/ListByUser/${searchUser}`,
+      config
+    );
+    dispatch({
+      type: COMMENTS_LIST_SUCCESS,
+      payload: data,
+    });
+    if(data.length===0){
+      dispatch({
+        type: COMMENTS_LIST_FAIL,
+        payload: "There is no comment sent by " + searchUser,
+      });
+
+    }
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: COMMENTS_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const createCommentAction =
+  (title, content) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: COMMENTS_CREATE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const username = userInfo.username;
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/create`,
+        { title, content, username },
+        config
+      );
+      dispatch({
+        type: COMMENTS_CREATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: COMMENTS_CREATE_FAIL,
+        payload: message,
+      });
+    }
+  };
 
 export const deleteCommentAction = (id) => async (dispatch, getState) => {
   try {
@@ -132,7 +271,10 @@ export const deleteCommentAction = (id) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.delete(`${process.env.REACT_APP_URL}/api/comments/${id}`, config);
+    const { data } = await axios.delete(
+      `${process.env.REACT_APP_URL}/api/comments/${id}`,
+      config
+    );
 
     dispatch({
       type: COMMENTS_DELETE_SUCCESS,
@@ -150,79 +292,81 @@ export const deleteCommentAction = (id) => async (dispatch, getState) => {
   }
 };
 
-export const updateCommentAction = (id, title, content) => async (
-  dispatch,
-  getState
-) => {
-  try {
-    dispatch({
-      type: COMMENTS_UPDATE_REQUEST,
-    });
+export const updateCommentAction =
+  (id, title, content) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: COMMENTS_UPDATE_REQUEST,
+      });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
 
-    const { data } = await axios.put(
-      `${process.env.REACT_APP_URL}/api/comments/${id}`,
-      {  title, content},
-      config
-    );
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_URL}/api/comments/${id}`,
+        { title, content },
+        config
+      );
 
-    dispatch({
-      type: COMMENTS_UPDATE_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({
-      type: COMMENTS_UPDATE_FAIL,
-      payload: message,
-    });
-  }
-};
+      dispatch({
+        type: COMMENTS_UPDATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: COMMENTS_UPDATE_FAIL,
+        payload: message,
+      });
+    }
+  };
 
+export const updateLikeAction =
+  (id, title, content, likes) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: COMMENTS_LIKE_REQUEST,
+      });
 
-export const updateLikeAction = (id,title, content,likes) => async (dispatch, getState) => {
-  try {
-    dispatch({
-      type: COMMENTS_LIKE_REQUEST,
-    });
+      const {
+        userLogin: { userInfo },
+      } = getState();
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const username = userInfo.username;
+      const { data } = await axios.put(
+        `${process.env.REACT_APP_URL}/api/comments/likes/${id}`,
+        { title, content, likes, username },
+        config
+      );
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    };
-    const username=userInfo.username;
-    const { data } = await axios.put(`${process.env.REACT_APP_URL}/api/comments/likes/${id}`, {title, content,likes,username},config);
-    
-    dispatch({
-      type: COMMENTS_LIKE_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    dispatch({
-      type: COMMENTS_LIKE_FAIL,
-      payload: message,
-    });
-  }
-};
+      dispatch({
+        type: COMMENTS_LIKE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: COMMENTS_LIKE_FAIL,
+        payload: message,
+      });
+    }
+  };

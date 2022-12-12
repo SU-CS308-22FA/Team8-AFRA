@@ -143,7 +143,6 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       role: user.role,
       verified: user.verified,
       licence: user.licence,
-      refresh_token: user.refresh_token,
       token: generateToken(user._id),
       banned: user.banned
     });

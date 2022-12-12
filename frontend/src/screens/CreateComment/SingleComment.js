@@ -12,7 +12,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import ReactMarkdown from "react-markdown";
 
-function SingleComment() {
+function SingleComment({ match }) {
   const params = useParams();
   const com = params.id;
   const [title, setTitle] = useState();
@@ -54,7 +54,7 @@ function SingleComment() {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateCommentAction(com, title, content));
+    dispatch(updateCommentAction(match.params.id, title, content));
     if (!title || !content) return;
 
     resetHandler();
@@ -110,7 +110,7 @@ function SingleComment() {
             <Button
               className="mx-2"
               variant="danger"
-              onClick={() => deleteHandler(com)}
+              onClick={() => deleteHandler(match.params.id)}
             >
               Delete Comment
             </Button>

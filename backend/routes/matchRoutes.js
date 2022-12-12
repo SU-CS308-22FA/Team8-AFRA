@@ -2,7 +2,7 @@ import express from "express";
 import {
   uploadDatabase,
   getMatchesBySeasonAndWeek,
-  getStandingsBySeason
+  getStandingsBySeason,
 } from "../controllers/matchControllers.js";
 
 const router = express.Router();

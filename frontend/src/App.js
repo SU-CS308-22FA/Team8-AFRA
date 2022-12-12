@@ -50,7 +50,7 @@ function App() {
         <Route path="banned" element={<BanScreen />} />
         <Route path="/referees" element={<RefereesScreen />} />
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
-        <Route path="/matchdetaills/:matchID" element={MatchDetailPage} />
+        <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />

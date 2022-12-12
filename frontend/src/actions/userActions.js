@@ -9,6 +9,12 @@ import {
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
+  USER_SENDOTP_FAIL,
+  USER_SENDOTP_SUCCESS,
+  USER_SENDOTP_REQUEST,
+  USER_VERIFYOTP_SUCCESS,
+  USER_VERIFYOTP_FAIL,
+  USER_VERIFYOTP_REQUEST
 } from "../constants/userConstants";
 import axios from "axios";
 
@@ -140,3 +146,65 @@ export const deleteProfile = (user) => async (dispatch, getState) => {
     });
   }
 };
+
+export const sendOTPmail = (user) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_SENDOTP_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    await axios.post(`${process.env.REACT_APP_URL}/api/users/sendotpmessage`, user, config);
+    dispatch({ type: USER_SENDOTP_SUCCESS });
+
+  } catch (error) {
+    dispatch({
+      type: USER_SENDOTP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const verifyOTPmail = (otp) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: USER_VERIFYOTP_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    console.log("before axios inside of verification");
+    const userId=userInfo._id;
+     await axios.post(`${process.env.REACT_APP_URL}/api/users/verifyotp`, {userId,otp}, config);
+    dispatch({ type:  USER_VERIFYOTP_SUCCESS});
+
+
+
+  } catch (error) {
+    dispatch({
+      type: USER_VERIFYOTP_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+  

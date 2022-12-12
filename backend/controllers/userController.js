@@ -216,7 +216,7 @@ const sendOTPVerificationEmail =asyncHandler (async (req,res) => {
     //const currentUrl="process.env.REACT_APP_URL";
     //mail options
     const MailOptions={
-      from: process.env.AUTH_EMAIL,
+      from: process.env.MAIL,
       to: email,
       subject:"Verfiy your email",
       html:`<p> Enter <b> ${otp}</b> in the app to verify your email address </p><p> This code expires in 1 hour </p>

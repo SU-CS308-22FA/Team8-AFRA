@@ -4,14 +4,14 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import "./LandingStyles.css";
 
-function LandingPage({ history }) {
+function LandingPage() {
   const userLogin = useSelector((state) => state.userLogin);
   const navigate = useNavigate();
   const { userInfo } = userLogin;
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/profile");
+      navigate("/mycomments");
     }
   }, [userInfo]);
 

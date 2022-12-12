@@ -6,6 +6,7 @@ import ErrorMessage from "../../components/ErrorMessage";
 import MainScreen from "../../components/MainScreen";
 import {updateProfile,sendOTPmail,verifyOTPmail} from "../../actions/userActions";
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const VerificationPage = ({ location, history }) => {
    const pass="";
@@ -14,6 +15,7 @@ const VerificationPage = ({ location, history }) => {
     const dispatch = useDispatch();
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
+    const navigate = useNavigate();
   
     const userUpdate = useSelector((state) => state.userUpdate);
     const { loading, error, success } = userUpdate;
@@ -26,10 +28,10 @@ const VerificationPage = ({ location, history }) => {
     
     useEffect(() => {
       if (!userInfo) {
-        history.push("/");
+        navigate("/")
       } else {
       }
-    }, [history, userInfo]);
+    }, [userInfo]);
     
   
     const submitHandler = (e) => {

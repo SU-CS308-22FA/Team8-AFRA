@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "client-install": "npm install --prefix frontend",
-    "start": "npm run swagger-autogen && node backend/server.js",
+    "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

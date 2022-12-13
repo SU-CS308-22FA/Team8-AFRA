@@ -6,34 +6,35 @@ import User from "../models/userModel.js";
 // @route   GET /api/comments
 // @access  Private
 const getComments = asyncHandler(async (req, res) => {
-  const { matchID } = req.query
+  console.log(req);
+  const { matchID } = req.body
   const comments = await Comment.find({matchID: matchID}); //{ user: req.user._id }
   res.json(comments);
 });
 
 // @route   GET /api/comments/SortedByLike
 const getCommentsByLike = asyncHandler(async (req, res) => {
-  const { matchID } = req.query
+  const { matchID } = req.body
   const comments = await Comment.find({matchID: matchID}).sort({ likes: 1 }); //{ user: req.user._id }
   res.json(comments);
 });
 
 // @route   GET /api/comments/SortedByLikeReverse
 const getCommentsByLikeReverse = asyncHandler(async (req, res) => {
-  const { matchID } = req.query
+  const { matchID } = req.body
   const comments = await Comment.find({matchID: matchID}).sort({ likes: -1 }); //{ user: req.user._id }
   res.json(comments);
 });
 
 // @route   GET /api/comments/SortedByDate
 const getCommentsByDate = asyncHandler(async (req, res) => {
-  const { matchID } = req.query
+  const { matchID } = req.body
   const comments = await Comment.find({matchID: matchID}).sort({ createdAt: -1 }); //{ user: req.user._id }
   res.json(comments);
 });
 
 const getCommentsBySearchWord = asyncHandler(async (req, res) => {
-  const { matchID } = req.query
+  const { matchID } = req.body
   const searchWord = req.params.word;
   console.log(searchWord);
 
@@ -47,7 +48,7 @@ const getCommentsBySearchWord = asyncHandler(async (req, res) => {
 });
 
 const getCommentsBySearchUser = asyncHandler(async (req, res) => {
-  const { matchID } = req.query
+  const { matchID } = req.body
   const searchUser = req.params.username;
   console.log(searchUser);
   let the = [];
@@ -139,7 +140,7 @@ const getFilteredComments = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/:id
 //@access          Public
 const getCommentById = asyncHandler(async (req, res) => {
-  const { matchID } = req.query
+  const { matchID } = req.body
   const comment = await Comment.find({matchID: matchID ,user: req.params.id });
 
   if (comment) {
@@ -156,7 +157,6 @@ const getCommentById = asyncHandler(async (req, res) => {
 //@access          Private
 const CreateComment = asyncHandler(async (req, res) => {
   const { title, content, username, matchID } = req.body;
-  console.log(matchID)
   if (!title || !content) {
     res.status(400);
     throw new Error("Please Fill all the feilds");

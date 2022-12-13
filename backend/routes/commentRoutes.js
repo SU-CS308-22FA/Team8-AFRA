@@ -16,16 +16,16 @@ import {
 const router = express.Router();
 import { protect } from "../middleware/authMiddleware.js";
 
-router.route("/").get(getComments); // protect,
-router.route("/SortedByLike").get(getCommentsByLike);
-router.route("/SortedByLikeReverse").get(getCommentsByLikeReverse);
-router.route("/SortedByDate").get(getCommentsByDate);
-router.route("/ListByWord/:word").get(getCommentsBySearchWord);
-router.route("/ListByUser/:username").get(getCommentsBySearchUser);
+router.route("/").post(getComments); // protect,
+router.route("/SortedByLike").post(getCommentsByLike);
+router.route("/SortedByLikeReverse").post(getCommentsByLikeReverse);
+router.route("/SortedByDate").post(getCommentsByDate);
+router.route("/ListByWord/:word").post(getCommentsBySearchWord);
+router.route("/ListByUser/:username").post(getCommentsBySearchUser);
 router.route("/FilterComments").post(getFilteredComments);
 router
   .route("/:id")
-  .get(getCommentById)
+  .post(getCommentById)
   .delete(protect, DeleteComment)
   .put(protect, UpdateComment);
 router.route("/create").post(protect, CreateComment);

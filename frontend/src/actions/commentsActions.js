@@ -33,7 +33,7 @@ export const listComments = (selection,matchID) => async (dispatch, getState) =>
       },
     };
     if (selection === 0) {
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/`, {matchID},
         config
       );
@@ -44,7 +44,7 @@ export const listComments = (selection,matchID) => async (dispatch, getState) =>
     }
 
     if (selection === 1) {
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/SortedByLike`, {matchID},
         config
       );
@@ -54,7 +54,7 @@ export const listComments = (selection,matchID) => async (dispatch, getState) =>
       });
     }
     if (selection === 2) {
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/SortedByDate`, {matchID},
         config
       );
@@ -64,7 +64,7 @@ export const listComments = (selection,matchID) => async (dispatch, getState) =>
       });
     }
     if (selection === 3) {
-      const { data } = await axios.get(
+      const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/SortedByLikeReverse`, {matchID},
         config
       );
@@ -145,7 +145,7 @@ export const listWordComments = (searchWord,matchID) => async (dispatch, getStat
       },
     };
 
-    const { data } = await axios.get(
+    const { data } = await axios.post(
       `${process.env.REACT_APP_URL}/api/comments/ListByWord/${searchWord}`, {matchID},
       config
     );
@@ -189,7 +189,7 @@ export const listUserComments = (searchUser,matchID) => async (dispatch, getStat
       },
     };
 
-    const { data } = await axios.get(
+    const { data } = await axios.post(
       `${process.env.REACT_APP_URL}/api/comments/ListByUser/${searchUser}`, {matchID}, 
       config
     );

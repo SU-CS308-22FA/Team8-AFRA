@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table, Col, Row } from "react-bootstrap";
 import axios from "axios";
+import Loading from "../../components/Loading";
 
 const StatisticsPage = ({ matchID }) => {
   const [staticsData, setStaticsData] = useState();
@@ -21,7 +22,7 @@ const StatisticsPage = ({ matchID }) => {
       });
   }, []);
   return !flag ? (
-    <>Waiting</>
+    <Loading/>
   ) : (
     <div>
       <Row>

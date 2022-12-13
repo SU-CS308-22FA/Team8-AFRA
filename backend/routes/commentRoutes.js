@@ -28,7 +28,7 @@ router
   .post(getCommentById)
   .delete(protect, DeleteComment)
   .put(protect, UpdateComment);
-router.route("/create").post(protect, CreateComment);
+router.route("/create/:matchId").post(protect, CreateComment);
 router.route("/likes/:id").put(protect, LikeState);
 
 export default router;

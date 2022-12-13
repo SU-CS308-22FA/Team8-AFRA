@@ -423,9 +423,22 @@
       }
     },
     "/api/comments/SortedByLike": {
-      "get": {
+      "post": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "matchID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -434,9 +447,22 @@
       }
     },
     "/api/comments/SortedByLikeReverse": {
-      "get": {
+      "post": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "matchID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -445,9 +471,22 @@
       }
     },
     "/api/comments/SortedByDate": {
-      "get": {
+      "post": {
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "matchID": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -456,7 +495,7 @@
       }
     },
     "/api/comments/ListByWord/{word}": {
-      "get": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -464,6 +503,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "matchID": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -474,7 +525,7 @@
       }
     },
     "/api/comments/ListByUser/{username}": {
-      "get": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -482,6 +533,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "matchID": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -506,6 +569,9 @@
               "properties": {
                 "filters": {
                   "example": "any"
+                },
+                "matchID": {
+                  "example": "any"
                 }
               }
             }
@@ -522,7 +588,7 @@
       }
     },
     "/api/comments/{id}": {
-      "get": {
+      "post": {
         "description": "",
         "parameters": [
           {
@@ -530,6 +596,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "matchID": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -611,10 +689,16 @@
         }
       }
     },
-    "/api/comments/create": {
+    "/api/comments/create/{matchId}": {
       "post": {
         "description": "",
         "parameters": [
+          {
+            "name": "matchId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "authorization",
             "in": "header",

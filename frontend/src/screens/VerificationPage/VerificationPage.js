@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import MainScreen from "../../components/MainScreen";
-import {updateProfile} from "../../actions/userActions";
+import {updateProfile,sendOTPmail,verifyOTPmail} from "../../actions/userActions";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
-const VerificationPage = ({ location}) => {
+const VerificationPage = ({ location, history }) => {
+   const pass="";
     const [selectedFile, setSelectedFile] = useState();
+    const [passOfOTP, SetPassOfOTP] = useState(pass);
     const dispatch = useDispatch();
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
@@ -17,7 +19,7 @@ const VerificationPage = ({ location}) => {
   
     const userUpdate = useSelector((state) => state.userUpdate);
     const { loading, error, success } = userUpdate;
-    let verified = "";
+    let verified="";
 
     if(userInfo.verified)
         verified = "Verified"
@@ -73,8 +75,40 @@ const VerificationPage = ({ location}) => {
       
     };
   
+    const sendOTPmessage = async ()=>{
+      dispatch(sendOTPmail(userInfo));
+    }
 
-  
+    const verifyOTPmessage =  (e)=>{
+      e.preventDefault();
+      //await dispatch(verifyOTPmail(otp));
+      
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const userId=userInfo._id;
+      axios.post(`${process.env.REACT_APP_URL}/api/users/verifyotp`, {userId: userId,otp :passOfOTP}).then(response=>{
+        console.log(response.data);
+        if(response.data==="VERIFIED"){
+          console.log("verification done")
+          let verified=true;
+          let _id= userInfo._id;
+          dispatch(updateProfile({_id,verified}))
+        }
+        
+      }).catch((err)=>{
+        console.log(err);
+      })
+    
+      //window.location.reload();
+    }
+
+
+
+    
     return (
       <MainScreen title="VERIFY YOUR ACCOUNT">
         <div>
@@ -91,14 +125,33 @@ const VerificationPage = ({ location}) => {
                 <img src={userInfo.pic} alt={userInfo.name} className="profilePic" />
                 {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
                 <br></br>
-                <h5 style={{textAlign: 'left'}}> This is your current email address:   <b>{userInfo.email}</b> </h5>
+                <h5 style={{textAlign: 'left', color:'#000000'}}> This is your current email address:   <b>{userInfo.email}</b> </h5>
                 <br></br>
-                <h5 style={{textAlign: 'left'}}> Status:   <b>{userInfo.role}</b> </h5>
+                <h5 style={{textAlign: 'left', color:'#000000'}}> Status:   <b>{userInfo.role}</b> </h5>
                 <br></br>
-                <h5 style={{textAlign: 'left'}}> Your account is:   <b>{verified}</b> </h5>
-                <Button type="submit" varient="primary">
+            
+                <h5 style={{textAlign: 'left', color:'#000000'}}> Your account is:   <b>{userInfo.verified===true? "verified": "Not verified yet!"}</b> </h5>
+                {userInfo.verified===false ? (
+                  <Form onSubmit={emailHandler}>
+                  <Button type="submit" varient="primary" onClick={()=> sendOTPmessage()}>
                   Send a verification email
                 </Button>
+                <Form.Group controlId="passOfUser">
+                <Form.Label>Enter One Time Password </Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Enter One Time Password"
+                  value={passOfOTP}
+                  onChange={(e) => SetPassOfOTP(e.target.value)}
+                ></Form.Control>
+                </Form.Group>
+                
+                <Button type="submit" varient="primary" onClick={verifyOTPmessage}>
+                Check OTP
+              </Button>
+              </Form>
+                ) : <></>}
+                
               </Form>
             </Col>
 
@@ -133,4 +186,3 @@ const VerificationPage = ({ location}) => {
   };
   
   export default VerificationPage;
-  

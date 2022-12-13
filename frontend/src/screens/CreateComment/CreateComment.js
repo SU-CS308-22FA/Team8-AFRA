@@ -7,12 +7,15 @@ import { createCommentAction } from "../../actions/commentsActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import ReactMarkdown from "react-markdown";
+import { useParams } from "react-router-dom";
 
 function CreateComment() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [likes, setLikes] = useState(0);
   const navigate = useNavigate();
+  const params = useParams();
+  const matchID = params.matchID;
  
   
   const dispatch = useDispatch();
@@ -32,11 +35,12 @@ function CreateComment() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createCommentAction(title, content));
+    console.log(title, content, matchID)
+    dispatch(createCommentAction(title, content, matchID));
     if ( !title || !content) return;
 
     resetHandler();
-    navigate("/mycomments");
+    navigate(`/matchdetails/${matchID}`);
   };
 
   useEffect(() => {}, []);

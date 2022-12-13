@@ -148,8 +148,8 @@ const getCommentById = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/create
 //@access          Private
 const CreateComment = asyncHandler(async (req, res) => {
-  const { title, content, username } = req.body;
-
+  const { title, content, username, matchID } = req.body;
+  console.log(matchID)
   if (!title || !content) {
     res.status(400);
     throw new Error("Please Fill all the feilds");
@@ -161,6 +161,7 @@ const CreateComment = asyncHandler(async (req, res) => {
       title,
       content,
       username,
+      matchID,
     });
 
     const createdComment = await comment.save();

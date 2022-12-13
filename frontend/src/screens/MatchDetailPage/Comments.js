@@ -65,6 +65,8 @@ const Comments = ({ matchID }) => {
     dispatch(listComments(3,matchID));
   };
   const sortByDefault = async () => {
+    console.log("Comments Page:")
+    console.log(matchID)
     dispatch(listComments(0,matchID));
   };
 
@@ -112,7 +114,7 @@ const Comments = ({ matchID }) => {
   };
 
   useEffect(() => {
-    dispatch(listComments(0));
+    dispatch(listComments(0,matchID));
   }, [dispatch, userInfo, successDelete, successCreate, successUpdate]);
 
   const [filter, setFilter] = useState([]);

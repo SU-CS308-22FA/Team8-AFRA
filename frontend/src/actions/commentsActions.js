@@ -34,7 +34,7 @@ export const listComments = (selection,matchID) => async (dispatch, getState) =>
     };
     if (selection === 0) {
       const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/api/comments`, {matchID},
+        `${process.env.REACT_APP_URL}/api/comments/`, {matchID},
         config
       );
       dispatch({

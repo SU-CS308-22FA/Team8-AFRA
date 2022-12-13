@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import axios from "axios";
+import Loading from "../../components/Loading";
 
 const EventsPage = ({ matchID }) => {
   const [eventData, setEventData] = useState();
@@ -22,7 +23,7 @@ const EventsPage = ({ matchID }) => {
       });
   }, []);
   return !flag ? (
-    <>Waiting</>
+    <Loading/>
   ) : (
     <div>
       <Table responsive>

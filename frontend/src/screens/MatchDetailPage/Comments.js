@@ -78,7 +78,7 @@ const Comments = ({ matchID }) => {
 
   const likeHandler = async (id, title, content, likes) => {
     await dispatch(updateLikeAction(id, title, content, likes));
-    dispatch(listComments(0));
+    dispatch(listComments(0,matchID));
   };
 
   const [isFlagged, setFlagged] = useState(false);
@@ -410,7 +410,7 @@ const Comments = ({ matchID }) => {
                       </span>
                       {comment.user === userInfo._id ? (
                         <div>
-                          <Button href={`/comment/${comment._id}`}>Edit</Button>
+                          <Button href={`/comment/${comment._id}/${matchID}`}>Edit</Button>
                           <Button
                             variant={
                               comment.user === userInfo._id

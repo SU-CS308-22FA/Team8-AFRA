@@ -5,7 +5,7 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "https://coolafra.herokuapp.com",
+  "host": "coolafra.herokuapp.com",
   "basePath": "/",
   "schemes": [
     "https"

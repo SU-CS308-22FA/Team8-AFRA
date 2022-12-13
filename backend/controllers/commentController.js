@@ -14,8 +14,8 @@ const getComments = asyncHandler(async (req, res) => {
 // @route   GET /api/comments/getreplies
 // @access  Private
 const getReplies = asyncHandler(async (req,res)=>{
-  console.log("inside of replies");
-  console.log(req.body);
+  //console.log("inside of replies");
+  //console.log(req.body);
   //const comments = await Comment.find({_id : req.body.parentId}); //{ user: req.user._id }
   const comments = await Comment.find({depth: req.body.depth}); 
   //console.log(comments[0].usersThatReplyTheComment);
@@ -161,8 +161,9 @@ const getCommentById = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/create
 //@access          Private
 const CreateComment = asyncHandler(async (req, res) => {
-  const { title, content, username,userId } = req.body;
+  const { title, content, username,userId,userrole } = req.body;
   //console.log(req.body);
+  console.log("req user create içinde");
   console.log(req.user);
   if (!title || !content) {
     res.status(400);
@@ -171,7 +172,7 @@ const CreateComment = asyncHandler(async (req, res) => {
   } else {
     const comment = new Comment({
       user: req.body.userId,
-      userrole: "user",
+      userrole: req.body.userrole,
       title,
       content,
       username,
@@ -187,7 +188,7 @@ const CreateComment = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/reply
 //@access          Private
 const createReplyToComment= asyncHandler (async(req,res)=>{
-  const { title, content, username,parentId,userId,depth } = req.body;
+  const { title, content, username,parentId,userId,depth,userrole } = req.body;
   console.log("Reply comment inside");
   console.log(req.user);
   if (!title || !content) {
@@ -196,13 +197,13 @@ const createReplyToComment= asyncHandler (async(req,res)=>{
     return;
   } else {
     const comment = new Comment({
-      user: req.body.userId,
-      userrole: "user",
-      parentId: req.body.parentId,
+      user: userId,
+      userrole: userrole,
+      parentId: parentId,
       title,
       content,
       username,
-      depth: req.body.depth,
+      depth: depth,
     });
     console.log(comment);
     const createdComment = await comment.save();

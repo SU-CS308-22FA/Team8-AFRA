@@ -45,6 +45,7 @@ function MyComments() {
   const commentListReply = useSelector((state) => state.commentListReply);
   const { loading:loadingreply, errorreply, replycomments } = commentListReply;
 
+  const [isOpen, setIsOpen] = useState(false);
  
 
   
@@ -117,12 +118,24 @@ function MyComments() {
 
   };
 
-  const calledFunction = () => alert("I am called");
+  const accordionFunction = (e, cid, depth)=>{
+    e.preventDefault();
+    setIsOpen(!isOpen);
+    if(isOpen){
+      listRepliesCallFunction(cid,depth,isOpen)
+    }
+    else{
+      console.log("close option");
+      replycomments.clear();
+    }
+   
+  };
   const listRepliesCallFunction = async (parentId,depth)=>{
     //console.log("listRepliesCallFunction called");
     //console.log(parentId);
     depth=depth+1;
     dispatch(listReplies(parentId,depth));
+    setIsOpen(!isOpen);
 
     /*
      data = await axios.post(
@@ -489,12 +502,12 @@ function MyComments() {
                           )}{" "}
                           {comment.likes}
                         </Button>   
-                        <Button
+                        <Button  
                             variant="info"
                             style={{ marginLeft: 5, marginBottom: 6,  }} 
-                            onClick={() => listRepliesCallFunction(comment._id,comment.depth)}
-                            size="sm">
-                            Show Replies
+                            onClick={(e) => listRepliesCallFunction(comment._id,comment.depth)}
+                            >
+                            { !isOpen ? "Show Replies" : "Hide Replies"}
                         </Button>
                         <Button variant="info" style={{ marginLeft: 5, marginBottom: 6,  }} onClick={() =>
                         replyHandler(
@@ -524,7 +537,7 @@ function MyComments() {
                             </cite>
                           </footer>
                         </blockquote>
-                        {replycomments && replycomments.reverse().map((singleReply)=>(
+                        {(replycomments && isOpen) && replycomments.reverse().map((singleReply)=>(
                                 <Accordion> 
                                    {singleReply.parentId === comment._id ? 
                                    <Card style={{ margin: 10}} key={comment._id}>

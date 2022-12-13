@@ -108,10 +108,12 @@ export const listReplies = (parentId,depth) => async (dispatch, getState) => {
     };
     //console.log("parentId");
     //console.log(parentId);
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId,depth},
-      config
-    );
+        const {data} = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId,depth},
+        config
+      );
+
+
     console.log("data is");
     console.log(data);
 
@@ -283,10 +285,11 @@ export const createCommentAction =
         },
       };
       const username = userInfo.username;
-      const userId= userInfo._id
+      const userId= userInfo._id;
+      const userrole = userInfo.userrole;
       const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/create`,
-        { title, content, username,userId },
+      { title, content, username,userId,userrole },
         config
       );
       dispatch({
@@ -324,9 +327,10 @@ export const createCommentAction =
       };
       const username = userInfo.username;
       const userId= userInfo._id;
+      const userrole = userInfo.userrole;
       const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/reply`,
-        { title, content, username,parentId,userId,depth },
+        { title, content, username,parentId,userId,depth,userrole },
         config
       );
       dispatch({

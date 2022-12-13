@@ -6,7 +6,6 @@ import User from "../models/userModel.js";
 // @route   GET /api/comments
 // @access  Private
 const getComments = asyncHandler(async (req, res) => {
-  console.log(req);
   const { matchID } = req.body
   const comments = await Comment.find({matchID: matchID}); //{ user: req.user._id }
   res.json(comments);

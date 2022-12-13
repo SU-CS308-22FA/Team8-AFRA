@@ -55,8 +55,8 @@ function App() {
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="profile" element={<ProfileScreen />} />
-          <Route path="comment/:id" element={<SingleComment />} />
-          <Route path="createcomment" element={<CreateComment />} />
+          <Route path="comment/:id/:matchID" element={<SingleComment />} />
+          <Route path="createcomment/:matchID" element={<CreateComment />} />
           <Route path="mycomments" element={<MyComments />} />
           <Route path="verification" element={<VerificationPage />} />
         </Route>

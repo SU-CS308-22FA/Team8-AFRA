@@ -16,6 +16,7 @@ import ReactMarkdown from "react-markdown";
 function SingleComment() {
   const params = useParams();
   const com = params.id;
+  const matchID = params.matchID;
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [date, setDate] = useState("");
@@ -32,7 +33,7 @@ function SingleComment() {
     if (window.confirm("Are you sure?")) {
       dispatch(deleteCommentAction(id));
     }
-    navigate("/mycomments");
+    navigate(`/matchdetails/${matchID}`);
   };
 
   useEffect(() => {
@@ -59,7 +60,7 @@ function SingleComment() {
     if (!title || !content) return;
 
     resetHandler();
-    navigate("/mycomments");
+    navigate(`/matchdetails/${matchID}`);
   };
 
   return (

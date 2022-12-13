@@ -17,7 +17,7 @@ import {
 } from "../constants/commentsConstants";
 import axios from "axios";
 
-export const listComments = (selection) => async (dispatch, getState) => {
+export const listComments = (selection,matchID) => async (dispatch, getState) => {
   try {
     dispatch({
       type: COMMENTS_LIST_REQUEST,
@@ -33,8 +33,8 @@ export const listComments = (selection) => async (dispatch, getState) => {
       },
     };
     if (selection === 0) {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/api/comments`,
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/`, {matchID},
         config
       );
       dispatch({
@@ -44,8 +44,8 @@ export const listComments = (selection) => async (dispatch, getState) => {
     }
 
     if (selection === 1) {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/api/comments/SortedByLike`,
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/SortedByLike`, {matchID},
         config
       );
       dispatch({
@@ -54,8 +54,8 @@ export const listComments = (selection) => async (dispatch, getState) => {
       });
     }
     if (selection === 2) {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/api/comments/SortedByDate`,
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/SortedByDate`, {matchID},
         config
       );
       dispatch({
@@ -64,8 +64,8 @@ export const listComments = (selection) => async (dispatch, getState) => {
       });
     }
     if (selection === 3) {
-      const { data } = await axios.get(
-        `${process.env.REACT_APP_URL}/api/comments/SortedByLikeReverse`,
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/SortedByLikeReverse`, {matchID},
         config
       );
       dispatch({
@@ -85,7 +85,7 @@ export const listComments = (selection) => async (dispatch, getState) => {
   }
 };
 
-export const commentFiltered = (filters) => async (dispatch, getState) => {
+export const commentFiltered = (filters,matchID) => async (dispatch, getState) => {
   console.log(filters);
   try {
     dispatch({
@@ -103,7 +103,7 @@ export const commentFiltered = (filters) => async (dispatch, getState) => {
     };
     const { data } = await axios.post(
       `${process.env.REACT_APP_URL}/api/comments/FilterComments`,
-      { filters },
+      { filters, matchID },
       config
     );
     dispatch({
@@ -129,7 +129,7 @@ export const commentFiltered = (filters) => async (dispatch, getState) => {
   }
 };
 
-export const listWordComments = (searchWord) => async (dispatch, getState) => {
+export const listWordComments = (searchWord,matchID) => async (dispatch, getState) => {
   try {
     dispatch({
       type: COMMENTS_LIST_REQUEST,
@@ -145,8 +145,8 @@ export const listWordComments = (searchWord) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_URL}/api/comments/ListByWord/${searchWord}`,
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_URL}/api/comments/ListByWord/${searchWord}`, {matchID},
       config
     );
     dispatch({
@@ -173,7 +173,7 @@ export const listWordComments = (searchWord) => async (dispatch, getState) => {
   }
 };
 
-export const listUserComments = (searchUser) => async (dispatch, getState) => {
+export const listUserComments = (searchUser,matchID) => async (dispatch, getState) => {
   try {
     dispatch({
       type: COMMENTS_LIST_REQUEST,
@@ -189,8 +189,8 @@ export const listUserComments = (searchUser) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_URL}/api/comments/ListByUser/${searchUser}`,
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_URL}/api/comments/ListByUser/${searchUser}`, {matchID}, 
       config
     );
     dispatch({
@@ -217,7 +217,8 @@ export const listUserComments = (searchUser) => async (dispatch, getState) => {
 };
 
 export const createCommentAction =
-  (title, content) => async (dispatch, getState) => {
+  (title, content, matchId) => async (dispatch, getState) => {
+    console.log(matchId)
     try {
       dispatch({
         type: COMMENTS_CREATE_REQUEST,
@@ -235,7 +236,7 @@ export const createCommentAction =
       };
       const username = userInfo.username;
       const { data } = await axios.post(
-        `${process.env.REACT_APP_URL}/api/comments/create`,
+        `${process.env.REACT_APP_URL}/api/comments/create/${matchId}`,
         { title, content, username },
         config
       );

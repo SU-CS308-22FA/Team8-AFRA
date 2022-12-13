@@ -338,7 +338,7 @@ const Comments = ({ matchID }) => {
             <Row className="create">
               {userInfo ? (
                 <Col className="create">
-                  <Link to="/createcomment">
+                  <Link to={`/createcomment/${matchID}`}>
                     <Button
                       style={{ marginLeft: 10, marginBottom: 6 }}
                       size="lg"

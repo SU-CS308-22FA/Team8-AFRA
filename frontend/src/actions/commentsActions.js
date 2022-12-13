@@ -217,7 +217,8 @@ export const listUserComments = (searchUser) => async (dispatch, getState) => {
 };
 
 export const createCommentAction =
-  (title, content) => async (dispatch, getState) => {
+  (title, content, matchID) => async (dispatch, getState) => {
+    console.log(matchID)
     try {
       dispatch({
         type: COMMENTS_CREATE_REQUEST,
@@ -236,7 +237,7 @@ export const createCommentAction =
       const username = userInfo.username;
       const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/create`,
-        { title, content, username },
+        { title, content, username, matchID },
         config
       );
       dispatch({

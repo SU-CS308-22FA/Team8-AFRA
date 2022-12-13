@@ -32,6 +32,10 @@ const commentSchema = mongoose.Schema(
       required: true,
       ref: "User",
     },
+    matchID: {
+      type: Number,
+      required: true,
+    }
   },
   {
     timestamps: true,

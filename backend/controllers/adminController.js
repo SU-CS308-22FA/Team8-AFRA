@@ -14,9 +14,9 @@ const getReports = asyncHandler(async (req, res) => {
         const username = await User.findById(data[i].user)
         const reportedByusername = await User.findById(data[i].reportedBy)
 
-        const userEmail = username || "deleted user";
-        const comment = commentContent || "deleted comment";
-        const reported = reportedByusername || "deleted user";
+        const userEmail = username.email || "deleted user";
+        const comment = commentContent.content || "deleted comment";
+        const reported = reportedByusername.username || "deleted user";
 
         if(reportedByusername &&  username)
         {
@@ -25,7 +25,7 @@ const getReports = asyncHandler(async (req, res) => {
             comment: data[i].comment,
             reportedBy: data[i].reportedBy,
             date: data[i].date,
-            commentContent: comment.content,
+            commentContent: comment,
             userEmail: userEmail.email,
             reportedByusername: reported.username,
             cause: data[i].cause,

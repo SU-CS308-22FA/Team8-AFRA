@@ -14,9 +14,17 @@ const getReports = asyncHandler(async (req, res) => {
         const username = await User.findById(data[i].user)
         const reportedByusername = await User.findById(data[i].reportedBy)
 
-        const userEmail = username.email || "deleted user";
-        const comment = commentContent.content || "deleted comment";
-        const reported = reportedByusername.username || "deleted user";
+        const userEmail = username || "deleted user";
+        var comment;
+        if (!commentContent)
+        {
+          comment = "deleted comment";
+        }
+        else{
+          comment = commentContent.content
+        }
+        const reported = reportedByusername || "deleted user";
+
 
         if(reportedByusername &&  username)
         {
@@ -26,8 +34,8 @@ const getReports = asyncHandler(async (req, res) => {
             reportedBy: data[i].reportedBy,
             date: data[i].date,
             commentContent: comment,
-            userEmail: userEmail,
-            reportedByusername: reported,
+            userEmail: userEmail.email,
+            reportedByusername: reported.username,
             cause: data[i].cause,
             _id: data[i]._id
           }

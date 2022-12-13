@@ -22,7 +22,7 @@ router.post("/", async(req, res, next) => {
       const {code, user} = req.body
       const {tokens} = await oauth2Client.getToken(code);
       const theuser = await User.findById(user);
-      theuser.refresh_token = tokens.refresh_token;
+      theuser.refresh_token = tokens.refresh_token || theuser.refresh_token;
       const yes = await theuser.save();
       res.send("SUCCESS")
     }

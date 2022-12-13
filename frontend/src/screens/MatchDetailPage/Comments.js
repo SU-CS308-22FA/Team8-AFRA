@@ -56,16 +56,16 @@ const Comments = ({ matchID }) => {
   const { success: successUpdate } = commentUpdate;
 
   const sortByLike = async () => {
-    dispatch(listComments(1));
+    dispatch(listComments(1,matchID));
   };
   const sortByDate = async () => {
-    dispatch(listComments(2));
+    dispatch(listComments(2,matchID));
   };
   const sortByLikeReverse = async () => {
-    dispatch(listComments(3));
+    dispatch(listComments(3,matchID));
   };
   const sortByDefault = async () => {
-    dispatch(listComments(0));
+    dispatch(listComments(0,matchID));
   };
 
   const deleteHandler = (id) => {
@@ -120,15 +120,15 @@ const Comments = ({ matchID }) => {
   const [searchUser, setSearchUser] = useState("");
 
   const searchByWord = async (word) => {
-    dispatch(listWordComments(searchWord));
+    dispatch(listWordComments(searchWord,matchID));
   };
 
   const searchByUser = async () => {
-    dispatch(listUserComments(searchUser));
+    dispatch(listUserComments(searchUser,matchID));
   };
 
   const filterComments = async () => {
-    dispatch(commentFiltered(filter));
+    dispatch(commentFiltered(filter,matchID));
   };
 
   const submitWordHandler = (e) => {

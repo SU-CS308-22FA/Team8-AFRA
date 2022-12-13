@@ -8,7 +8,7 @@
   "host": "https://coolafra.herokuapp.com",
   "basePath": "/",
   "schemes": [
-    "http"
+    "https"
   ],
   "paths": {
     "/": {

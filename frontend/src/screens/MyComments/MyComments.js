@@ -10,12 +10,16 @@ import {
   Table,
 } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useNavigation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useDispatch, useSelector } from "react-redux";
+//import Accordion from "@material-ui/core/Accordion";
+import axios from "axios";
 import {
   deleteCommentAction,
   listComments,
+  listReplies,
   updateLikeAction,
   commentFiltered,
   listUserComments,
@@ -25,15 +29,28 @@ import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import Dropdown from "react-bootstrap/Dropdown";
 import { FaHeart, FaRegHeart, FaRegUserCircle } from "react-icons/fa";
-import { BsXCircle } from "react-icons/bs";
+
+import { BsXCircle,BsReplyFill } from "react-icons/bs";
 import "./MyComments.css";
+
 
 function MyComments() {
   console.log("Comments Page loaded")
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  //const navigation= useNavigation();
   const commentList = useSelector((state) => state.commentList);
   const { loading, error, comments } = commentList;
+
+  const commentListReply = useSelector((state) => state.commentListReply);
+  const { loading:loadingreply, errorreply, replycomments } = commentListReply;
+
+ 
+
+  
+
+  console.log("replycomments");
+  console.log(replycomments);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -48,6 +65,13 @@ function MyComments() {
   const commentCreate = useSelector((state) => state.commentCreate);
   const { success: successCreate } = commentCreate;
 
+  
+ 
+
+  /*
+  const commentReply = useSelector((state)=> state.commentReply);
+  const { success: successReply}=commentReply;
+*/
   const commentUpdate = useSelector((state) => state.commentUpdate);
   const { success: successUpdate } = commentUpdate;
 
@@ -64,15 +88,50 @@ function MyComments() {
     dispatch(listComments(0));
   };
 
-  const deleteHandler = (id) => {
+  const deleteHandler = async (id,depth) =>  {
     if (window.confirm("Are you sure?")) {
-      dispatch(deleteCommentAction(id));
+      await dispatch(deleteCommentAction(id,depth));
+      if(depth>1){
+        dispatch(listReplies(id,depth));
+      }
+      
     }
   };
 
-  const likeHandler = async (id, title, content, likes) => {
+  const likeHandler = async (id, title, content, likes,depth) => {
     await dispatch(updateLikeAction(id, title, content, likes));
-    dispatch(listComments(0));
+    
+    if(depth>1){
+      dispatch(listReplies(id,depth));
+    }
+    else{
+      dispatch(listComments(0));
+    }
+  };
+ 
+  const replyHandler = async (parentId,depth)=>{
+    
+    console.log("Inside of navigation");
+    console.log(parentId);
+    navigate("/replycomment",  {state: {parentId: parentId, depth:depth}});
+
+  };
+
+  const calledFunction = () => alert("I am called");
+  const listRepliesCallFunction = async (parentId,depth)=>{
+    //console.log("listRepliesCallFunction called");
+    //console.log(parentId);
+    depth=depth+1;
+    dispatch(listReplies(parentId,depth));
+
+    /*
+     data = await axios.post(
+      `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId}
+    );
+    console.log(data);
+    console.log(data.data[0].usersThatReplyTheComment);
+    */
+
   };
 
   useEffect(() => {
@@ -129,6 +188,9 @@ function MyComments() {
     else filterComments();
   };
 
+
+  //let {data}={};
+  
   return (
     <MainScreen title={`Welcome To Comments Page ${userInfo && userInfo.name}`}>
       <div>
@@ -348,7 +410,7 @@ function MyComments() {
                   <Card style={{ margin: 10 }} key={comment._id}>
                     <Card.Header style={{ display: "flex" }}>
                       <span
-                        // onClick={() => ModelShow(note)}
+                        // onClick={() => ModelShow(comment)}
                         style={{
                           color: "black",
                           textDecoration: "none",
@@ -368,8 +430,9 @@ function MyComments() {
                       </span>
                       {comment.user === userInfo._id ? (
                         <div>
-                          <Button href={`/comment/${comment._id}`}>Edit</Button>
+                          <Button size="sm" href={`/comment/${comment._id}`}>Edit</Button>
                           <Button
+                            size="sm"
                             variant={
                               comment.user === userInfo._id
                                 ? "danger"
@@ -381,13 +444,14 @@ function MyComments() {
                             }
                             onClick={() =>
                               comment.user === userInfo._id
-                                ? deleteHandler(comment._id)
+                                ? deleteHandler(comment._id,comment.depth)
                                 : null
                             }
                             //onClick={() => deleteHandler(comment._id)}
                           >
                             Delete <BsXCircle />
                           </Button>
+                          
                         </div>
                       ) : (
                         <></>
@@ -411,22 +475,39 @@ function MyComments() {
                               comment._id,
                               comment.title,
                               comment.content,
-                              comment.likes
+                              comment.likes,
+                              comment.depth,
                             )
                           }
                         >
                           {comment.usersThatLikedTheComment.includes(
                             userInfo.username
-                          ) == false ? (
+                          ) === false ? (
                             <FaRegHeart />
                           ) : (
                             <FaHeart />
                           )}{" "}
                           {comment.likes}
+                        </Button>   
+                        <Button
+                            variant="info"
+                            style={{ marginLeft: 5, marginBottom: 6,  }} 
+                            onClick={() => listRepliesCallFunction(comment._id,comment.depth)}
+                            size="sm">
+                            Show Replies
+                        </Button>
+                        <Button variant="info" style={{ marginLeft: 5, marginBottom: 6,  }} onClick={() =>
+                        replyHandler(
+                          comment._id,
+                          comment.depth,
+                        )
+                        }>
+                          <BsReplyFill/>
                         </Button>
                       </div>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
+                     
                       <Card.Body>
                         <h4>
                           <Badge variant="success">
@@ -443,8 +524,114 @@ function MyComments() {
                             </cite>
                           </footer>
                         </blockquote>
+                        {replycomments && replycomments.reverse().map((singleReply)=>(
+                                <Accordion> 
+                                   {singleReply.parentId === comment._id ? 
+                                   <Card style={{ margin: 10}} key={comment._id}>
+                                  <Card.Header style={{ display: "flex" }}>
+                                    <span
+                                      // onClick={() => ModelShow(comment)}
+                                      style={{
+                                        color: "black",
+                                        textDecoration: "none",
+                                        flex: 1,
+                                        cursor: "pointer",
+                                        alignSelf: "center",
+                                        fontSize: 18,
+                                      }}
+                                    >
+                                      <Accordion.Toggle
+                                        as={Card.Text}
+                                        variant="link"
+                                        eventKey="0"
+                                      >
+                                        {singleReply.title}
+                                      </Accordion.Toggle>
+                                    </span>
+                                    {singleReply.user === userInfo._id ? (
+                                    <div> 
+                                      <Button size="sm" href={`/comment/${singleReply._id}`}>Edit</Button>
+                                      <Button
+                                        size="sm"
+                                        variant={
+                                          singleReply.user === userInfo._id
+                                            ? "danger"
+                                            : "secondary"
+                                        }
+                                        className="mx-2"
+                                        onClick={() =>
+                                          singleReply.user === userInfo._id
+                                            ? deleteHandler(singleReply._id,singleReply.depth)
+                                            : null
+                                        }
+                                        //onClick={() => deleteHandler(comment._id)}
+                                      >
+                                        Delete <BsXCircle />
+                                      </Button>
+                                      
+                                    </div>
+                                  ) : (
+                                    <></>
+                                    
+                                  )}
+                                  <div>
+                                      <Button
+                                        variant={
+                                          singleReply.usersThatLikedTheComment.includes(
+                                            userInfo.username
+                                          ) == false
+                                            ? "secondary"
+                                            : "danger"
+                                        }
+                                        className="mx-2"
+                                        value="Like"
+                                        disabled={
+                                          singleReply.user === userInfo._id ? "disabled" : null
+                                        }
+                                        onClick={() =>
+                                          likeHandler(
+                                            singleReply._id,
+                                            singleReply.title,
+                                            singleReply.content,
+                                            singleReply.likes,
+                                            singleReply.depth,
+                                          )
+                                        }
+                                      >
+                                        {singleReply.usersThatLikedTheComment.includes(
+                                          userInfo.username
+                                        ) === false ? (
+                                          <FaRegHeart />
+                                        ) : (
+                                          <FaHeart />
+                                        )}{" "}
+                                        {singleReply.likes}
+                                      </Button> 
+                                  </div>
+                                  </Card.Header>
+                                  <Accordion.Collapse eventKey="0">
+                                    <Card.Body>
+                                      <h4>
+                                        <Badge variant="success">
+                                          <FaRegUserCircle />
+                                          {singleReply.username}
+                                        </Badge>
+                                      </h4>
+                                      <blockquote className="blockquote mb-0">
+                                        <ReactMarkdown>{singleReply.content}</ReactMarkdown>
+                                        </blockquote>
+                                        
+                                    </Card.Body>
+
+                                  </Accordion.Collapse>
+                                 
+                                </Card> : (<></>)}
+                                
+                              </Accordion>
+                            ))}
                       </Card.Body>
                     </Accordion.Collapse>
+ 
                   </Card>
                 </Accordion>
               ))}

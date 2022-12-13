@@ -21,6 +21,7 @@ import FixturePage from "./screens/FixturePage/FixturePage";
 import CalendarPage from "./screens/CalendarPage/CalendarPage";
 import StandingPage from "./screens/StandingPage/StandingPage";
 import CreateComment from "./screens/CreateComment/CreateComment";
+import ReplyComment from "./screens/CreateComment/ReplyComment";
 import MyComments from "./screens/MyComments/MyComments";
 import SingleComment from "./screens/CreateComment/SingleComment";
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
@@ -51,6 +52,7 @@ function App() {
                  <Route path="profile" element={<ProfileScreen/>} />
                  <Route path="comment/:id" element={<SingleComment/>} />
                   <Route path="createcomment" element={<CreateComment/>} />
+                  <Route path="replycomment" element={<ReplyComment/>} />
                   <Route path="mycomments" element= {<MyComments/>} />
                   <Route path="verification" element={<VerificationPage/>} />
               </Route>

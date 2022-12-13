@@ -3,24 +3,33 @@ import MainScreen from "../../components/MainScreen";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { createCommentAction } from "../../actions/commentsActions";
+import { replyCommentAction } from "../../actions/commentsActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import ReactMarkdown from "react-markdown";
+import {useLocation} from 'react-router-dom';
 
-function CreateComment() {
+function ReplyComment() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [likes, setLikes] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
  
+ 
+  const parentId = location.state.parentId;
+  let depth = location.state.depth;
+  console.log("depth");
+  console.log(depth);
+  depth =depth+1;
   
   const dispatch = useDispatch();
 
-  const commentCreate = useSelector((state) => state.commentCreate);
-  const { loading, error, comment } = commentCreate;
+  const commentReply = useSelector((state) => state.commentReply);
+  const { loading, error, comment } = commentReply;
 
   console.log(comment);
+  
 
   const resetHandler = () => {
     setTitle("");
@@ -32,8 +41,7 @@ function CreateComment() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log("sending to create comment action");
-    dispatch(createCommentAction(title, content));
+    dispatch(replyCommentAction(title, content,parentId,depth));
     if ( !title || !content) return;
 
     resetHandler();
@@ -43,7 +51,7 @@ function CreateComment() {
   useEffect(() => {}, []);
 
   return (
-    <MainScreen title="Create a Comment">
+    <MainScreen title="Reply a Comment">
       <Card>
         <Card.Header>Create a new Comment</Card.Header>
         <Card.Body>
@@ -98,4 +106,4 @@ function CreateComment() {
   );
 }
 
-export default CreateComment;
+export default ReplyComment;

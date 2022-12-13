@@ -27,6 +27,18 @@ const commentSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    usersThatReplyTheComment:{
+      type: Array,
+      default:[],
+    },
+    depth: {
+      type: Number,
+      default: 1
+    },
+    parentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: null
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

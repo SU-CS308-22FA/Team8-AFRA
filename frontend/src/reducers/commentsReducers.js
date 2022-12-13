@@ -14,6 +14,13 @@ import {
     COMMENTS_LIKE_REQUEST,
     COMMENTS_LIKE_FAIL,
     COMMENTS_LIKE_SUCCESS,
+    COMMENTS_REPLY_REQUEST,
+    COMMENTS_REPLY_FAIL,
+    COMMENTS_REPLY_SUCCESS,
+    COMMENTS_LIST_REPLY_FAIL,
+    COMMENTS_LIST_REPLY_REQUEST,
+    COMMENTS_LIST_REPLY_SUCCESS,
+
   } from "../constants/commentsConstants";
   
   export const commentListReducer = (state = { comments: [] }, action) => {
@@ -37,6 +44,19 @@ import {
       case COMMENTS_CREATE_SUCCESS:
         return { loading: false, success: true };
       case COMMENTS_CREATE_FAIL:
+        return { loading: false, error: action.payload };
+  
+      default:
+        return state;
+    }
+  };
+  export const commentReplyReducer = (state = {}, action) => {
+    switch (action.type) {
+      case COMMENTS_REPLY_REQUEST:
+        return { loading: true };
+      case COMMENTS_REPLY_SUCCESS:
+        return { loading: false, success: true };
+      case COMMENTS_REPLY_FAIL:
         return { loading: false, error: action.payload };
   
       default:
@@ -86,3 +106,18 @@ import {
     }
   };
   
+
+  export const commentListReplyReducer = (state = { replycomments: [] }, action) => {
+    switch (action.type) {
+      case COMMENTS_LIST_REPLY_REQUEST:
+        return { loading: true };
+      case COMMENTS_LIST_REPLY_SUCCESS:
+        return { loading: false, replycomments: action.payload };
+      case COMMENTS_LIST_REPLY_FAIL:
+        return { loading: false, error: action.payload };
+  
+      default:
+        return state;
+    }
+  };
+

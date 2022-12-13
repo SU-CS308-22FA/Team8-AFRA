@@ -6,6 +6,9 @@ import {
   commentDeleteReducer,
   commentListReducer,
   commentUpdateReducer,
+  commentReplyReducer,
+  commentListReplyReducer,
+
 } from "./reducers/commentsReducers";
 import {
   userLoginReducer,
@@ -15,9 +18,11 @@ import {
 
 const reducer = combineReducers({
   commentList: commentListReducer,
+  commentListReply: commentListReplyReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   commentCreate: commentCreateReducer,
+  commentReply: commentReplyReducer,
   commentDelete: commentDeleteReducer,
   commentUpdate: commentUpdateReducer,
   userUpdate: userUpdateReducer,

@@ -15,6 +15,7 @@
   "author": "AFRA",
   "license": "ISC",
   "dependencies": {
+    "@react-navigation/native": "^6.1.1",
     "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.12",

@@ -14,6 +14,13 @@ import {
   COMMENTS_LIKE_FAIL,
   COMMENTS_LIKE_REQUEST,
   COMMENTS_LIKE_SUCCESS,
+  COMMENTS_REPLY_REQUEST,
+  COMMENTS_REPLY_SUCCESS,
+  COMMENTS_REPLY_FAIL,
+  COMMENTS_LIST_REPLY_REQUEST,
+  COMMENTS_LIST_REPLY_SUCCESS,
+  COMMENTS_LIST_REPLY_FAIL,
+
 } from "../constants/commentsConstants";
 import axios from "axios";
 
@@ -80,6 +87,47 @@ export const listComments = (selection) => async (dispatch, getState) => {
         : error.message;
     dispatch({
       type: COMMENTS_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+export const listReplies = (parentId,depth) => async (dispatch, getState) => {
+  try {
+      dispatch({
+        type: COMMENTS_LIST_REPLY_REQUEST,
+      });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    //console.log("parentId");
+    //console.log(parentId);
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId,depth},
+      config
+    );
+    console.log("data is");
+    console.log(data);
+
+      dispatch({
+        type: COMMENTS_LIST_REPLY_SUCCESS,
+        payload: data,
+        //payload: data[0].usersThatReplyTheComment
+      });
+
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: COMMENTS_LIST_REPLY_FAIL,
       payload: message,
     });
   }
@@ -218,6 +266,7 @@ export const listUserComments = (searchUser) => async (dispatch, getState) => {
 
 export const createCommentAction =
   (title, content) => async (dispatch, getState) => {
+    console.log("inside of create comment action");
     try {
       dispatch({
         type: COMMENTS_CREATE_REQUEST,
@@ -234,9 +283,10 @@ export const createCommentAction =
         },
       };
       const username = userInfo.username;
+      const userId= userInfo._id
       const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/create`,
-        { title, content, username },
+        { title, content, username,userId },
         config
       );
       dispatch({
@@ -255,7 +305,48 @@ export const createCommentAction =
     }
   };
 
-export const deleteCommentAction = (id) => async (dispatch, getState) => {
+  export const replyCommentAction =
+  (title, content,parentId,depth) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: COMMENTS_REPLY_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const username = userInfo.username;
+      const userId= userInfo._id;
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/reply`,
+        { title, content, username,parentId,userId,depth },
+        config
+      );
+      dispatch({
+        type: COMMENTS_REPLY_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: COMMENTS_REPLY_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+
+export const deleteCommentAction = (id,depth) => async (dispatch, getState) => {
   try {
     dispatch({
       type: COMMENTS_DELETE_REQUEST,
@@ -280,6 +371,7 @@ export const deleteCommentAction = (id) => async (dispatch, getState) => {
       type: COMMENTS_DELETE_SUCCESS,
       payload: data,
     });
+
   } catch (error) {
     const message =
       error.response && error.response.data.message

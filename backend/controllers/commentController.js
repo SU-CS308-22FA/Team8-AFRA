@@ -6,7 +6,20 @@ import User from "../models/userModel.js";
 // @route   GET /api/comments
 // @access  Private
 const getComments = asyncHandler(async (req, res) => {
-  const comments = await Comment.find(); //{ user: req.user._id }
+  const comments = await Comment.find({depth:1}); //{ user: req.user._id }
+  res.json(comments);
+});
+
+// @desc    Get logged in user comments
+// @route   GET /api/comments/getreplies
+// @access  Private
+const getReplies = asyncHandler(async (req,res)=>{
+  console.log("inside of replies");
+  console.log(req.body);
+  //const comments = await Comment.find({_id : req.body.parentId}); //{ user: req.user._id }
+  const comments = await Comment.find({depth: req.body.depth}); 
+  //console.log(comments[0].usersThatReplyTheComment);
+  console.log(comments);
   res.json(comments);
 });
 
@@ -148,24 +161,61 @@ const getCommentById = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/create
 //@access          Private
 const CreateComment = asyncHandler(async (req, res) => {
-  const { title, content, username } = req.body;
-
+  const { title, content, username,userId } = req.body;
+  //console.log(req.body);
+  console.log(req.user);
   if (!title || !content) {
     res.status(400);
     throw new Error("Please Fill all the feilds");
     return;
   } else {
     const comment = new Comment({
-      user: req.user._id,
-      userrole: req.user.role,
+      user: req.body.userId,
+      userrole: "user",
       title,
       content,
       username,
     });
-
+    console.log("this part");
     const createdComment = await comment.save();
 
     res.status(201).json(createdComment);
+  }
+});
+
+//@description     Create reply to Comment
+//@route           GET /api/comments/reply
+//@access          Private
+const createReplyToComment= asyncHandler (async(req,res)=>{
+  const { title, content, username,parentId,userId,depth } = req.body;
+  console.log("Reply comment inside");
+  console.log(req.user);
+  if (!title || !content) {
+    res.status(400);
+    throw new Error("Please Fill all the feilds");
+    return;
+  } else {
+    const comment = new Comment({
+      user: req.body.userId,
+      userrole: "user",
+      parentId: req.body.parentId,
+      title,
+      content,
+      username,
+      depth: req.body.depth,
+    });
+    console.log(comment);
+    const createdComment = await comment.save();
+    console.log(createdComment);
+    res.status(201).json(createdComment);
+    /*
+    const commentParent = await Comment.findById(req.body.parentId);
+    console.log("commentParent");
+    commentParent.usersThatReplyTheComment.push(comment);
+    const updatedComment = await commentParent.save();
+    console.log(commentParent);
+    res.status(201).json(updatedComment);
+    */
   }
 });
 
@@ -173,14 +223,16 @@ const CreateComment = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/:id
 //@access          Private
 const DeleteComment = asyncHandler(async (req, res) => {
-  const comment = await Comment.findById(req.params.id);
+  const comment = await Comment.findById({_id: req.params.id});
 
+  
   if (comment.user.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error("You can't perform this action");
   }
 
   if (comment) {
+   await Comment.deleteMany({parentId: comment._id});
     await comment.remove();
     res.json({ message: "Comment Removed" });
   } else {
@@ -188,6 +240,7 @@ const DeleteComment = asyncHandler(async (req, res) => {
     throw new Error("Comment not Found");
   }
 });
+
 
 // @desc    Update a comment
 // @route   PUT /api/comments/:id
@@ -259,4 +312,6 @@ export {
   getCommentsBySearchWord,
   getCommentsBySearchUser,
   getFilteredComments,
+  createReplyToComment,
+  getReplies,
 };

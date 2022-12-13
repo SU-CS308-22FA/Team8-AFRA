@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
+import Loading from "../../components/Loading";
 import { Row, Col, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -7,6 +8,7 @@ import "./MatchDetailPage.css";
 import EventsPage from "./EventsPage";
 import LineUpsPage from "./LineUpsPage";
 import StatisticsPage from "./StatisticsPage";
+import Comments from "./Comments";
 
 function MatchDetailPage() {
   const [viewState, setViewState] = useState(4);
@@ -33,7 +35,7 @@ function MatchDetailPage() {
   }, []);
 
   return !flag ? (
-    <>Waiting</>
+    <Loading/>
   ) : (
     <MainScreen>
       <div>
@@ -71,10 +73,11 @@ function MatchDetailPage() {
             </Col>
           </Row>
         </div>
+        <p></p>
         {viewState === 1 ? <EventsPage matchID={matchIDVar} /> : ""}
         {viewState === 2 ? <LineUpsPage matchID={matchIDVar} /> : ""}
         {viewState === 3 ? <StatisticsPage matchID={matchIDVar} /> : ""}
-        {viewState === 4 ? <>Comments</> : ""}
+        {viewState === 4 ? <Comments matchID={matchIDVar} /> : ""}
       </div>
     </MainScreen>
   );

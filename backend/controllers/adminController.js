@@ -26,8 +26,8 @@ const getReports = asyncHandler(async (req, res) => {
             reportedBy: data[i].reportedBy,
             date: data[i].date,
             commentContent: comment,
-            userEmail: userEmail.email,
-            reportedByusername: reported.username,
+            userEmail: userEmail,
+            reportedByusername: reported,
             cause: data[i].cause,
             _id: data[i]._id
           }

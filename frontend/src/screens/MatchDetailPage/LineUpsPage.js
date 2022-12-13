@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Table, Col, Row } from "react-bootstrap";
 import axios from "axios";
 import "./MatchDetailPage.css";
+import Loading from "../../components/Loading";
 
 const LineUpsPage = ({ matchID }) => {
   const [lineUpsData, setLineUpsData] = useState();
@@ -22,7 +23,7 @@ const LineUpsPage = ({ matchID }) => {
       });
   }, []);
   return !flag ? (
-    <>Waiting</>
+    <Loading/>
   ) : (
     <div>
       <Col style={{ textAlign: "center" }}>

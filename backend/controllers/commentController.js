@@ -6,48 +6,55 @@ import User from "../models/userModel.js";
 // @route   GET /api/comments
 // @access  Private
 const getComments = asyncHandler(async (req, res) => {
-  const comments = await Comment.find(); //{ user: req.user._id }
+  console.log(req);
+  const { matchID } = req.body
+  const comments = await Comment.find({matchID: matchID}); //{ user: req.user._id }
   res.json(comments);
 });
 
 // @route   GET /api/comments/SortedByLike
 const getCommentsByLike = asyncHandler(async (req, res) => {
-  const comments = await Comment.find().sort({ likes: 1 }); //{ user: req.user._id }
+  const { matchID } = req.body
+  const comments = await Comment.find({matchID: matchID}).sort({ likes: 1 }); //{ user: req.user._id }
   res.json(comments);
 });
 
 // @route   GET /api/comments/SortedByLikeReverse
 const getCommentsByLikeReverse = asyncHandler(async (req, res) => {
-  const comments = await Comment.find().sort({ likes: -1 }); //{ user: req.user._id }
+  const { matchID } = req.body
+  const comments = await Comment.find({matchID: matchID}).sort({ likes: -1 }); //{ user: req.user._id }
   res.json(comments);
 });
 
 // @route   GET /api/comments/SortedByDate
 const getCommentsByDate = asyncHandler(async (req, res) => {
-  const comments = await Comment.find().sort({ createdAt: -1 }); //{ user: req.user._id }
+  const { matchID } = req.body
+  const comments = await Comment.find({matchID: matchID}).sort({ createdAt: -1 }); //{ user: req.user._id }
   res.json(comments);
 });
 
 const getCommentsBySearchWord = asyncHandler(async (req, res) => {
+  const { matchID } = req.body
   const searchWord = req.params.word;
   console.log(searchWord);
 
-  Comment.find({
-    '$or': [
-        { 'content': {'$regex': searchWord, '$options': 'i'} }, 
-        { 'title': {'$regex': searchWord, '$options': 'i'}}
-    ]}, function(err, docs){
+  Comment.find({'$and': [{matchID: matchID} , {'$or': [
+    { 'content': {'$regex': searchWord, '$options': 'i'} }, 
+    { 'title': {'$regex': searchWord, '$options': 'i'}}
+]}]
+    }, function(err, docs){
       res.status(200).json(docs);
     })
 });
 
 const getCommentsBySearchUser = asyncHandler(async (req, res) => {
+  const { matchID } = req.body
   const searchUser = req.params.username;
   console.log(searchUser);
   let the = [];
   let myBool = false;
   try {
-    const data = await Comment.find();
+    const data = await Comment.find({matchID: matchID});
     for (var i = 0; i < data.length; i++) {
       if (data[i].username == searchUser) {
         myBool = true;
@@ -66,11 +73,11 @@ const getCommentsBySearchUser = asyncHandler(async (req, res) => {
 });
 
 const getFilteredComments = asyncHandler(async (req, res) => {
-  const { filters } = req.body;
+  const { filters, matchID } = req.body;
   console.log(filters);
   let the = [];
   try {
-    const data = await Comment.find();
+    const data = await Comment.find({matchID: matchID});
     for (var i = 0; i < data.length; i++) {
       if (filters.includes("journalist") && data[i].userrole === "journalist") {
         if (filters.includes("fiveLikes") && data[i].likes >= 5 && data[i].likes < 10) {
@@ -133,7 +140,8 @@ const getFilteredComments = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/:id
 //@access          Public
 const getCommentById = asyncHandler(async (req, res) => {
-  const comment = await Comment.findById(req.params.id);
+  const { matchID } = req.body
+  const comment = await Comment.find({matchID: matchID ,user: req.params.id });
 
   if (comment) {
     res.json(comment);
@@ -148,8 +156,7 @@ const getCommentById = asyncHandler(async (req, res) => {
 //@route           GET /api/comments/create
 //@access          Private
 const CreateComment = asyncHandler(async (req, res) => {
-  const { title, content, username } = req.body;
-
+  const { title, content, username, matchID } = req.body;
   if (!title || !content) {
     res.status(400);
     throw new Error("Please Fill all the feilds");
@@ -161,6 +168,7 @@ const CreateComment = asyncHandler(async (req, res) => {
       title,
       content,
       username,
+      matchID,
     });
 
     const createdComment = await comment.save();

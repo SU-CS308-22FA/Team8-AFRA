@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
+import Loading from "../../components/Loading";
 import { Row, Col, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -34,7 +35,7 @@ function MatchDetailPage() {
   }, []);
 
   return !flag ? (
-    <>Waiting</>
+    <Loading/>
   ) : (
     <MainScreen>
       <div>

@@ -56,7 +56,7 @@ function RegisterScreen() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/mycomments");
+      navigate("/referees");
     }
   }, [userInfo]);
 

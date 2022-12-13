@@ -41,7 +41,6 @@ function Header({ setSearch }) {
                <Nav>
             <Nav.Link href="/calendar" >Google Calendar</Nav.Link>
               </Nav>
-                <Nav.Link href="/mycomments">My Comments</Nav.Link>
                 <NavDropdown
                   title={`${userInfo.name}`}
                   id="collasible-nav-dropdown"

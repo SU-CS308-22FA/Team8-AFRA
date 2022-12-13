@@ -19,7 +19,7 @@ function LoginScreen() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/mycomments")
+      navigate("/referees")
     }
   }, [userInfo]);
 

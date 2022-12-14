@@ -27,7 +27,6 @@ import FixturePage from "./screens/FixturePage/FixturePage";
 import CalendarPage from "./screens/CalendarPage/CalendarPage";
 import StandingPage from "./screens/StandingPage/StandingPage";
 import CreateComment from "./screens/CreateComment/CreateComment";
-import MyComments from "./screens/MyComments/MyComments";
 import SingleComment from "./screens/CreateComment/SingleComment";
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
 import SingleReferee from "./screens/SingleReferee/SingleReferee";
@@ -58,8 +57,7 @@ function App() {
           <Route path="profile" element={<ProfileScreen />} />
           <Route path="comment/:id/:matchID" element={<SingleComment />} />
           <Route path="createcomment/:matchID" element={<CreateComment />} />
-          <Route path="replycomment/:parentID/:matchID" element={<ReplyComment/>} />
-          <Route path="mycomments" element={<MyComments />} />
+          <Route path="replycomment/:parentId/:matchID" element={<ReplyComment/>} />
           <Route path="verification" element={<VerificationPage />} />
         </Route>
 

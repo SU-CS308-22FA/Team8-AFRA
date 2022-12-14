@@ -85,6 +85,9 @@ const Comments = ({ matchID }) => {
   };
 
   const likeHandler = async (id, title, content, likes, commentMatchID) => {
+    //console.log("Inside of like handler");
+    //console.log(content);
+    
     await dispatch(updateLikeAction(id, title, content, likes));
     if(!commentMatchID){
       dispatch(listReplies(id));
@@ -368,7 +371,7 @@ const Comments = ({ matchID }) => {
 
           <Col>
             <Row className="create">
-              {userInfo ? (
+              {userInfo.verified ? (
                 <Col className="create">
                   <Link to={`/createcomment/${matchID}`}>
                     <Button
@@ -486,7 +489,8 @@ const Comments = ({ matchID }) => {
                               comment._id,
                               comment.title,
                               comment.content,
-                              comment.likes
+                              comment.likes,
+                              comment.matchID,
                             )
                           }
                         >
@@ -531,9 +535,10 @@ const Comments = ({ matchID }) => {
                             >
                             { !isOpen ? "Show Replies" : "Hide Replies"}
                         </Button>
-                        <Button href={`/replycomment/${comment._id}/${matchID}`} variant="info" style={{ marginLeft: 5, marginBottom: 6,  }}>
+                        {userInfo.verified ? ( <Button href={`/replycomment/${comment._id}/${matchID}`} variant="info" style={{ marginLeft: 5, marginBottom: 6,  }}>
                           <BsReplyFill/>
-                        </Button>
+                        </Button>) : (<div></div>)}
+                       
                       </div>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">

@@ -11,10 +11,14 @@ const getComments = asyncHandler(async (req, res) => {
   res.json(comments);
 });
 
+// @desc    Get logged in user replies
+// @route   GET /api/comments/getreplies
 const getReplies = asyncHandler(async (req,res)=>{
-  const { parentID } = req.body;
-  const comments = await Comment.find({parentID: parentID}); 
+  console.log("get replies backend function called");
+  const { parentId } = req.body;
+  const comments = await Comment.find({parentId:parentId}); 
   res.json(comments);
+  
 });
 
 // @route   GET /api/comments/SortedByLike
@@ -260,11 +264,15 @@ const LikeState = asyncHandler(async (req, res) => {
   console.log(comment.usersThatLikedTheComment.includes(username));
 
   if (comment) {
+    
     if (comment.usersThatLikedTheComment.includes(username) == false) {
+      //console.log(comment);
       comment.usersThatLikedTheComment.push(username);
-      comment.title = title;
-      comment.content = content;
-      comment.likes = likes + 1;
+      //console.log(comment);
+      //comment.title = title;
+      //comment.content = content;
+      comment.likes = req.body.likes + 1;
+      //console.log(comment);
       const updatedComment = await comment.save();
       res.json(updatedComment);
     } else {

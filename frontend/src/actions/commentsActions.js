@@ -94,6 +94,7 @@ export const listComments = (selection,matchID) => async (dispatch, getState) =>
 
 export const listReplies = (parentId) => async (dispatch, getState) => {
   try {
+    
       dispatch({
         type: COMMENTS_LIST_REPLY_REQUEST,
       });
@@ -106,10 +107,11 @@ export const listReplies = (parentId) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-        const {data} = await axios.post(
-        `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId},
-        config
-      );
+    console.log("List replies function called");
+    const {data} = await axios.post(
+      `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId},
+      config
+    );
 
 
     console.log("data is");
@@ -440,6 +442,11 @@ export const updateLikeAction =
         },
       };
       const username = userInfo.username;
+
+      //console.log("I am sending this values for like action from frontend to backend");
+      //console.log(title);
+      //console.log(content);
+      //console.log(likes);
       const { data } = await axios.put(
         `${process.env.REACT_APP_URL}/api/comments/likes/${id}`,
         { title, content, likes, username },

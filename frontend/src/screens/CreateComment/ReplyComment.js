@@ -37,6 +37,7 @@ function ReplyComment() {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(parentId);
     dispatch(replyCommentAction(title, content,parentId));
     if ( !title || !content) return;
 

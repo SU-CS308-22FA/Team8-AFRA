@@ -9,6 +9,8 @@ import EventsPage from "./EventsPage";
 import LineUpsPage from "./LineUpsPage";
 import StatisticsPage from "./StatisticsPage";
 import Comments from "./Comments";
+import Unauthorized from "../../components/Unauthorized";
+import { useSelector } from "react-redux";
 
 function MatchDetailPage() {
   const [viewState, setViewState] = useState(4);
@@ -16,6 +18,9 @@ function MatchDetailPage() {
   const params = useParams();
   const matchIDVar = params.matchID;
   const [flag, setFlag] = useState(false);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     axios
@@ -77,7 +82,7 @@ function MatchDetailPage() {
         {viewState === 1 ? <EventsPage matchID={matchIDVar} /> : ""}
         {viewState === 2 ? <LineUpsPage matchID={matchIDVar} /> : ""}
         {viewState === 3 ? <StatisticsPage matchID={matchIDVar} /> : ""}
-        {viewState === 4 ? <Comments matchID={matchIDVar} /> : ""}
+        {viewState === 4 ? (userInfo ? <Comments matchID={matchIDVar} /> : <Unauthorized/>)  : ""}
       </div>
     </MainScreen>
   );

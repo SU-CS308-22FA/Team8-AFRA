@@ -486,7 +486,8 @@ const Comments = ({ matchID }) => {
                               comment._id,
                               comment.title,
                               comment.content,
-                              comment.likes
+                              comment.likes,
+                              comment.matchID
                             )
                           }
                         >

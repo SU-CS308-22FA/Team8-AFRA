@@ -11,6 +11,16 @@ const getComments = asyncHandler(async (req, res) => {
   res.json(comments);
 });
 
+// @desc    Get logged in user replies
+// @route   GET /api/comments/getreplies
+const getReplies = asyncHandler(async (req,res)=>{
+  console.log("get replies backend function called");
+  const { parentId } = req.body;
+  const comments = await Comment.find({parentId:parentId}); 
+  res.json(comments);
+  
+});
+
 // @route   GET /api/comments/SortedByLike
 const getCommentsByLike = asyncHandler(async (req, res) => {
   const { matchID } = req.body
@@ -163,7 +173,7 @@ const getCommentById = asyncHandler(async (req, res) => {
 //@access          Private
 const CreateComment = asyncHandler(async (req, res) => {
   const matchId = req.params.matchId;
-  const { title, content, username } = req.body;
+  const { title, content, username, userId, userrole } = req.body;
   console.log(matchId)
   if (!title || !content) {
     res.status(400);
@@ -171,8 +181,8 @@ const CreateComment = asyncHandler(async (req, res) => {
     return;
   } else {
     const comment = new Comment({
-      user: req.user._id,
-      userrole: req.user.role,
+      user: userId,
+      userrole: userrole,
       title: title,
       content: content,
       username: username,
@@ -181,6 +191,28 @@ const CreateComment = asyncHandler(async (req, res) => {
 
     const createdComment = await comment.save();
 
+    res.status(201).json(createdComment);
+  }
+});
+
+const createReplyToComment= asyncHandler (async(req,res)=>{
+
+  const { title, content, username,parentId,userId,userrole } = req.body;
+  
+  if (!title || !content) {
+    res.status(400);
+    throw new Error("Please Fill all the feilds");
+    return;
+  } else {
+    const comment = new Comment({
+      user: userId,
+      userrole: userrole,
+      parentId: parentId,
+      title,
+      content,
+      username,
+    });
+    const createdComment = await comment.save();
     res.status(201).json(createdComment);
   }
 });
@@ -197,6 +229,7 @@ const DeleteComment = asyncHandler(async (req, res) => {
   }
 
   if (comment) {
+    await Comment.deleteMany({parentId: comment._id});
     await comment.remove();
     res.json({ message: "Comment Removed" });
   } else {
@@ -238,11 +271,15 @@ const LikeState = asyncHandler(async (req, res) => {
   console.log(comment.usersThatLikedTheComment.includes(username));
 
   if (comment) {
+    
     if (comment.usersThatLikedTheComment.includes(username) == false) {
+      //console.log(comment);
       comment.usersThatLikedTheComment.push(username);
-      comment.title = title;
-      comment.content = content;
-      comment.likes = likes + 1;
+      //console.log(comment);
+      //comment.title = title;
+      //comment.content = content;
+      comment.likes = req.body.likes + 1;
+      //console.log(comment);
       const updatedComment = await comment.save();
       res.json(updatedComment);
     } else {
@@ -275,4 +312,6 @@ export {
   getCommentsBySearchWord,
   getCommentsBySearchUser,
   getFilteredComments,
+  createReplyToComment,
+  getReplies,
 };

@@ -20,6 +20,7 @@ import {
   commentFiltered,
   listUserComments,
   listWordComments,
+  listReplies,
 } from "../../actions/commentsActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -30,7 +31,7 @@ import {
   FaRegUserCircle,
   FaFontAwesomeFlag,
 } from "react-icons/fa";
-import { BsXCircle } from "react-icons/bs";
+import { BsXCircle, BsReplyFill } from "react-icons/bs";
 import "./Comments.css";
 import axios from "axios";
 
@@ -38,6 +39,10 @@ const Comments = ({ matchID }) => {
   const dispatch = useDispatch();
   const commentList = useSelector((state) => state.commentList);
   const { loading, error, comments } = commentList;
+
+  const commentListReply = useSelector((state) => state.commentListReply);
+  const { loading:loadingreply, errorreply, replycomments } = commentListReply;
+  const [isOpen, setIsOpen] = useState(false);
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -70,15 +75,44 @@ const Comments = ({ matchID }) => {
     dispatch(listComments(0,matchID));
   };
 
-  const deleteHandler = (id) => {
+  const deleteHandler = (id,commentMatchID) => {
     if (window.confirm("Are you sure?")) {
       dispatch(deleteCommentAction(id));
+      if(!commentMatchID){
+        dispatch(listReplies(id));
+      }
+   
     }
   };
 
-  const likeHandler = async (id, title, content, likes) => {
+  const likeHandler = async (id, title, content, likes, commentMatchId) => {
+    //console.log("Inside of like handler");
+    //console.log(content);
+
     await dispatch(updateLikeAction(id, title, content, likes));
-    dispatch(listComments(0,matchID));
+    if(!commentMatchId){
+      dispatch(listReplies(id));
+    }
+    else{
+      dispatch(listComments(0,matchID));
+    }
+    
+  };
+
+  const accordionFunction = (e, cid)=>{ 
+    e.preventDefault();
+    setIsOpen(!isOpen);
+    if(isOpen){
+      listRepliesCallFunction(cid);
+    }
+    else{
+      replycomments.clear();
+    }
+
+  };
+  const listRepliesCallFunction = async (parentId)=>{
+    dispatch(listReplies(parentId));
+    setIsOpen(!isOpen);
   };
 
   const [isFlagged, setFlagged] = useState(false);
@@ -338,7 +372,7 @@ const Comments = ({ matchID }) => {
 
           <Col>
             <Row className="create">
-              {userInfo ? (
+              {userInfo.verified ? (
                 <Col className="create">
                   <Link to={`/createcomment/${matchID}`}>
                     <Button
@@ -410,8 +444,9 @@ const Comments = ({ matchID }) => {
                       </span>
                       {comment.user === userInfo._id ? (
                         <div>
-                          <Button href={`/comment/${comment._id}/${matchID}`}>Edit</Button>
+                          <Button size="sm" href={`/comment/${comment._id}/${matchID}`}>Edit</Button>
                           <Button
+                            size="sm"
                             variant={
                               comment.user === userInfo._id
                                 ? "danger"
@@ -455,7 +490,8 @@ const Comments = ({ matchID }) => {
                               comment._id,
                               comment.title,
                               comment.content,
-                              comment.likes
+                              comment.likes,
+                              comment.matchID,
                             )
                           }
                         >
@@ -493,6 +529,17 @@ const Comments = ({ matchID }) => {
                             <FaFontAwesomeFlag />
                           )}{" "}
                         </Button>
+                        <Button  
+                            variant="info"
+                            style={{ marginLeft: 5, marginBottom: 6,  }} 
+                            onClick={(e) => listRepliesCallFunction(comment._id)}
+                            >
+                            Show Replies
+                        </Button>
+                        {userInfo.verified ? ( <Button href={`/replycomment/${comment._id}/${matchID}`} variant="info" style={{ marginLeft: 5, marginBottom: 6,  }}>
+                          <BsReplyFill/>
+                        </Button>) : (<div></div>)}
+                       
                       </div>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
@@ -512,11 +559,118 @@ const Comments = ({ matchID }) => {
                             </cite>
                           </footer>
                         </blockquote>
+                       
                       </Card.Body>
                     </Accordion.Collapse>
+                    {(replycomments) && replycomments.reverse().map((singleReply)=>(
+                                <Accordion style={ {paddingInlineStart:20 }}> 
+                                   {singleReply.parentId === comment._id ? 
+                                   <Card style={{ margin: 10, backgroundColor:"#F9F7F7"}} bg ={'Dark'} key={singleReply._id}>
+                                  <Card.Header style={{ display: "flex" }}>
+                                    <span
+                                      // onClick={() => ModelShow(comment)}
+                                      style={{
+                                        color: "black",
+                                        textDecoration: "none",
+                                        flex: 1,
+                                        cursor: "pointer",
+                                        alignSelf: "center",
+                                        fontSize: 18,
+                                      }}
+                                    >
+                                      <Accordion.Toggle
+                                        as={Card.Text}
+                                        variant="link"
+                                        eventKey="0"
+                                      >
+                                        {singleReply.title}
+                                      </Accordion.Toggle>
+                                    </span>
+
+                                    {singleReply.user === userInfo._id ? (
+                                    <div> 
+                                      <Button size="sm" href={`/comment/${singleReply._id}/${matchID}`}>Edit</Button>
+                                      <Button
+                                        size="sm"
+                                        variant={
+                                          singleReply.user === userInfo._id
+                                            ? "danger"
+                                            : "secondary"
+                                        }
+                                        className="mx-2"
+                                        onClick={() =>
+                                          singleReply.user === userInfo._id
+                                            ? deleteHandler(singleReply._id)
+                                            : null
+                                        }
+                                        //onClick={() => deleteHandler(comment._id)}
+                                      >
+                                        Delete <BsXCircle />
+                                      </Button>
+
+                                    </div>
+                                  ) : (
+                                    <></>
+
+                                  )}
+                                  <div>
+                                      <Button
+                                        variant={
+                                          singleReply.usersThatLikedTheComment.includes(
+                                            userInfo.username
+                                          ) == false
+                                            ? "secondary"
+                                            : "danger"
+                                        }
+                                        className="mx-2"
+                                        value="Like"
+                                        disabled={
+                                          singleReply.user === userInfo._id ? "disabled" : null
+                                        }
+                                        onClick={() =>
+                                          likeHandler(
+                                            singleReply._id,
+                                            singleReply.title,
+                                            singleReply.content,
+                                            singleReply.likes,
+                                          )
+                                        }
+                                      >
+                                        {singleReply.usersThatLikedTheComment.includes(
+                                          userInfo.username
+                                        ) === false ? (
+                                          <FaRegHeart />
+                                        ) : (
+                                          <FaHeart />
+                                        )}{" "}
+                                        {singleReply.likes}
+                                      </Button> 
+                                  </div>
+                                  </Card.Header>
+                                  <Accordion.Collapse eventKey="0">
+                                    <Card.Body>
+                                      <h4>
+                                        <Badge variant="success">
+                                          <FaRegUserCircle />
+                                          {singleReply.username}
+                                        </Badge>
+                                      </h4>
+                                      <blockquote className="blockquote mb-0">
+                                        <ReactMarkdown>{singleReply.content}</ReactMarkdown>
+                                        </blockquote>
+
+                                    </Card.Body>
+
+                                  </Accordion.Collapse>
+
+                                </Card> : (<></>)}
+
+                              </Accordion>
+                            ))}
                   </Card>
                 </Accordion>
-              ))}
+  
+              ))} 
           </Col>
         </Row>
       </div>

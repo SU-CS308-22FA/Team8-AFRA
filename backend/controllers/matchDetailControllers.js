@@ -56,6 +56,12 @@ const getLineUps = asyncHandler(async (req, res) => {
     });
 });
 
+/* 
+// @route     GET /api/matchdetail/statistics 
+// @params    Gets the matchID from frontend
+// @desc      Get the match statistics from API 
+// @response  Send a json array consisting of match statistics 
+*/
 const getStatics = asyncHandler(async (req, res) => {
   const { matchID } = req.query;
 

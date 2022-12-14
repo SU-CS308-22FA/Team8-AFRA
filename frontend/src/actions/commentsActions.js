@@ -14,6 +14,12 @@ import {
   COMMENTS_LIKE_FAIL,
   COMMENTS_LIKE_REQUEST,
   COMMENTS_LIKE_SUCCESS,
+  COMMENTS_REPLY_REQUEST,
+  COMMENTS_REPLY_SUCCESS,
+  COMMENTS_REPLY_FAIL,
+  COMMENTS_LIST_REPLY_REQUEST,
+  COMMENTS_LIST_REPLY_SUCCESS,
+  COMMENTS_LIST_REPLY_FAIL,
 } from "../constants/commentsConstants";
 import axios from "axios";
 
@@ -80,6 +86,47 @@ export const listComments = (selection,matchID) => async (dispatch, getState) =>
         : error.message;
     dispatch({
       type: COMMENTS_LIST_FAIL,
+      payload: message,
+    });
+  }
+};
+
+
+export const listReplies = (parentId) => async (dispatch, getState) => {
+  try {
+      dispatch({
+        type: COMMENTS_LIST_REPLY_REQUEST,
+      });
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+        const {data} = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId},
+        config
+      );
+
+
+    console.log("data is");
+    console.log(data);
+
+      dispatch({
+        type: COMMENTS_LIST_REPLY_SUCCESS,
+        payload: data,
+      });
+
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    dispatch({
+      type: COMMENTS_LIST_REPLY_FAIL,
       payload: message,
     });
   }
@@ -235,9 +282,11 @@ export const createCommentAction =
         },
       };
       const username = userInfo.username;
+      const userId= userInfo._id;
+      const userrole = userInfo.userrole;
       const { data } = await axios.post(
         `${process.env.REACT_APP_URL}/api/comments/create/${matchId}`,
-        { title, content, username },
+        { title, content, username, userId, userrole },
         config
       );
       dispatch({
@@ -251,6 +300,47 @@ export const createCommentAction =
           : error.message;
       dispatch({
         type: COMMENTS_CREATE_FAIL,
+        payload: message,
+      });
+    }
+  };
+
+  export const replyCommentAction =
+  (title, content,parentId) => async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: COMMENTS_REPLY_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const username = userInfo.username;
+      const userId= userInfo._id;
+      const userrole = userInfo.userrole;
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_URL}/api/comments/reply`,
+        { title, content, username,parentId,userId,userrole },
+        config
+      );
+      dispatch({
+        type: COMMENTS_REPLY_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      dispatch({
+        type: COMMENTS_REPLY_FAIL,
         payload: message,
       });
     }

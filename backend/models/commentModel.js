@@ -27,6 +27,14 @@ const commentSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
+    usersThatReplyTheComment:{
+      type: Array,
+      default:[],
+    },
+    parentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      default: false
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
@@ -34,7 +42,7 @@ const commentSchema = mongoose.Schema(
     },
     matchID: {
       type: Number,
-      required: true,
+      required: false,
     }
   },
   {

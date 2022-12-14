@@ -11,6 +11,12 @@ const getComments = asyncHandler(async (req, res) => {
   res.json(comments);
 });
 
+const getReplies = asyncHandler(async (req,res)=>{
+  const { parentID } = req.body;
+  const comments = await Comment.find({parentID: parentID}); 
+  res.json(comments);
+});
+
 // @route   GET /api/comments/SortedByLike
 const getCommentsByLike = asyncHandler(async (req, res) => {
   const { matchID } = req.body
@@ -156,7 +162,7 @@ const getCommentById = asyncHandler(async (req, res) => {
 //@access          Private
 const CreateComment = asyncHandler(async (req, res) => {
   const matchId = req.params.matchId;
-  const { title, content, username } = req.body;
+  const { title, content, username, userId, userrole } = req.body;
   console.log(matchId)
   if (!title || !content) {
     res.status(400);
@@ -164,8 +170,8 @@ const CreateComment = asyncHandler(async (req, res) => {
     return;
   } else {
     const comment = new Comment({
-      user: req.user._id,
-      userrole: req.user.role,
+      user: userId,
+      userrole: userrole,
       title: title,
       content: content,
       username: username,
@@ -174,6 +180,28 @@ const CreateComment = asyncHandler(async (req, res) => {
 
     const createdComment = await comment.save();
 
+    res.status(201).json(createdComment);
+  }
+});
+
+const createReplyToComment= asyncHandler (async(req,res)=>{
+
+  const { title, content, username,parentId,userId,userrole } = req.body;
+  
+  if (!title || !content) {
+    res.status(400);
+    throw new Error("Please Fill all the feilds");
+    return;
+  } else {
+    const comment = new Comment({
+      user: userId,
+      userrole: userrole,
+      parentId: parentId,
+      title,
+      content,
+      username,
+    });
+    const createdComment = await comment.save();
     res.status(201).json(createdComment);
   }
 });
@@ -190,6 +218,7 @@ const DeleteComment = asyncHandler(async (req, res) => {
   }
 
   if (comment) {
+    await Comment.deleteMany({parentId: comment._id});
     await comment.remove();
     res.json({ message: "Comment Removed" });
   } else {
@@ -268,4 +297,6 @@ export {
   getCommentsBySearchWord,
   getCommentsBySearchUser,
   getFilteredComments,
+  createReplyToComment,
+  getReplies,
 };

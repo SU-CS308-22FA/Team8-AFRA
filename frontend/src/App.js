@@ -32,6 +32,7 @@ import SingleComment from "./screens/CreateComment/SingleComment";
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
 import SingleReferee from "./screens/SingleReferee/SingleReferee";
 import MatchDetailPage from "./screens/MatchDetailPage/MatchDetailPage";
+import ReplyComment from "./screens/CreateComment/ReplyComment";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -57,6 +58,7 @@ function App() {
           <Route path="profile" element={<ProfileScreen />} />
           <Route path="comment/:id/:matchID" element={<SingleComment />} />
           <Route path="createcomment/:matchID" element={<CreateComment />} />
+          <Route path="replycomment/:parentID/:matchID" element={<ReplyComment/>} />
           <Route path="mycomments" element={<MyComments />} />
           <Route path="verification" element={<VerificationPage />} />
         </Route>

@@ -12,6 +12,8 @@ import {
   getCommentsBySearchWord,
   getCommentsBySearchUser,
   getFilteredComments,
+  createReplyToComment,
+  getReplies,
 } from "../controllers/commentController.js";
 const router = express.Router();
 import { protect } from "../middleware/authMiddleware.js";
@@ -30,5 +32,7 @@ router
   .put(protect, UpdateComment);
 router.route("/create/:matchId").post(protect, CreateComment);
 router.route("/likes/:id").put(protect, LikeState);
+router.route("/getreplies").post(getReplies);
+router.route("/reply").post(createReplyToComment);
 
 export default router;

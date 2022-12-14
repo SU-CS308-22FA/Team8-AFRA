@@ -120,7 +120,7 @@ function SingleComment() {
         </Card.Body>
 
         <Card.Footer className="text-muted">
-          Updated on - {date.substring(0, 10)}
+          Updated on - {date}
         </Card.Footer>
       </Card>
     </MainScreen>

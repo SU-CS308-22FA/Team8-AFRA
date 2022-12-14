@@ -106,10 +106,10 @@ export const listReplies = (parentId) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-        const {data} = await axios.post(
-        `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId},
-        config
-      );
+    const {data} = await axios.post(
+      `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId},
+      config
+    );
 
 
     console.log("data is");

@@ -71,6 +71,13 @@ const getCommentsBySearchUser = asyncHandler(async (req, res) => {
   }
 });
 
+/* 
+// @route     GET /api/comments/FilterComments
+// @params    Gets an array of filters that are chosen by user and the matchID to find the comments of the corresponding match
+// @desc      First get the comments from the database that are related to the match, 
+              if comment includes the requested user role or like count, add those comments to the returning array
+// @response  Send a json array consisting of the comments that are prepared according to filters
+*/
 const getFilteredComments = asyncHandler(async (req, res) => {
   const { filters, matchID } = req.body;
   console.log(filters);

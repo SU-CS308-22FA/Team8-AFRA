@@ -12,8 +12,10 @@ const getComments = asyncHandler(async (req, res) => {
 });
 
 const getReplies = asyncHandler(async (req,res)=>{
-  const { parentID } = req.body;
-  const comments = await Comment.find({parentID: parentID}); 
+  console.log("I am at getReplies");
+  console.log(req);
+  const { parentId } = req.body;
+  const comments = await Comment.find({parentId: parentId}); 
   res.json(comments);
 });
 

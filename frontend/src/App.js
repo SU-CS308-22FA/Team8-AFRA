@@ -57,7 +57,7 @@ function App() {
           <Route path="profile" element={<ProfileScreen />} />
           <Route path="comment/:id/:matchID" element={<SingleComment />} />
           <Route path="createcomment/:matchID" element={<CreateComment />} />
-          <Route path="replycomment/:parentID/:matchID" element={<ReplyComment/>} />
+          <Route path="replycomment/:parentId/:matchID" element={<ReplyComment/>} />
           <Route path="verification" element={<VerificationPage />} />
         </Route>
 

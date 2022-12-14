@@ -106,11 +106,17 @@ export const listReplies = (parentId) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
+    console.log("Before axios");
+    console.log(typeof userInfo._id);
+    console.log(typeof parentId);
     const {data} = await axios.post(
-      `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId},
+      `${process.env.REACT_APP_URL}/api/comments/getreplies`, { parentId } ,
       config
-    );
-
+    ).catch((err) => {
+      console.log("I am at catch of axios");
+      console.log(err);
+    });
+    
 
     console.log("data is");
     console.log(data);

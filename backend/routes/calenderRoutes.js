@@ -18,17 +18,20 @@ function addHoursToDate(date, hours) {
 }
 
 router.post("/", async(req, res, next) => {
-    try{
-      const {code, user} = req.body
-      const {tokens} = await oauth2Client.getToken(code);
-      const theuser = await User.findById(user);
-      theuser.refresh_token = tokens.refresh_token || theuser.refresh_token;
+  try{
+    const {code, user} = req.body
+    const {tokens} = await oauth2Client.getToken(code);
+    const theuser = await User.findById(user);
+    if(!theuser.refresh_token)
+    {
+      theuser.refresh_token = tokens.refresh_token;
       const yes = await theuser.save();
-      res.send("SUCCESS")
     }
-    catch(err){
-      console.log(err)
-    }
+    res.send("SUCCESS")
+  }
+  catch(err){
+    console.log(err)
+  }
 })
 
 router.post("/create-event", async(req, res, next) => {

@@ -340,6 +340,13 @@ const VerifyOTP =asyncHandler (async (req,res) => {
 
 });
 
+/* 
+// @route     GET /api/users/report
+// @params    Gets a user, comment, the user who reports and the report cause to save it to the database
+// @desc      First checks the user if banned before: if banned before returns an appropriate message, else;
+saves the report to the database.
+// @response  Send a json array consisting of the comments that are prepared according to filters
+*/
 const reportUser = asyncHandler(async (req, res) => {
   const { user, comment, reportedBy, cause } = req.body;
   console.log("I AM HEREEEEEE")

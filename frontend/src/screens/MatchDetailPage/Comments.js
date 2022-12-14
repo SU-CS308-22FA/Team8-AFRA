@@ -81,15 +81,16 @@ const Comments = ({ matchID }) => {
       if(!commentMatchID){
         dispatch(listReplies(id));
       }
+   
     }
   };
 
-  const likeHandler = async (id, title, content, likes, commentMatchID) => {
+  const likeHandler = async (id, title, content, likes, commentMatchId) => {
     //console.log("Inside of like handler");
     //console.log(content);
-    
+
     await dispatch(updateLikeAction(id, title, content, likes));
-    if(!commentMatchID){
+    if(!commentMatchId){
       dispatch(listReplies(id));
     }
     else{
@@ -533,7 +534,7 @@ const Comments = ({ matchID }) => {
                             style={{ marginLeft: 5, marginBottom: 6,  }} 
                             onClick={(e) => listRepliesCallFunction(comment._id)}
                             >
-                            { !isOpen ? "Show Replies" : "Hide Replies"}
+                            Show Replies
                         </Button>
                         {userInfo.verified ? ( <Button href={`/replycomment/${comment._id}/${matchID}`} variant="info" style={{ marginLeft: 5, marginBottom: 6,  }}>
                           <BsReplyFill/>
@@ -558,10 +559,13 @@ const Comments = ({ matchID }) => {
                             </cite>
                           </footer>
                         </blockquote>
-                        {(replycomments && isOpen) && replycomments.reverse().map((singleReply)=>(
-                                <Accordion> 
+                       
+                      </Card.Body>
+                    </Accordion.Collapse>
+                    {(replycomments) && replycomments.reverse().map((singleReply)=>(
+                                <Accordion style={ {paddingInlineStart:20 }}> 
                                    {singleReply.parentId === comment._id ? 
-                                   <Card style={{ margin: 10}} key={comment._id}>
+                                   <Card style={{ margin: 10, backgroundColor:"#F9F7F7"}} bg ={'Dark'} key={singleReply._id}>
                                   <Card.Header style={{ display: "flex" }}>
                                     <span
                                       // onClick={() => ModelShow(comment)}
@@ -582,6 +586,7 @@ const Comments = ({ matchID }) => {
                                         {singleReply.title}
                                       </Accordion.Toggle>
                                     </span>
+
                                     {singleReply.user === userInfo._id ? (
                                     <div> 
                                       <Button size="sm" href={`/comment/${singleReply._id}/${matchID}`}>Edit</Button>
@@ -662,11 +667,10 @@ const Comments = ({ matchID }) => {
 
                               </Accordion>
                             ))}
-                      </Card.Body>
-                    </Accordion.Collapse>
                   </Card>
                 </Accordion>
-              ))}
+  
+              ))} 
           </Col>
         </Row>
       </div>

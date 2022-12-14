@@ -25,6 +25,7 @@ import axios from "axios";
 
 export const listComments = (selection,matchID) => async (dispatch, getState) => {
   try {
+    console.log("List comments called");
     dispatch({
       type: COMMENTS_LIST_REQUEST,
     });
@@ -107,7 +108,6 @@ export const listReplies = (parentId) => async (dispatch, getState) => {
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
-    console.log("List replies function called");
     const {data} = await axios.post(
       `${process.env.REACT_APP_URL}/api/comments/getreplies`, {parentId:parentId},
       config

@@ -21,9 +21,6 @@ function MatchDetailPage() {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/api/matchdetail`, {

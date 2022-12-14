@@ -18,6 +18,8 @@ function MatchDetailPage() {
   const params = useParams();
   const matchIDVar = params.matchID;
   const [flag, setFlag] = useState(false);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -82,7 +84,7 @@ function MatchDetailPage() {
         {viewState === 1 ? <EventsPage matchID={matchIDVar} /> : ""}
         {viewState === 2 ? <LineUpsPage matchID={matchIDVar} /> : ""}
         {viewState === 3 ? <StatisticsPage matchID={matchIDVar} /> : ""}
-        {viewState === 4 ? (userInfo ? <Comments matchID={matchIDVar} /> : <Unauthorized/>)  : ""}
+        {viewState === 4 ? (userInfo ? <Comments matchID={matchIDVar}/> : <Unauthorized/>): ""}
       </div>
     </MainScreen>
   );

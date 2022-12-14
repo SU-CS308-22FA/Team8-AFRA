@@ -5,6 +5,14 @@ import Report from "../models/reportModel.js";
 import Blacklist from "../models/blacklist.js";
 import nodemailer from 'nodemailer'
 
+/* 
+// @route   GET /api/admin
+// @desc    Get all the reports from the database, if comment content is deleted set it as "deleted comment"
+            If either the reported or the reporter user no longer exists, the request gets deleted
+// @response  send a json array consisting of:
+   the user_id, useremail, comment_id, comment content, 
+   who it was reported by and their _id, date of report, cause of report
+*/
 const getReports = asyncHandler(async (req, res) => {
   let the = []; 
   try{
@@ -53,7 +61,13 @@ const getReports = asyncHandler(async (req, res) => {
   }
 });
 
-
+/* 
+// @route   POST /api/admin/ban
+// @request Gets the user id to be banned, comment id, report id and the cause of report
+// @desc    Sets the user as banned and adds the user to the blacklist, sends an email to the user
+            with the description of the ban cause,   deletes the related comment, deletes all the reports made for that user
+// @response  sends a message if succesfull -> DONE, else NOPE
+*/
 const banUser = asyncHandler(async (req, res) => {
     const { user, comment, report, cause } = req.body;
 
@@ -102,6 +116,14 @@ const banUser = asyncHandler(async (req, res) => {
    }
 });
 
+/* 
+// @route   POST /api/admin/false-report
+// @request Gets the id of whoever made the report, and the report id
+// @desc    Finds the user and increments his false report count, if the user made more than 3 false
+            reports, the user is added to the blacklist with the cause: false reporting, and gets set as banned.
+            After that the related report gets deleted.
+// @response  sends a message if succesfull -> DONE, else NOPE
+*/
 const falseReport = asyncHandler(async (req, res) => {
     const { reportedBy, report} = req.body;
     try{

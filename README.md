@@ -43,6 +43,8 @@ The project is made using MERN stack.
 - [Bootstrap](http://getbootstrap.com/)
 
 Here is our backlog => [`BACKLOG`](https://github.com/orgs/SU-CS308-22FA/projects/40)
+Here is our code documentation => [`CODE DOCUMENTATION`](https://docs.google.com/document/d/1et_x-6B5ka5RlvvPosqfY9qxL8VcAu5Ao8sHZtJNW9M/edit?usp=sharing)
+Here is our API documentation => [`SWAGGER UI`](https://coolafra.herokuapp.com/doc)
 
 ### File structure
 ##### `frontend` - Holds the client application

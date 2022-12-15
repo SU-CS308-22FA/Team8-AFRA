@@ -131,5 +131,5 @@ After finding a bug, here are some steps you should follow...
 6. Send an email with the documentation to => afra.project.308@gmail.com 
 
 
-### Known bugs
-Currently there are no known bugs :tada:
+### Known bugs 
+Currently there are no known bugs :tada: :tada:

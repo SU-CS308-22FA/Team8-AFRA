@@ -3,7 +3,9 @@ import User from "../models/userModel.js";
 import Comment from "../models/commentModel.js";
 import Report from "../models/reportModel.js";
 import Blacklist from "../models/blacklist.js";
+import Maillist from "../models/mailList.js";
 import nodemailer from 'nodemailer'
+
 
 /* 
 // @route   GET /api/admin
@@ -72,7 +74,6 @@ const banUser = asyncHandler(async (req, res) => {
     const { user, comment, report, cause } = req.body;
 
    try{
-    console.log(process.env)
     const theuser = await User.findById(user);
     theuser.banned = true;
     const yes = await theuser.save();
@@ -143,4 +144,38 @@ const falseReport = asyncHandler(async (req, res) => {
        }
 });
 
-export { banUser, getReports, falseReport};
+const mailSend = asyncHandler(async (req, res) => {
+  const { topic, text} = req.body;
+  try{
+    const recipents = await Maillist.find({}, 'email')
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.MAIL,
+        pass: process.env.MAIL_PASS
+      }
+    });
+
+  var mailOptions = {
+    from: process.env.MAIL,
+    to: recipents,
+    subject: topic,
+    text: text
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email sent: ' + info.response);
+    }
+  });
+  res.status(200).send("Emails succesfully sent!")
+ }
+ catch{
+  res.status(400).send("Failed to send emails...")
+ }
+});
+
+
+export { banUser, getReports, falseReport, mailSend};

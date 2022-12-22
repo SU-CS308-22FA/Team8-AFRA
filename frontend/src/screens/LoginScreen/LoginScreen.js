@@ -12,7 +12,6 @@ import "./LoginScreen.css";
 function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [check, setCheck] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
@@ -79,5 +78,3 @@ function LoginScreen() {
 
 export default LoginScreen;
 
-/* {check && 
-        }*/

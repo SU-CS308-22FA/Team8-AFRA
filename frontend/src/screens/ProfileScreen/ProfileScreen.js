@@ -13,6 +13,8 @@ import axios from 'axios'
 const ProfileScreen = ({ location }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [match, setMatch] = useState("");
   const [username, setUsername] = useState("");
   const [pic, setPic] = useState();
   const [password, setPassword] = useState("");
@@ -52,6 +54,7 @@ const ProfileScreen = ({ location }) => {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data.url)
           setPic(data.url.toString());
           console.log(pic);
         })
@@ -65,8 +68,12 @@ const ProfileScreen = ({ location }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-
-    dispatch(updateProfile({ name, email, password, pic, username}));
+    if (password !== confirmPassword) {
+      setMatch("Passwords do not match");
+    } else {
+      dispatch(updateProfile({ name, email, password, pic, username}));
+      setMatch(null);
+    }
   };
 
   const deleteHandler = (e) => {
@@ -83,6 +90,29 @@ const ProfileScreen = ({ location }) => {
     }
   }
   
+  const subscriptionHandler = (e) => {
+    e.preventDefault();
+    if (window.confirm("You are subscribing to AFRA emails, are you sure ?"))
+    {
+      axios.post(`${process.env.REACT_APP_URL}/api/users/subscribe`, {email: userInfo.email}).then(res => { 
+        setMessage(res.data)
+      }).catch(err => {console.log(err)
+        setMessage(err)
+      })
+      dispatch(updateProfile({subscribed: true}));
+    }
+  }
+  const unsubHandler = (e) => {
+    e.preventDefault();
+    if (window.confirm("You unsubscribing from AFRA emails, are you sure ?"))
+    {
+      axios.post(`${process.env.REACT_APP_URL}/api/users/unsubscribe`, {email: userInfo.email}).then(res => { 
+        setMessage(res.data)
+      }).catch(err => {console.log(err)
+        setMessage(err)
+      })
+    }
+  }
 
   return (
     <MainScreen title="EDIT PROFILE">
@@ -91,6 +121,7 @@ const ProfileScreen = ({ location }) => {
           <Col md={6}>
             <Form onSubmit={submitHandler}>
               {loading && <Loading />}
+              {match && <ErrorMessage variant="danger">{match}</ErrorMessage>}
               {success && (
                 <ErrorMessage variant="success">
                   Updated Successfully
@@ -168,6 +199,7 @@ const ProfileScreen = ({ location }) => {
             }}
           >
             <img src={pic} alt={name} className="profilePic" />
+            
             <Button type="submit" onClick={() => deleteHandler() }>
                 Delete Account 
            </Button>
@@ -178,6 +210,22 @@ const ProfileScreen = ({ location }) => {
             </Link>
           </Col>
         </Row>
+        <Row> 
+          {!userInfo.subscribed && <Row> <h5> Want to get the latest news for AFRA ? </h5>
+          <Button type="submit" onClick={(e) => subscriptionHandler(e) }>
+                Hell YEAH!
+           </Button></Row>}
+           {userInfo.subscribed && <Row> <h5> Want to unsubscribe from AFRA ? </h5>
+          <Button type="submit" onClick={(e) => unsubHandler(e) }>
+                Maybe?
+           </Button></Row>}
+           
+        </Row>
+        {message && (
+                <ErrorMessage variant="info">
+                  {message}
+                </ErrorMessage>
+              )}
       </div>
     </MainScreen>
   );

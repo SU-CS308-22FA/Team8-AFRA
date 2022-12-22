@@ -16,6 +16,7 @@
   "author": "AFRA",
   "license": "ISC",
   "dependencies": {
+    "@coffeeandfun/google-profanity-words": "^1.0.4",
     "axios": "^1.2.1",
     "bcryptjs": "^2.4.3",
     "cheerio": "^1.0.0-rc.12",

@@ -2,12 +2,14 @@ import express from "express";
 import {
   getReports,
   banUser,
-  falseReport
+  falseReport,
+  mailSend
 } from "../controllers/adminController.js";
 const router = express.Router();
 
 router.route("/").get(getReports);
 router.route("/ban").post(banUser);
 router.route("/false-report").post(falseReport);
+router.route("/mail").post(mailSend);
 
 export default router;

@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
 import Blacklist from "../models/blacklist.js";
+import Maillist from "../models/mailList.js";
 import proRequest from "../models/requestModel.js";
 import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
@@ -58,6 +59,7 @@ const authUser = asyncHandler(async (req, res) => {
       verified: user.verified,
       licence: user.licence,
       banned: user.banned,
+      subscribed: user.subscribed,
       token: generateToken(user._id),
     });
   } else {
@@ -110,6 +112,7 @@ const registerUser = asyncHandler(async (req, res) => {
       verified: user.verified,
       licence: user.licence,
       banned: user.banned,
+      subscribed: user.subscribed,
       token: generateToken(user._id),
     });
   } else {
@@ -123,14 +126,20 @@ const registerUser = asyncHandler(async (req, res) => {
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
-
+  console.log("this is update profile")
   if (user) {
     user.name = req.body.name || user.name;
     if (req.body.email) {
       //if user changes email the verification drops.
       user.verified = false;
+      user.subscribed = false;
+      const del = await Maillist.deleteOne({email: user.email})
     }
     user.email = req.body.email || user.email;
+    if(req.body.subscribed === false)
+       user.subscribed = false;
+    else if (req.body.subscribed === true)
+       user.subscribed = true;
     user.username = req.body.username || user.username;
     user.pic = req.body.pic || user.pic;
     user.refresh_token = req.body.refresh_token || user.refresh_token
@@ -177,6 +186,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       role: user.role,
       verified: user.verified,
       licence: user.licence,
+      subscribed: user.subscribed,
       token: generateToken(user._id),
       banned: user.banned,
     });
@@ -368,4 +378,28 @@ const reportUser = asyncHandler(async (req, res) => {
     res.status(400).send("NOPE");
   }
 });
-export { authUser, updateUserProfile, registerUser, deleteUserProfile,sendOTPVerificationEmail,VerifyOTP, checkBanned, reportUser};
+
+const subscribe = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  try {
+    const add = await new Maillist({email: email})
+    add.save();
+    if (add)
+      res.status(200).send("You have been added to our email list!");
+  } catch (err){
+    res.status(400).send(err);
+  }
+});
+
+const unsubscribe = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  try {
+    const del = await Maillist.deleteOne({email: email})
+    if (del)
+      res.status(200).send("You have been removed from our email list!");
+  } catch (err){
+    res.status(400).send(err);
+  }
+});
+
+export { authUser, updateUserProfile, registerUser, deleteUserProfile,sendOTPVerificationEmail,VerifyOTP, checkBanned, reportUser, subscribe, unsubscribe};

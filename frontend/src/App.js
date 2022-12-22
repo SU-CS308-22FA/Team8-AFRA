@@ -23,6 +23,7 @@ import { useState, Suspense } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import AdminBan from "./screens/AdminPage/AdminBan";
+import AdminMail from "./screens/AdminPage/AdminMail";
 import AdminAppeal from "./screens/AdminPage/AdminAppeal";
 import FixturePage from "./screens/FixturePage/FixturePage";
 import CalendarPage from "./screens/CalendarPage/CalendarPage";
@@ -67,6 +68,7 @@ function App() {
           <Route path="adminpage" element={<AdminPage />} />
           <Route path="adminban" element={<AdminBan />} />
           <Route path="adminappeal" element={<AdminAppeal />} />
+          <Route path="adminmail" element={<AdminMail />} />
         </Route>
         <Route path="*" element={<LandingPage />} />
       </Routes>

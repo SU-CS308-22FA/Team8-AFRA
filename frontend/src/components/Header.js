@@ -77,6 +77,16 @@ function Header({ setSearch }) {
                     /> */}
                         The Appeals
                       </NavDropdown.Item>
+                      <NavDropdown.Item href="/adminmail">
+                        {/* <img
+                      alt=""
+                      src={`${userInfo.pic}`}
+                      width="25"
+                      height="25"
+                      style={{ marginRight: 10 }}
+                    /> */}
+                        Send Mails
+                      </NavDropdown.Item>
 
                       <NavDropdown.Divider />
                     </>

@@ -67,6 +67,16 @@ function Header({ setSearch }) {
                     /> */}
                         Admin Ban
                       </NavDropdown.Item>
+                      <NavDropdown.Item href="/adminappeal">
+                        {/* <img
+                      alt=""
+                      src={`${userInfo.pic}`}
+                      width="25"
+                      height="25"
+                      style={{ marginRight: 10 }}
+                    /> */}
+                        The Appeals
+                      </NavDropdown.Item>
 
                       <NavDropdown.Divider />
                     </>

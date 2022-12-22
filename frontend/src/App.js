@@ -14,7 +14,7 @@ import BanScreen from "./components/Banned";
 import OnlyAdmins from "./components/OnlyAdmins";
 import RequireAuth from "./components/RequireAuth";
 import RequireAdmin from "./components/RequireAdmin";
-
+import BanAppeal from "./screens/BanAppeal/BanAppeal";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
@@ -23,6 +23,7 @@ import { useState, Suspense } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import AdminBan from "./screens/AdminPage/AdminBan";
+import AdminAppeal from "./screens/AdminPage/AdminAppeal";
 import FixturePage from "./screens/FixturePage/FixturePage";
 import CalendarPage from "./screens/CalendarPage/CalendarPage";
 import StandingPage from "./screens/StandingPage/StandingPage";
@@ -42,6 +43,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="login" element={<LoginScreen />} />
+        <Route path="banappeal" element={<BanAppeal />} />
         <Route path="register" element={<RegisterScreen />} />
         <Route path="unauthorized" element={<Unauthorized />} />
         <Route path="onlyadmins" element={<OnlyAdmins />} />
@@ -64,6 +66,7 @@ function App() {
         <Route element={<RequireAdmin />}>
           <Route path="adminpage" element={<AdminPage />} />
           <Route path="adminban" element={<AdminBan />} />
+          <Route path="adminappeal" element={<AdminAppeal />} />
         </Route>
         <Route path="*" element={<LandingPage />} />
       </Routes>

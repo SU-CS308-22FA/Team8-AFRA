@@ -13,6 +13,7 @@ import googleDrive from "./routes/googledrive.js";
 import calendarRoutes from "./routes/calenderRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import appealRoutes from "./routes/appealRoutes.js";
 import refereeRoutes from "./routes/refereeRoutes.js";
 import matchDetailRoutes from "./routes/matchDetailRoutes.js";
 import swaggerUi from 'swagger-ui-express'
@@ -37,6 +38,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/calendar", calendarRoutes);
 app.use("/api/referees", refereeRoutes);
 app.use("/api/matchdetail", matchDetailRoutes);
+app.use("/api/appeal", appealRoutes);
 app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 
 

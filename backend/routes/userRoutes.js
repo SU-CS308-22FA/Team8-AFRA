@@ -7,7 +7,9 @@ import {
   checkBanned, 
   sendOTPVerificationEmail,
   VerifyOTP,
-  reportUser
+  reportUser,
+  subscribe, 
+  unsubscribe
 } from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 const router = express.Router();
@@ -20,5 +22,7 @@ router.route("/deleteaccount").post(protect, deleteUserProfile);
 router.route("/sendotpmessage").post(sendOTPVerificationEmail);
 router.route("/verifyotp").post(VerifyOTP);
 router.route("/report").post(reportUser);
+router.route("/subscribe").post(subscribe);
+router.route("/unsubscribe").post(unsubscribe);
 
 export default router;

@@ -46,13 +46,12 @@ h6 {
 ol {
   list-style-type: none;
 }
-
 hr {
   border-style: none;
   border-top-style: dotted;
-  border-color: grey;
+  border-color: #657fa5;
   border-width: 5px;
-  width: 40%;
+  width: 50%;
 }
 
 .explain {
@@ -96,3 +95,4 @@ hr {
   display: flex;
   justify-content: space-evenly;
 }
+

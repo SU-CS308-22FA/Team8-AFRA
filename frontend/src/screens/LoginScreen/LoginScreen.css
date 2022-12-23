@@ -3,3 +3,11 @@
   flex-direction: column;
   margin: 20px;
 }
+
+hr {
+  border-style: none;
+  border-top-style: solid;
+  border-color: grey;
+  border-width: 5px;
+  width: 40%;
+}

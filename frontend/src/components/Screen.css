@@ -8,12 +8,13 @@
 .page {
   width: 100%;
 }
+
 .heading {
   text-align: center;
   font-size: 60px;
-  color: #127ba3;
+  color: #2146C7;
   /* font-family: "Ubuntu", sans-serif; */
-  font-family: "Times NEW ROMAN", sans-serif;
+  font-family: "Montserrat", sans-serif;
   padding: 5px 10px;
 }
 
@@ -27,3 +28,4 @@
     justify-content: center;
   }
 }
+

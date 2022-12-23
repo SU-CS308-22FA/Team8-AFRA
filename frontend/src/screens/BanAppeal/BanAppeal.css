@@ -1,0 +1,25 @@
+.unbantitle {
+    font-size: 40px;
+    font-weight:500;
+    text-align: center;
+    color: #2146C7;
+    /* font-family: "Ubuntu", sans-serif; */
+    font-family: "Montserrat", sans-serif;
+    padding: 5px 10px;
+  }
+
+  .colOne {
+    width: 700px;
+    padding: 80px 70px;
+  }
+
+  .colTwo{
+    margin-left: 0px;
+    padding: 100px 20px;
+  }
+
+.fancy{
+    color: #2146C7;
+    font-family: "Montserrat", sans-serif;
+    font-size:medium;
+}

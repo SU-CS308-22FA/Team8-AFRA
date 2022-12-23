@@ -3,6 +3,7 @@ import { Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bo
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
+import afra from "../afra.png"
 
 function Header({ setSearch }) {
   const dispatch = useDispatch();
@@ -20,9 +21,9 @@ function Header({ setSearch }) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Container>
-        <Navbar.Brand href="/"></Navbar.Brand>
-        <br></br>
-        <Navbar.Brand href="/">AFRA</Navbar.Brand>
+      <Navbar.Brand>
+        <a href="/"><img src={afra} style={{height: "40px"}} alt='logo'/></a>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto"></Nav>
@@ -66,6 +67,26 @@ function Header({ setSearch }) {
                       style={{ marginRight: 10 }}
                     /> */}
                         Admin Ban
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="/adminappeal">
+                        {/* <img
+                      alt=""
+                      src={`${userInfo.pic}`}
+                      width="25"
+                      height="25"
+                      style={{ marginRight: 10 }}
+                    /> */}
+                        The Appeals
+                      </NavDropdown.Item>
+                      <NavDropdown.Item href="/adminmail">
+                        {/* <img
+                      alt=""
+                      src={`${userInfo.pic}`}
+                      width="25"
+                      height="25"
+                      style={{ marginRight: 10 }}
+                    /> */}
+                        Send Mails
                       </NavDropdown.Item>
 
                       <NavDropdown.Divider />

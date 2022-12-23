@@ -62,17 +62,21 @@ function LoginScreen() {
             New User ? <Link to="/register">Register Here</Link>
           </Col>
         </Row>
-      </div>
-      {error && error.includes("banned") && <div> 
-        <h3>Click the button to appeal for your ban!</h3>
+        {error && error.includes("banned") && 
+        <Row className="py-3">
+        
+        <h4 style={{textAlign: "left", color: "#db7029", fontWeight:"bolder" }}>Click the button to appeal for your ban &#8594;</h4>
+        
         <Link to = "/banappeal">
           <Button variant="primary" type="submit">
-              Appeal
+              Ban Appeal Page
           </Button>
         </Link>
-      </div>}
+      
+        </Row>
+       }
+      </div>
     </MainScreen>
-    
   );
 }
 

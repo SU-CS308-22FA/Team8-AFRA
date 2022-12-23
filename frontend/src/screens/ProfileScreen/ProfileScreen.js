@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+import { Form, Button, Row, Col, Container } from "react-bootstrap";
 import MainScreen from "../../components/MainScreen";
 import "./ProfileScreen.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import { deleteProfile, updateProfile, logout } from "../../actions/userActions"
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { Link } from "react-router-dom";
+import { FaTrashAlt, FaRegCheckSquare, FaEnvelopeOpen, FaEnvelope } from "react-icons/fa";
 import axios from 'axios'
 
 const ProfileScreen = ({ location }) => {
@@ -111,6 +112,7 @@ const ProfileScreen = ({ location }) => {
       }).catch(err => {console.log(err)
         setMessage(err)
       })
+      dispatch(updateProfile({subscribed: false}));
     }
   }
 
@@ -189,43 +191,43 @@ const ProfileScreen = ({ location }) => {
               <Button type="submit" varient="primary">
                 Update
               </Button>
+  
+              <Button type="submit" style={{float: 'right'}} onClick={() => deleteHandler() }>
+                <FaTrashAlt/>
+              </Button>
+              
             </Form>
           </Col>
-          <Col
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <img src={pic} alt={name} className="profilePic" />
-            
-            <Button type="submit" onClick={() => deleteHandler() }>
-                Delete Account 
-           </Button>
-           <Link to="/verification">
-                <Button>
-                  Account Verification
-                </Button>
-            </Link>
-          </Col>
-        </Row>
-        <Row> 
-          {!userInfo.subscribed && <Row> <h5> Want to get the latest news for AFRA ? </h5>
-          <Button type="submit" onClick={(e) => subscriptionHandler(e) }>
-                Hell YEAH!
-           </Button></Row>}
-           {userInfo.subscribed && <Row> <h5> Want to unsubscribe from AFRA ? </h5>
-          <Button type="submit" onClick={(e) => unsubHandler(e) }>
-                Maybe?
-           </Button></Row>}
-           
-        </Row>
-        {message && (
+          <Col>
+           <Container className="picCon">
+           {message && (
                 <ErrorMessage variant="info">
                   {message}
                 </ErrorMessage>
               )}
+            <img src={pic} alt={name} className="profilePic" />
+            {!userInfo.subscribed && <div> 
+          <Button type="submit" onClick={(e) => subscriptionHandler(e) }>
+                <FaEnvelopeOpen></FaEnvelopeOpen> &#8205; Subsribe to AFRA emails
+           </Button></div>}
+           {userInfo.subscribed && <div>
+          <Button type="submit" onClick={(e) => unsubHandler(e) }>
+          <FaEnvelopeOpen></FaEnvelopeOpen> &#8205; Unsubscribe from AFRA emails
+           </Button></div>}
+           <br></br>
+           <Link to="/verification">
+                <Button>
+                Verify Your Account &#8205;  <FaRegCheckSquare/>
+                </Button>
+            </Link>
+            </Container>
+          </Col>
+        </Row>
+        <Row> 
+          
+           
+        </Row>
+       
       </div>
     </MainScreen>
   );

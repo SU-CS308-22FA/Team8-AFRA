@@ -286,7 +286,7 @@ const VerifyOTP =asyncHandler (async (req,res) => {
 
 
     if(!userId || !otp){
-      throw Error("Empty otp details are not allowed");
+      res.status(200).send("Empty otp details are not allowed");
     }else{
       const UserOTPVerificationRecords= await UserOTPVerification.find({
         userId,
@@ -296,7 +296,7 @@ const VerifyOTP =asyncHandler (async (req,res) => {
       if(UserOTPVerificationRecords.length<=0){
         //console.log("no record found");
         //no record found
-        throw new Error("Account record does not exists or has been verified already");
+        res.status(200).send("Account record does not exists or has been verified already");
       }else{
         //console.log("user otp record exists");
         //user otp record exists
@@ -307,7 +307,7 @@ const VerifyOTP =asyncHandler (async (req,res) => {
           //console.log("user otp record expired")
           //user otp record expired
           await UserOTPVerification.deleteMany({userId:userId});
-          throw new Error("Code has expired. Please request again");
+          res.status(200).send("Code has expired. Please request again");
         }else{
           //console.log("checking for validation");
           //console.log(hashedOTP);
@@ -316,7 +316,7 @@ const VerifyOTP =asyncHandler (async (req,res) => {
           if(!validOTP){
             console.log("not valid");
             //supplied otp is wrong
-            throw new Error("Invalid code passed. Check your inbox again");
+            res.status(200).send("Invalid code passed. Check your inbox again");
           }else{
             console.log("valid");
             //success
@@ -329,9 +329,7 @@ const VerifyOTP =asyncHandler (async (req,res) => {
             //console.log("UserOTPVerification")
             //console.log(printUser);
 
-            res.send(
-              "VERIFIED"
-            );
+            res.status(200).send("Verification Completed")
             /*
             res.json({
               status:"VERIFIED",

@@ -148,6 +148,8 @@ const mailSend = asyncHandler(async (req, res) => {
   const { topic, text} = req.body;
   try{
     const recipents = await Maillist.find({}, 'email')
+    if(!recipents)
+      res.status(200).send("Mail List is empty")
     var transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {

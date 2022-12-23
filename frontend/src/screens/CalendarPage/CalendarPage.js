@@ -28,12 +28,6 @@ function CalendarPage() {
   const [team, setTeam] = useState();
   const [color, setColor] = useState();
 
-  const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-  };
-
   const responseGoogle = response => {
     console.log(response);
     const {code} = response;
@@ -102,6 +96,30 @@ const submitTeam = (e) => {
 const responseError = error => {
   console.log(error)
   alert("Sign In ERROR, Please try again!");
+}
+
+const checkAll = (e) => {
+  var update = cal;
+  while (cal.length > 0) {
+    cal.pop();
+} // Fastest
+  if(document.getElementById("all").checked)
+  {
+    for (var i=0; i< data.length; i++)
+   {
+    document.getElementById(data[i]._id).checked = true;
+    update.push(data[i]._id);
+   } 
+   setCal(update);
+  }
+  else{
+    for (var i=0; i< data.length; i++)
+   {
+    document.getElementById(data[i]._id).checked = false;
+   } 
+   console.log("cal cleared")
+  }
+  console.log(cal)
 }
 
 const handleCheck = (e) => {
@@ -176,6 +194,7 @@ const handleCheck = (e) => {
                   <Dropdown.Item eventKey="11" style={{color: '#d60000', fontWeight: 'bold'}}>&#9824; Tomato</Dropdown.Item>
                 </DropdownButton>
               </div>
+              
         </Col>
       </Row>
       <br></br>
@@ -185,6 +204,7 @@ const handleCheck = (e) => {
                   {message}
                 </ErrorMessage>
               )}
+              
       <Table responsive>
             <thead className="theadCal">
               <tr>
@@ -194,7 +214,7 @@ const handleCheck = (e) => {
                 <th>VISITOR</th>
                 <th>DIVISION</th>
                 <th>REFEREE</th>
-                <th>ADD</th>
+                <th>SELECT ALL <input style={{marginLeft: "5px", verticalAlign: "middle"}}type="checkbox" id="all" onChange={checkAll} /></th>
               </tr>
             </thead>
             <tbody >
@@ -207,7 +227,7 @@ const handleCheck = (e) => {
                     <td>{d.visitor}</td>
                     <td>{d.division}</td>
                     <td>{d.referee || "Not yet assigned"}</td>
-                    <td> <input value={d._id} type="checkbox" onChange={handleCheck} />
+                    <td> <input value={d._id} id={d._id} type="checkbox" onChange={handleCheck} />
                     </td>
                   </tr>
                 )

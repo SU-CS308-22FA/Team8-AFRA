@@ -3,9 +3,11 @@ import { Form, Button, Dropdown, DropdownButton, Col, Row, Table,} from "react-b
 import {GoogleLogin} from "react-google-login";
 import axios from "axios";
 import "./CalendarPage.css";
+import {FaCalendar} from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { gapi} from "gapi-script"
 import ErrorMessage from "../../components/ErrorMessage";
+import googleCAL from "./calendar.png"
 
 function CalendarPage() {
   
@@ -22,6 +24,7 @@ function CalendarPage() {
   const [data, setData] = useState([]);
   const [cal, setCal] = useState([]);
   const [message, setMesage] = useState();
+  const [great, setGreat] = useState('#f5511d');
   const [team, setTeam] = useState();
   const [color, setColor] = useState();
 
@@ -56,14 +59,36 @@ const submitHandler = (e) => {
 const handleColor = (e, event) => {
   event.preventDefault();
   setColor(e);
-  console.log(e)
+  if (e ==="1")
+    setGreat('#7986cb')
+  else if (e==="2")
+    setGreat('#33b679')
+  else if (e==="3")
+  setGreat('#8e24aa')
+  else if (e==="4")
+  setGreat('#e67c73')
+  else if (e==="5")
+  setGreat('#f6c026')
+  else if(e==="6")
+  setGreat('#f5511d')
+  else if (e==="7")
+  setGreat('#039be5')
+  else if (e==="8")
+  setGreat('#616161')
+  else if (e==="9")
+  setGreat('#3f51b5')
+  else if(e==="10")
+  setGreat('#0b8043')
+  else if (e==="11")
+  setGreat('#d60000')
 }
 const submitTeam = (e) => {
   e.preventDefault();
   if(!team)
-    setMesage("Enter Something!")
+    setMesage("Enter a team name!")
   else
   {
+    setMesage(null)
       console.log("Team submitted here it is " + team)
     axios.get(`${process.env.REACT_APP_URL}/api/calendar/team`, { params: {
       team: team,
@@ -92,14 +117,10 @@ const handleCheck = (e) => {
   return (
     <div>
       <Row>
-        <Col>
-           <h2 class="caltitle"> ~ Edit Your Calendar ~</h2>
-        </Col>
-      </Row>
-
-      {
-              !signedIn ? ( <div> 
-                 <h4 class="calwelcome"> Hello {userInfo.name}, to use the calendar you need to authorize first: </h4>
+        <Col className="calColOne">
+           <h2 class="editTitle"> EDIT YOUR CALENDAR</h2>
+           <h4 className="calText"> Hello {userInfo.name}, {!signedIn? <> to modify your calendar you need to authorize first &#9917;</> :<> select the events you want to add to your calendar <FaCalendar color={great}/></> } </h4>
+           {!signedIn && (
                  <div class="google">
                     <GoogleLogin clientId="930549873699-q4im77aiuv2m72mqkup5nn8vf7puf2bt.apps.googleusercontent.com" 
                     buttontext="Sign in and Authorize Calendar" 
@@ -109,13 +130,17 @@ const handleCheck = (e) => {
                     responseType='code'
                     accessType="offline"
                     scope='openid email profile https://www.googleapis.com/auth/calendar'
-                    /> </div>
-              </div>):
-
+                    /> </div>)}
+        </Col>
+        <a href="https://calendar.google.com/calendar/u/0/r" target="_blank"><img src={googleCAL} className="googleCAL"/></a>
+      
+      </Row>
+      {
+              signedIn &&
       <div>
       <Row>
-        <Col>
-        <h5 class="explanation">Enter the team name to list their matches (no turkish characters)</h5>
+        <Col className="calColThree">
+        <h5 className="calExplanation">Enter the team name to list their matches</h5>
                 <Form onSubmit={submitTeam}>
                   <Form.Group controlId="name">
                     <Form.Control
@@ -134,11 +159,10 @@ const handleCheck = (e) => {
         <br>
         </br>
           <div className="colorDrop">
-                <DropdownButton
+                <DropdownButton 
                   id="dropdown-basic-button"
                   title="Pick event color"
-                  onSelect={handleColor}
-                >
+                  onSelect={handleColor} >
                   <Dropdown.Item eventKey="1" style={{color: '#7986cb', fontWeight: 'bold'}}> &#9824; Lavender</Dropdown.Item>
                   <Dropdown.Item eventKey="2" style={{color: '#33b679', fontWeight: 'bold'}}> &#9824; Sage</Dropdown.Item>
                   <Dropdown.Item eventKey="3" style={{color: '#8e24aa', fontWeight: 'bold'}}> &#9824; Grape</Dropdown.Item>
@@ -162,7 +186,7 @@ const handleCheck = (e) => {
                 </ErrorMessage>
               )}
       <Table responsive>
-            <thead className="thead">
+            <thead className="theadCal">
               <tr>
                 <th>DATE</th>
                 <th>TIME</th>
@@ -173,10 +197,10 @@ const handleCheck = (e) => {
                 <th>ADD</th>
               </tr>
             </thead>
-            <tbody class= "tbo">
+            <tbody >
               {data.map((d) => {
                 return (
-                  <tr>
+                  <tr className= "tbodyCal">
                     <td>{d.date.split("T")[0]}</td>
                     <td>{d.date.split("T")[1].split('.')[0]}</td>
                     <td>{d.home}</td>

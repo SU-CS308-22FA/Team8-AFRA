@@ -1,13 +1,37 @@
-.caltitle {
+.editTitle {
   font-size: 40px;
   text-align: center;
-  color: rgb(15, 99, 117);
+  color: #2146C7;
+}
+.googleCAL {
+  width: 160px;  
+  height: auto;  
+  font-size: 40px;
+  display: -webkit-box;
+  margin-left: auto;
+  margin-right: 50px;
 }
 
-.calwelcome {
+.calColOne {
+  width: auto;
+  padding: 40px 30px;
+}
+
+.calColTwo{
+  width: 10px;
+  margin-right: 0px;
+}
+
+.calColThree{
+  width: 10px;
+  margin-left: 30px;
+}
+
+
+.calText {
   font-size: 30px;
   text-align: center;
-  color: rgb(9, 70, 84);
+  color: "black";
 }
 
 .getSubmit {
@@ -16,16 +40,26 @@
   color: rgb(27, 107, 125);
 }
 
-.thead {
-  background-color: rgb(27, 107, 125);
+.theadCal {
+  background-color:#5F9DF7;
   color:aliceblue;
   text-align: center
 }
-.tbo {
+.tbodyCal:nth-of-type(even) {
   text-align: center;
   color: rgb(6, 63, 75);
+  background-color: #d0e4ee;
 }
 
+.tbodyCal{
+  text-align: center;
+  background-color: #ffff;
+}
+
+td{
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+}
 
 .google {
   font-size: 30px;
@@ -33,10 +67,11 @@
   color: rgb(9, 70, 84);
 }
 
-.explanation {
+.calExplanation {
   font-size: 25px;
+  font-weight: 500;
   text-align: left;
-  color: rgb(9, 70, 84);
+  color:  #db7029;
 }
 
 .colorDrop {

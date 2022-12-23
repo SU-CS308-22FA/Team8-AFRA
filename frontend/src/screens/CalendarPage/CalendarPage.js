@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { gapi} from "gapi-script"
 import ErrorMessage from "../../components/ErrorMessage";
 import googleCAL from "./calendar.png"
+import Loading from "../../components/Loading";
+
 
 function CalendarPage() {
   
@@ -26,6 +28,7 @@ function CalendarPage() {
   const [message, setMesage] = useState();
   const [great, setGreat] = useState('#f5511d');
   const [team, setTeam] = useState();
+  const [load, setLoad] = useState(false);
   const [color, setColor] = useState();
 
   const responseGoogle = response => {
@@ -42,10 +45,14 @@ const submitHandler = (e) => {
   if (cal.length === 0)
      setMesage("Your selection is empty, please select something")
   else if(window.confirm("The selected ones will be added to your calendar.")){
+    setMesage(null);
+    setLoad(true);
     axios.post(`${process.env.REACT_APP_URL}/api/calendar/create-event`, {userInfo: userInfo, cal: cal, color:color}).then(res => { 
       setMesage(res.data)
+      setLoad(false);
     }).catch(err => {console.log(err)
       setMesage("Failed to add to the calendar, error with calendar servers.")
+      setLoad(false);
     })
   }
 };
@@ -203,6 +210,9 @@ const handleCheck = (e) => {
                 <ErrorMessage variant="info">
                   {message}
                 </ErrorMessage>
+              )}
+      {load && (
+                <Loading/>
               )}
               
       <Table responsive>

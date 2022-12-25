@@ -6,6 +6,7 @@ import {
   DropdownButton,
   Card,
   Row,
+  Col,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -67,6 +68,43 @@ function TeamsScreen() {
       <p> </p>
       <h2 className="subsentence"> {displaySentence} </h2>
       <p> </p>
+      <div style={{ marginLeft: 60 }}>
+        <table>
+          <thead>
+            <tr>
+              <Col>
+                <th>
+                  <DropdownButton
+                    id="dropdown-basic-button"
+                    title="Choose a season"
+                    onSelect={handleSelectSeason}
+                  >
+                    <Dropdown.Item eventKey="2022">2022</Dropdown.Item>
+                    <Dropdown.Item eventKey="2021">2021</Dropdown.Item>
+                    <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
+                    <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
+                    <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
+                    <Dropdown.Item eventKey="2017">2017</Dropdown.Item>
+                    <Dropdown.Item eventKey="2016">2016</Dropdown.Item>
+                    <Dropdown.Item eventKey="2015">2015</Dropdown.Item>
+                    <Dropdown.Item eventKey="2014">2014</Dropdown.Item>
+                    <Dropdown.Item eventKey="2013">2013</Dropdown.Item>
+                    <Dropdown.Item eventKey="2012">2012</Dropdown.Item>
+                  </DropdownButton>
+                </th>
+              </Col>
+              <Col>
+                <Form onSubmit={submitHandler} className="dropdown">
+                  <Button variant="primary" type="submit">
+                    {" "}
+                    Submit your Chooses{" "}
+                  </Button>
+                </Form>
+              </Col>
+            </tr>
+          </thead>
+        </table>
+      </div>
       <div
         className="row row-cols-4 row-cols-md-4 g-4"
         style={{ marginLeft: 40, marginRight: 40 }}
@@ -89,7 +127,7 @@ function TeamsScreen() {
                   </Card.Text>
                 </Card.Body>
                 <Row className="allRows">
-                  <Link to={`/team/${data.team.id}/2022`}>
+                  <Link to={`/team/${data.team.id}/${seasonVar}`}>
                     <Button variant="primary" size="lg">
                       See Team Details
                     </Button>
@@ -105,38 +143,3 @@ function TeamsScreen() {
 }
 
 export default TeamsScreen;
-
-/*
-<h2 className="sub"> Select a Season</h2>
-      <div className="dropdown">
-        <DropdownButton
-          id="dropdown-basic-button"
-          title="Choose a season"
-          onSelect={handleSelectSeason}
-        >
-          <Dropdown.Item eventKey="2022">2022</Dropdown.Item>
-          <Dropdown.Item eventKey="2021">2021</Dropdown.Item>
-          <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-          <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-          <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-          <Dropdown.Item eventKey="2017">2017</Dropdown.Item>
-          <Dropdown.Item eventKey="2016">2016</Dropdown.Item>
-          <Dropdown.Item eventKey="2015">2015</Dropdown.Item>
-          <Dropdown.Item eventKey="2014">2014</Dropdown.Item>
-          <Dropdown.Item eventKey="2013">2013</Dropdown.Item>
-          <Dropdown.Item eventKey="2012">2012</Dropdown.Item>
-        </DropdownButton>
-      </div>
-
-      <p> </p>
-      <Form onSubmit={submitHandler} className="dropdown">
-        <Button variant="primary" type="submit">
-          {" "}
-          Submit your Chooses{" "}
-        </Button>
-      </Form>
-      <p> </p>
-      <h2 className="subsentence"> {displaySentence} </h2>
-      <p> </p>
-
-      */

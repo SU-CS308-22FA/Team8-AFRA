@@ -7,6 +7,7 @@ import {
   Outlet,
 } from "react-router-dom";
 import React from "react";
+import { useState, Suspense } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Unauthorized from "./components/Unauthorized";
@@ -19,7 +20,6 @@ import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
-import { useState, Suspense } from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import AdminBan from "./screens/AdminPage/AdminBan";

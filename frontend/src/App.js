@@ -12,6 +12,7 @@ import RequireAdmin from "./components/RequireAdmin";
 import BanAppeal from "./screens/BanAppeal/BanAppeal";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
+import NotificationPage from "./screens/NotificationPage/NotificationPage";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
@@ -55,6 +56,7 @@ function App() {
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />
+          <Route path="notification" element={<NotificationPage />} />
           <Route path="profile" element={<ProfileScreen />} />
           <Route path="comment/:id/:matchID" element={<SingleComment />} />
           <Route path="createcomment/:matchID" element={<CreateComment />} />

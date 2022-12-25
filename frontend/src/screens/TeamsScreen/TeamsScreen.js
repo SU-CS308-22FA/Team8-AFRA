@@ -7,6 +7,7 @@ import {
   Card,
   Row,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import "./TeamsScreen.css";
 import Loading from "../../components/Loading";
@@ -88,7 +89,11 @@ function TeamsScreen() {
                   </Card.Text>
                 </Card.Body>
                 <Row className="allRows">
-                  <Button variant="primary">See Team Details</Button>
+                  <Link to={`/team/${data.team.id}/2022`}>
+                    <Button variant="primary" size="lg">
+                      See Team Details
+                    </Button>
+                  </Link>
                 </Row>
               </Card>
             </div>

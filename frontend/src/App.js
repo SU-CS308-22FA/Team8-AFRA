@@ -51,7 +51,7 @@ function App() {
         <Route path="/referees" element={<RefereesScreen />} />
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
         <Route path="/teams" element={<TeamsScreen />} />
-        <Route path="/team/:teamID" element={<SingleTeam />} />
+        <Route path="/team/:teamID/:season" element={<SingleTeam />} />
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />

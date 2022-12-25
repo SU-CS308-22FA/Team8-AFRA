@@ -8,6 +8,7 @@ import axios from "axios";
 function SingleTeam() {
   const params = useParams();
   const teamID = params.teamID;
+  const season = params.season;
 
   const [name, setName] = useState();
   const [country, setCountry] = useState();
@@ -24,7 +25,7 @@ function SingleTeam() {
     axios
       .get(`${process.env.REACT_APP_URL}/api/teams`, {
         params: {
-          season: "2022",
+          season: season,
         },
       })
       .then((res) => {

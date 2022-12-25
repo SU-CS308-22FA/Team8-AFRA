@@ -42,6 +42,11 @@ const fixtureSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  isDelayed:{
+    type: Boolean,
+    dafault: false,
+    required: false,
+  },
 });
 
 const fixture = mongoose.model("fixture", fixtureSchema);

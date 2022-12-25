@@ -9,6 +9,8 @@ import Modal from 'react-bootstrap/Modal';
 
 
 function FixturePage() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const [varSeason, setvarSeason] = useState();
   const [varWeek, setVarWeek] = useState();
   const [seasonVar, setSeasonVar] = useState();
@@ -21,6 +23,7 @@ function FixturePage() {
   const handleSelectSeason = (e) => {
     setSeasonVar(e);
   };
+
 
 let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
 "13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28",
@@ -51,20 +54,14 @@ let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
     
   };
 
-  const checkBackend = async (matchID,choice) => {
+  const checkBackend = async (matchID) => {
     
 
     await axios.put(
       `${process.env.REACT_APP_URL}/api/matches/matchdelayed`,
       { matchID}
     );
-/*
-    choice=1;
-    const { dataOfUpdatedMatch } = await axios.put(
-      `${process.env.REACT_APP_URL}/api/matches/changetimeofmatch`,
-      { matchID,choice}
-    );
-*/
+
     const { data } = await axios.get(
       `${process.env.REACT_APP_URL}/api/matches/fixture`,
       {
@@ -117,6 +114,8 @@ let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
 
     setData(data);
   };
+
+
 
   return (
     <div>
@@ -220,52 +219,53 @@ let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
                   </h5>{" "}
                 </a>
                  <h5> 
-                <Dropdown>
-                  <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
-                    <Dropdown.Item onClick={handleShow}>
-                      {" "}
-                      Change the time of the match{" "} 
+                  {userInfo.isAdmin ? <Dropdown>
+                      <Dropdown.Toggle variant="light" id="dropdown-basic">
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={handleShow}>
+                          {" "}
+                          Change the time of the match{" "} 
+                                
+                        </Dropdown.Item>
+                            <Modal show={show} onHide={handleClose}>
                             
-                    </Dropdown.Item>
-                        <Modal show={show} onHide={handleClose}>
-                        
-                          <Modal.Header closeButton>
-                            <Modal.Title>Choose another week for the match</Modal.Title>
-                          </Modal.Header>
-                          <Modal.Body>Avaiable Weeks:
-                              <Form onSubmit={handleSubmitForEdit}>
-                                {weeksOfTheMatches.map((labelName) => (
-                                 
-                                  <div key={`default-radio`} className="mb-3">
-                                     {labelName> match.week ?  
-                                     <Form.Group controlId= "getSelectionForUpdateWeek">
-                                        <Form.Check 
-                                          type='radio'
-                                          name= "belongSameRadio"
-                                          id={`default-radio`}
-                                          label={labelName}
-                                          value= {labelName}
-                                          onChange={(e) => setSelectedWeek(e.target.value)}
-                                        />
-                                    </Form.Group>
-                                    : <></>}
+                              <Modal.Header closeButton>
+                                <Modal.Title>Choose another week for the match</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>Avaiable Weeks:
+                                  <Form onSubmit={handleSubmitForEdit}>
+                                    {weeksOfTheMatches.map((labelName) => (
                                     
-                                  </div>
-                                ))}
-                                  <Button variant="primary" type="submit" onClick = {() => setMatchId(match.matchID) }>
-                                    Save Changes
-                                  </Button>
-                                </Form>
-                          </Modal.Body>
-                        </Modal>
-                    <Dropdown.Item onClick= {() => checkBackend(match.matchID,3)} >
-                      {" "}
-                      Postpone match to a later date
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
+                                      <div key={`default-radio`} className="mb-3">
+                                        {labelName> match.week ?  
+                                        <Form.Group controlId= "getSelectionForUpdateWeek">
+                                            <Form.Check 
+                                              type='radio'
+                                              name= "belongSameRadio"
+                                              id={`default-radio`}
+                                              label={labelName}
+                                              value= {labelName}
+                                              onChange={(e) => setSelectedWeek(e.target.value)}
+                                            />
+                                        </Form.Group>
+                                        : <></>}
+                                        
+                                      </div>
+                                    ))}
+                                      <Button variant="primary" type="submit" onClick = {() => setMatchId(match.matchID) }>
+                                        Save Changes
+                                      </Button>
+                                    </Form>
+                              </Modal.Body>
+                            </Modal>
+                        <Dropdown.Item onClick= {() => checkBackend(match.matchID)} >
+                          {" "}
+                          Postpone match to a later date
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown> : <></>}
+                    
                 </h5>
                 
                 {match.hGoal} - {match.vGoal} <p> </p>

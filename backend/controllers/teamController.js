@@ -1,4 +1,5 @@
 import asyncHandler from "express-async-handler";
+import Team from "../models/teamModel.js";
 import axios from "axios";
 
 const getTeamsBySeason = asyncHandler(async (req, res) => {
@@ -23,4 +24,9 @@ const getTeamsBySeason = asyncHandler(async (req, res) => {
     });
 });
 
-export { getTeamsBySeason };
+const getTeamsFromDatabase = asyncHandler(async (req, res) => {
+  const teams = await Team.find();
+  res.json(teams);
+});
+
+export { getTeamsBySeason, getTeamsFromDatabase };

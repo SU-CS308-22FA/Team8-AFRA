@@ -20,6 +20,9 @@ function SingleTeam() {
   const [stadiumCapacity, setStadiumCapacity] = useState();
   const [stadiumSurface, setStadiumSurface] = useState();
   const [stadiumImage, setStadiumImage] = useState();
+  const [teamRank, setTeamRank] = useState();
+  const [teamInfo, setTeamInfo] = useState();
+  const [isInDB, setIsInDB] = useState(false);
 
   useEffect(() => {
     axios
@@ -43,6 +46,22 @@ function SingleTeam() {
             setStadiumCapacity(element.venue.capacity);
             setStadiumSurface(element.venue.surface);
             setStadiumImage(element.venue.image);
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    axios
+      .get(`${process.env.REACT_APP_URL}/api/teams/teamsFromDatabase`)
+      .then((res) => {
+        const teams = res.data;
+        teams.forEach((element) => {
+          var cleanID = String(element.id);
+          if (cleanID === teamID) {
+            setTeamInfo(element.teamInfo);
+            setTeamRank(element.teamRank);
+            setIsInDB(true);
           }
         });
       })
@@ -84,6 +103,22 @@ function SingleTeam() {
                   </Row>
                   <Row className="allRows">
                     <h5>{founded}</h5>
+                  </Row>
+                </Col>
+              </Row>
+              <Row className="allRows">
+                <Col>
+                  <Row className="allRows">
+                    <h4>Team Rank</h4>
+                  </Row>
+                  <Row className="allRows">
+                    <div>
+                      {isInDB === false ? (
+                        <h5>No Rank is Assigned</h5>
+                      ) : (
+                        <h5>{teamRank}</h5>
+                      )}
+                    </div>
                   </Row>
                 </Col>
               </Row>
@@ -154,7 +189,13 @@ function SingleTeam() {
           <Row className="allRows">
             <Col>
               <Row>
-                <h6>{name}</h6>
+                <div>
+                  {isInDB === false ? (
+                    <h5>There is no team info</h5>
+                  ) : (
+                    <h6>{teamInfo}</h6>
+                  )}
+                </div>
               </Row>
             </Col>
           </Row>

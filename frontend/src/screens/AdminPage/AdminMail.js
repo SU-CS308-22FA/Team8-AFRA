@@ -13,7 +13,7 @@ function MailScreen() {
   const [topic, setTopic] = useState("");
   const [text, setText] = useState("");
   const [notTopic, setnotTopic] = useState("");
-  const [catagory, setCat] = useState("update");
+  const [category, setCat] = useState("update");
   const [notText, setnotText] = useState("");
   const [message, setMessage] = useState("");
   const [notMessage, setnotMessage] = useState("");
@@ -46,8 +46,8 @@ function MailScreen() {
       setnotMessage("Fields cannot be empty.")
     }
     else{
-      axios.post(`${process.env.REACT_APP_URL}/api/admin/sendNot`, {topic: notTopic, text: notText, catagory: catagory}).then(res => { 
-        setnotMessage("Notification for: " + catagory + " has been sent!")
+      axios.post(`${process.env.REACT_APP_URL}/api/admin/sendNot`, {topic: notTopic, text: notText, category: category}).then(res => { 
+        setnotMessage("Notification for: " + category + " has been sent!")
       }).catch(err => {console.log(err)
         setnotMessage(err)
       })
@@ -107,7 +107,7 @@ function MailScreen() {
             />
           </Form.Group>
           <Form.Group controlId="kind">
-          <Form.Label>Catagory</Form.Label>
+          <Form.Label>Category</Form.Label>
           <br></br>
         <Form.Check
           inline
@@ -116,7 +116,7 @@ function MailScreen() {
           aria-label="radio 1"
           label="Update"
           onChange={handleRadio}
-          checked={catagory === "update"}
+          checked={category === "update"}
         />
         <Form.Check
           inline
@@ -125,7 +125,7 @@ function MailScreen() {
           aria-label="radio 2"
           label="Maintenance"
           onChange={handleRadio}
-          checked={catagory === "maintenance"}
+          checked={category === "maintenance"}
         />
         <Form.Check
           inline
@@ -134,7 +134,7 @@ function MailScreen() {
           aria-label="radio 2"
           label="News"
           onChange={handleRadio}
-          checked={catagory === "news"}
+          checked={category === "news"}
         />
         <Form.Check
           inline
@@ -143,7 +143,7 @@ function MailScreen() {
           aria-label="radio 2"
           label="Other"
           onChange={handleRadio}
-          checked={catagory === "other"}
+          checked={category === "other"}
         />
       </Form.Group>
       <Form.Group controlId="formBasicPassword">

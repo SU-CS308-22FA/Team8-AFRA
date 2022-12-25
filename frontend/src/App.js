@@ -34,6 +34,7 @@ import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
 import SingleReferee from "./screens/SingleReferee/SingleReferee";
 import MatchDetailPage from "./screens/MatchDetailPage/MatchDetailPage";
 import ReplyComment from "./screens/CreateComment/ReplyComment";
+import TeamsScreen from "./screens/TeamsScreen/TeamsScreen";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -54,13 +55,17 @@ function App() {
         <Route path="/referees" element={<RefereesScreen />} />
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
         <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
+        <Route path="/teams" element={<TeamsScreen />} />
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />
           <Route path="profile" element={<ProfileScreen />} />
           <Route path="comment/:id/:matchID" element={<SingleComment />} />
           <Route path="createcomment/:matchID" element={<CreateComment />} />
-          <Route path="replycomment/:parentId/:matchID" element={<ReplyComment/>} />
+          <Route
+            path="replycomment/:parentId/:matchID"
+            element={<ReplyComment />}
+          />
           <Route path="verification" element={<VerificationPage />} />
         </Route>
 

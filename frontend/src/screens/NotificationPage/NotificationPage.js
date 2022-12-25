@@ -74,10 +74,10 @@ function NotificationScreen() {
                    variant="text" eventKey="0">
                    {d.users.includes(userInfo._id) ? (<FaCircle color="grey" style={{marginRight: "10px"}}/>):(<FaCircle color="green" style={{marginRight: "10px"}}/>)}
                    <b>{d.topic}</b>
-                   {d.catagory === "other" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#9EA1D4", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
-                   {d.catagory === "update" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#A8D1D1", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
-                   {d.catagory === "maintenance" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#FAAB78", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
-                   {d.catagory === "news" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#ABD9FF", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
+                   {d.category === "other" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#9EA1D4", padding:"5px 5px", borderRadius: "15px"}}>{d.category}</b></div>}
+                   {d.category === "update" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#A8D1D1", padding:"5px 5px", borderRadius: "15px"}}>{d.category}</b></div>}
+                   {d.category === "maintenance" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#FAAB78", padding:"5px 5px", borderRadius: "15px"}}>{d.category}</b></div>}
+                   {d.category === "news" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#ABD9FF", padding:"5px 5px", borderRadius: "15px"}}>{d.category}</b></div>}
                  </Accordion.Toggle>
                  </span>
                </Card.Header>

@@ -230,9 +230,9 @@ const manualBan = asyncHandler(async (req, res) => {
 });
 
 const sendNotification = asyncHandler(async (req, res) => {
-  const { topic, text, catagory} = req.body;
+  const { topic, text, category} = req.body;
   try{
-    let not = await new Notification({ text: text, topic: topic, catagory: catagory})
+    let not = await new Notification({ text: text, topic: topic, category: category})
     await not.save();
     res.status(200).send("Notification has been sent!")
  }

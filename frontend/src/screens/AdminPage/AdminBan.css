@@ -86,6 +86,27 @@
   background-color:#e9cec0;
 }
 
+.mat {
+  width: 2em;
+  height: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  margin-left: 0.5em;
+  border-radius: 25%;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+}
+
+.mat:hover {
+  cursor: pointer;
+  background: #cfcfcf;
+}
+
+.mat-text{
+  text-decoration: none;
+  color: #000;
+}
 td{
   font-weight: 400;
   font-family: "Montserrat", sans-serif;

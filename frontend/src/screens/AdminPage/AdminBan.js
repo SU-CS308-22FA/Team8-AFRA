@@ -171,7 +171,7 @@ function AdminBan() {
             <Form.Control
               type="email"
               value={email}
-              placeholder="Enter your email address"
+              placeholder="Enter user email address"
               onChange={(e) => setEmail(e.target.value)}
             />
           </Form.Group>

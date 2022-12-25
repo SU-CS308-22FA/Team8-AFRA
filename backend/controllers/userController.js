@@ -1,5 +1,6 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModel.js";
+import Notification from "../models/notificationModel.js";
 import Blacklist from "../models/blacklist.js";
 import Maillist from "../models/mailList.js";
 import proRequest from "../models/requestModel.js";
@@ -198,7 +199,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 
 const deleteUserProfile = asyncHandler(async (req, res) => {
   const user = await User.deleteOne({ _id: req.user._id });
-  const request = await proRequest.deleteOne({ user: req.user._id });
+  await proRequest.deleteOne({ user: req.user._id });
+  await Maillist.deleteOne({ email: req.user.email });
+  await Blacklist.deleteOne({ user: req.user._id });
 
   if (user) {
     res.json("User deleted");
@@ -400,4 +403,62 @@ const unsubscribe = asyncHandler(async (req, res) => {
   }
 });
 
-export { authUser, updateUserProfile, registerUser, deleteUserProfile,sendOTPVerificationEmail,VerifyOTP, checkBanned, reportUser, subscribe, unsubscribe};
+const getNotifications = asyncHandler(async (req, res) => {
+  try {
+    const data = await Notification.find({});
+    res.status(200).json(data);
+  } catch (err){
+    res.status(400).send(err);
+  }
+});
+
+const setSeen = asyncHandler(async (req, res) => {
+  const {id, user} = req.body;
+  try {
+    const data = await Notification.findOne({_id: id});
+    if (data.users.includes(user) === false) 
+    {
+      data.users.push(user);
+      res.status(200).json("seen");
+      await data.save();
+    }  
+    else{
+      res.status(200).json("already seen");
+    }
+  } catch (err){
+    res.status(400).send(err);
+  }
+});
+
+const checkSeen = asyncHandler(async (req, res) => {
+  const {id} = req.body;
+  try {
+    const not = await Notification.find({});
+    for(let i=0; i < not.length; i++)
+    {
+      if(not[i].users.includes(id)===false)
+        return res.status(200).send("new")
+    }
+    res.status(200).send("old")
+  } catch (err){
+    res.status(400).send(err);
+  }
+});
+
+const getUnseen = asyncHandler(async (req, res) => {
+  const {id} = req.body;
+  var count = 0;
+  try {
+    const not = await Notification.find({});
+    for(let i=0; i < not.length; i++)
+    {
+      if(not[i].users.includes(id)===false)
+        count ++;
+    }
+    res.status(200).send(count.toString())
+  } catch (err){
+    res.status(400).send(err);
+  }
+});
+
+export { authUser, updateUserProfile, registerUser, deleteUserProfile,sendOTPVerificationEmail,VerifyOTP, checkBanned, reportUser, subscribe, unsubscribe, getNotifications, setSeen, checkSeen, getUnseen};

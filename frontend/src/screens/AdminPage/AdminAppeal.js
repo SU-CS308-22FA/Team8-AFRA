@@ -135,6 +135,7 @@ function AdminAppeal() {
               <h5 className="how">Accepting the appeal removes user ban, deletes him from the blacklist and sends an email as <b style={{color: "green"}}>"appeal accepted"</b></h5>
               <h5 className="how">Denying the appeal, notifies the user with an email explaining <b style={{color: "red"}}>"appeal denied"</b></h5>
               <h5 className="how">You can also see the blacklist directly and unban the users</h5>
+              <h5 className="how">Manual unbans does not send emails to the user</h5>
             </Card.Body>
           </Accordion.Collapse>
         </Card>

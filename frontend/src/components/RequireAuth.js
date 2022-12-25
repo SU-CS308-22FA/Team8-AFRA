@@ -2,6 +2,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import checkBanned from "../components/checkForBan";
+import CheckNotification from "../components/checkNotification";
 import { logout } from "../actions/userActions";
 
 function RequireAuth (){
@@ -14,17 +15,11 @@ function RequireAuth (){
     if(userInfo)
     { 
         const { userInfo } = userLogin;
-        console.log("Now im checking if hes banned")
         checkBanned(userInfo);
-        console.log("this is is banned: ")
+        CheckNotification(userInfo);
         const getBanned = localStorage.getItem("isBanned")
-        console.log(getBanned)
-        console.log("This is the user info: ")
-         console.log(userInfo)
-    
         if(getBanned)
         {
-            console.log("getbanned exists")
             localStorage.clear()
             console.log(localStorage)
             dispatch(logout());
@@ -32,13 +27,11 @@ function RequireAuth (){
         }
         else if (userInfo)
         {
-            console.log("no ban but user exists")
             return <Outlet/>
         } 
     }
     else
         {
-            console.log("No token who tf is this")
             return <Navigate to="/unauthorized" state={{ from: location }} replace /> 
         }
 }

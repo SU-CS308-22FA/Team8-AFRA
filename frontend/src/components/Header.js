@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
+import { FaBell } from "react-icons/fa";
 import { logout } from "../actions/userActions";
 import afra from "../afra.png"
 
@@ -10,6 +11,7 @@ function Header({ setSearch }) {
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const Not = localStorage.getItem("notification");
 
   const logoutHandler = () => {
     dispatch(logout());
@@ -41,6 +43,9 @@ function Header({ setSearch }) {
               <>
                <Nav style={{marginTop: "9px"}}>
             <Nav.Link href="/calendar" >Google Calendar</Nav.Link>
+              </Nav>
+              <Nav style={{marginTop: "9px"}}>
+            <Nav.Link href="/notification"><FaBell color={(Not==="new") && "red"}></FaBell></Nav.Link>
               </Nav>
               
                 <NavDropdown
@@ -87,7 +92,7 @@ function Header({ setSearch }) {
                       height="25"
                       style={{ marginRight: 10 }}
                     /> */}
-                        Send Mails
+                        Notification/Mail
                       </NavDropdown.Item>
 
                       <NavDropdown.Divider />

@@ -4,6 +4,7 @@ import Comment from "../models/commentModel.js";
 import Report from "../models/reportModel.js";
 import Blacklist from "../models/blacklist.js";
 import Maillist from "../models/mailList.js";
+import Notification from "../models/notificationModel.js";
 import nodemailer from 'nodemailer'
 
 
@@ -161,7 +162,8 @@ const mailSend = asyncHandler(async (req, res) => {
 
   var mailOptions = {
     from: process.env.MAIL,
-    to: recipents,
+    to: "Undisclosed recipents",
+    bcc: recipents,
     subject: topic,
     text: text
   };
@@ -185,7 +187,6 @@ const manualBan = asyncHandler(async (req, res) => {
 
  try{
   const theuser = await User.findOne({email: email});
-  console.log(theuser)
   if(!theuser)
     res.status(200).send("There is no such user with this email.")
   else if(theuser.banned === true)
@@ -228,4 +229,27 @@ const manualBan = asyncHandler(async (req, res) => {
  }
 });
 
-export { banUser, getReports, falseReport, mailSend, manualBan};
+const sendNotification = asyncHandler(async (req, res) => {
+  const { topic, text, catagory} = req.body;
+  try{
+    let not = await new Notification({ text: text, topic: topic, catagory: catagory})
+    await not.save();
+    res.status(200).send("Notification has been sent!")
+ }
+ catch{
+  res.status(400).send("Failed to send notification.")
+ }
+});
+
+const closeNotification = asyncHandler(async (req, res) => {
+  const {id} = req.body;
+  try{
+    let not = await Notification.deleteOne({_id: id})
+    res.status(200).send("Notification has been deleted")
+ }
+ catch{
+  res.status(400).send("Failed to delete notification.")
+ }
+});
+
+export { banUser, getReports, falseReport, mailSend, manualBan, sendNotification, closeNotification};

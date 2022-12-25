@@ -47,7 +47,7 @@ function MailScreen() {
     }
     else{
       axios.post(`${process.env.REACT_APP_URL}/api/admin/sendNot`, {topic: notTopic, text: notText, catagory: catagory}).then(res => { 
-        setnotMessage(res.data)
+        setnotMessage("Notification for: " + catagory + " has been sent!")
       }).catch(err => {console.log(err)
         setnotMessage(err)
       })

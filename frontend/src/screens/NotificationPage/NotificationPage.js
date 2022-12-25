@@ -69,18 +69,25 @@ function NotificationScreen() {
              <Accordion defaultActiveKey="1" >
              <Card className="notcard">
                <Card.Header >
+               <span>
                  <Accordion.Toggle as={Card.Header} onClick={(e)=> setSeen(e,d)}
                    variant="text" eventKey="0">
-                   <span><b>{d.topic}</b>
-                   {d.users.includes(userInfo._id) ? (<FaCircle color="grey"/>):(<FaCircle color="green"/>)}</span>
-                   {(userInfo.isAdmin) && ( <Button type="submit" style={{float: 'right'}} onClick={(e) =>closeNotification(e,d) }>
-                <FaTrashAlt/>
-              </Button>)} 
+                   {d.users.includes(userInfo._id) ? (<FaCircle color="grey" style={{marginRight: "10px"}}/>):(<FaCircle color="green" style={{marginRight: "10px"}}/>)}
+                   <b>{d.topic}</b>
+                   {d.catagory === "other" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#9EA1D4", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
+                   {d.catagory === "update" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#A8D1D1", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
+                   {d.catagory === "maintenance" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#FAAB78", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
+                   {d.catagory === "news" && <div style={{float: "right"}}><b style={{textAlign: "right",  backgroundColor:"#ABD9FF", padding:"5px 5px", borderRadius: "15px"}}>{d.catagory}</b></div>}
                  </Accordion.Toggle>
+                 </span>
                </Card.Header>
                <Accordion.Collapse eventKey="0">
                  <Card.Body>
-                   <h5 className="how">{d.text}</h5>
+                   <h5 className="how">{d.text}
+                   {(userInfo.isAdmin) && ( 
+                    <Button type="submit" style={{float: 'right'}} onClick={(e) =>closeNotification(e,d) }>
+                        Delete <FaTrashAlt/>
+                    </Button>)} </h5>
                  </Card.Body>
                </Accordion.Collapse>
              </Card>

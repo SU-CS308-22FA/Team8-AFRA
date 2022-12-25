@@ -1,11 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-  Outlet,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
 import { useState, Suspense } from "react";
 import Footer from "./components/Footer";
@@ -32,6 +26,7 @@ import CreateComment from "./screens/CreateComment/CreateComment";
 import SingleComment from "./screens/CreateComment/SingleComment";
 import RefereesScreen from "./screens/RefereesScreen/RefereesScreen";
 import SingleReferee from "./screens/SingleReferee/SingleReferee";
+import SingleTeam from "./screens/SingleTeam/SingleTeam";
 import MatchDetailPage from "./screens/MatchDetailPage/MatchDetailPage";
 import ReplyComment from "./screens/CreateComment/ReplyComment";
 import TeamsScreen from "./screens/TeamsScreen/TeamsScreen";
@@ -51,11 +46,12 @@ function App() {
         <Route path="onlyadmins" element={<OnlyAdmins />} />
         <Route path="fixture" element={<FixturePage />} />
         <Route path="standings" element={<StandingPage />} />
+        <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
         <Route path="banned" element={<BanScreen />} />
         <Route path="/referees" element={<RefereesScreen />} />
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
-        <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
         <Route path="/teams" element={<TeamsScreen />} />
+        <Route path="/team/:teamID" element={<SingleTeam />} />
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />

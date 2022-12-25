@@ -15,11 +15,7 @@ const teamSchema = mongoose.Schema({
   },
   info: {
     type: String,
-    required: true,
-  },
-  logo: {
-    type: String,
-    required: true,
+    required: false,
   },
 });
 

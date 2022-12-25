@@ -2,7 +2,7 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import checkBanned from "../components/checkForBan";
-import CheckNotification from "../components/checkNotification";
+import checkNotification from "../components/checkNotification";
 import { logout } from "../actions/userActions";
 
 function RequireAuth (){
@@ -16,7 +16,8 @@ function RequireAuth (){
     { 
         const { userInfo } = userLogin;
         checkBanned(userInfo);
-        CheckNotification(userInfo);
+        if(!localStorage.getItem("notification"))
+        checkNotification(userInfo);
         const getBanned = localStorage.getItem("isBanned")
         if(getBanned)
         {

@@ -84,6 +84,7 @@ const acceptAppeal = asyncHandler(async (req, res) => {
     try{
         const theuser = await User.findById(user);
         theuser.banned = false;
+        await theuser.save();
         const b = await Blacklist.deleteOne({user: user})
         const f = await Appeal.deleteOne({user: user})
         var transporter = nodemailer.createTransport({

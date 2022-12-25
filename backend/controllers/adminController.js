@@ -129,7 +129,8 @@ const falseReport = asyncHandler(async (req, res) => {
     const { reportedBy, report} = req.body;
     try{
         const theuser = await User.findById(reportedBy);
-        theuser.falseReports = theuser.falseReports + 1;
+        if (!theuser.isAdmin)
+          theuser.falseReports = theuser.falseReports + 1;
         if(theuser.falseReports == 4){
           theuser.banned = true;
           let black = new Blacklist({ user: theuser._id, cause: "False reporting more then 3 times", email: theuser.email})
@@ -179,5 +180,52 @@ const mailSend = asyncHandler(async (req, res) => {
  }
 });
 
+const manualBan = asyncHandler(async (req, res) => {
+  const { email, cause } = req.body;
 
-export { banUser, getReports, falseReport, mailSend};
+ try{
+  const theuser = await User.findOne({email: email});
+  console.log(theuser)
+  if(!theuser)
+    res.status(200).send("There is no such user with this email.")
+  else if(theuser.banned === true)
+    res.status(200).send("This user is already banned.")
+  else {
+      theuser.banned = true;
+    const yes = await theuser.save();
+    let black = new Blacklist({ user: theuser._id, cause: cause, email: theuser.email})
+    black.save()
+    //send an email to the user to notify he is banned 
+    var transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.MAIL,
+        pass: process.env.MAIL_PASS
+      }
+    });
+    const text = "Hello, " + theuser.name + "\n \t I'm here to notify you that you have been banned from AFRA for the following reason: " + cause;
+
+    var mailOptions = {
+      from: process.env.MAIL,
+      to: theuser.email,
+      subject: 'You have been banned',
+      text: text
+    };
+    
+    transporter.sendMail(mailOptions, function(error, info){
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+    const theReport2 = await Report.deleteMany({user: theuser._id}); //delete all the reports corresponding to that user
+    res.status(200).send("Succesfully banned the user")
+    }
+ }
+ catch(err){
+  res.status(400).send(err)
+ }
+});
+
+export { banUser, getReports, falseReport, mailSend, manualBan};

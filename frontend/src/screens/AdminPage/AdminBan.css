@@ -1,13 +1,52 @@
-.caltitle {
+.editTitle {
   font-size: 40px;
   text-align: center;
-  color: #0f6375;
+  color: #2146C7;
+}
+.googleCAL {
+  width: 160px;  
+  height: auto;  
+  font-size: 40px;
+  display: -webkit-box;
+  margin-left: auto;
+  margin-right: 50px;
 }
 
-.calwelcome {
+.manual{
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  color:  #db7029;
+  font-family: "Montserrat", sans-serif;
+}
+
+.how{
+  font-weight: 400;
+  text-align: left;
+  color:  #000000;
+  font-family: "Montserrat", sans-serif;
+}
+
+.calColOne {
+  width: auto;
+  padding: 40px 30px;
+}
+
+.calColTwo{
+  width: 10px;
+  margin-right: 0px;
+}
+
+.calColThree{
+  width: 10px;
+  margin-left: 30px;
+}
+
+
+.calText {
   font-size: 30px;
   text-align: center;
-  color: rgb(9, 70, 84);
+  color: "black";
 }
 
 .getSubmit {
@@ -17,15 +56,40 @@
 }
 
 .thead {
-  background-color: rgb(27, 107, 125);
+  background-color:#5F9DF7;
   color:aliceblue;
   text-align: center
 }
-.tbo {
-  text-align: center;
-  color: rgb(6, 63, 75);
+.subthead {
+  background-color:#db7029;
+  color:aliceblue;
+  text-align: center
 }
 
+.tbody:nth-of-type(even) {
+  text-align: center;
+  color: rgb(6, 63, 75);
+  background-color: #d0e4ee;
+}
+
+.tbody{
+  text-align: center;
+  background-color: #ffff;
+}
+.subtbody{
+  text-align: center;
+  background-color: #ffff;
+}
+
+.subtbody:nth-of-type(even){
+  text-align: center;
+  background-color:#e9cec0;
+}
+
+td{
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
+}
 
 .google {
   font-size: 30px;
@@ -33,10 +97,11 @@
   color: rgb(9, 70, 84);
 }
 
-.explanation {
+.calExplanation {
   font-size: 25px;
+  font-weight: 500;
   text-align: left;
-  color: rgb(9, 70, 84);
+  color:  #db7029;
 }
 
 .colorDrop {

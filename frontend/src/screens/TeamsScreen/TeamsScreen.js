@@ -14,7 +14,7 @@ import "./TeamsScreen.css";
 import Loading from "../../components/Loading";
 
 function TeamsScreen() {
-  const [seasonVar, setSeasonVar] = useState();
+  const [seasonVar, setSeasonVar] = useState("2022");
   const [data, setData] = useState([]);
   const [displaySentence, setDisplaySentence] = useState();
   const [flag, setFlag] = useState(false);
@@ -22,7 +22,7 @@ function TeamsScreen() {
     axios
       .get(`${process.env.REACT_APP_URL}/api/teams`, {
         params: {
-          season: "2022",
+          season: seasonVar,
         },
       })
       .then((res) => {

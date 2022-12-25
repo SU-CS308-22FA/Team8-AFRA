@@ -54,7 +54,7 @@ const denyAppeal = asyncHandler(async (req, res) => {
           pass: process.env.MAIL_PASS
         }
       });
-      const text = "Hello, " + theuser.name + "\n \t Your explaination: " + explaination + "\n Was not found to be valid. We kindly ask you to check our community guidelines from this link: SOMETHING";
+      const text = "Hello, " + theuser.name + "\n \t Your explaination: " + explaination + "\n Was not found to be valid. We kindly ask you to check our community guidelines again.";
   
       var mailOptions = {
         from: process.env.MAIL,
@@ -77,8 +77,6 @@ const denyAppeal = asyncHandler(async (req, res) => {
     console.log(err)
     res.status(400).send(err);
    }
-
-   
 });
 
 const acceptAppeal = asyncHandler(async (req, res) => {
@@ -95,7 +93,7 @@ const acceptAppeal = asyncHandler(async (req, res) => {
               pass: process.env.MAIL_PASS
             }
           });
-          const text = "Hello, " + theuser.name + "\n \t Your explaination: was found as valid by the admins! You have been unbanned!";
+          const text = "Hello, " + theuser.name + "\n \t Your explaination for the appeal was found as valid by the admins! You have been unbanned, welcome back to AFRA";
       
           var mailOptions = {
             from: process.env.MAIL,
@@ -112,11 +110,34 @@ const acceptAppeal = asyncHandler(async (req, res) => {
             }
           });
           res.status(200).send("User has been unbanned!")
-          
        }
        catch(err){
         res.status(400).send(err)
        }
 });
 
-export { getAppeal, sendAppeal, denyAppeal, acceptAppeal};
+const listBanned = asyncHandler(async (req, res) => {
+  try{
+      const black = await Blacklist.find({})
+      res.status(200).json(black)
+     }
+     catch(err){
+      res.status(400).send(err)
+     }
+});
+
+const manualUnban = asyncHandler(async (req, res) => {
+  const {user} = req.body;
+  try{
+      const theuser = await User.findById(user);
+      theuser.banned = false;
+      const b = await Blacklist.deleteOne({user: user})
+      const f = await Appeal.deleteMany({user: user})
+      res.status(200).send("User unbanned!")
+     }
+     catch(err){
+      res.status(400).send(err)
+     }
+});
+
+export { getAppeal, sendAppeal, denyAppeal, acceptAppeal, listBanned, manualUnban};

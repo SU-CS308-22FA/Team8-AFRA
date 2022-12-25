@@ -36,14 +36,15 @@ function Header({ setSearch }) {
           <Nav>
             <Nav.Link href="/referees">Referees</Nav.Link>
           </Nav>
-          <Nav>
+         <Nav>
             {userInfo ? (
               <>
-               <Nav>
+               <Nav style={{marginTop: "9px"}}>
             <Nav.Link href="/calendar" >Google Calendar</Nav.Link>
               </Nav>
+              
                 <NavDropdown
-                  title={`${userInfo.name}`}
+                  title={<> {userInfo.name} &#8205; &#8205;<img src={userInfo.pic} alt={"pic"} style={{height: "40px", borderRadius: "50%"}}  /></>}
                   id="collasible-nav-dropdown"
                 >
                   {userInfo.isAdmin ? (
@@ -66,7 +67,7 @@ function Header({ setSearch }) {
                       height="25"
                       style={{ marginRight: 10 }}
                     /> */}
-                        Admin Ban
+                        Ban Users
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/adminappeal">
                         {/* <img
@@ -76,7 +77,7 @@ function Header({ setSearch }) {
                       height="25"
                       style={{ marginRight: 10 }}
                     /> */}
-                        The Appeals
+                        Ban Appeal
                       </NavDropdown.Item>
                       <NavDropdown.Item href="/adminmail">
                         {/* <img

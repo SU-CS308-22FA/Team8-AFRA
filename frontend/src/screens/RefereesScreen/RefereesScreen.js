@@ -153,7 +153,7 @@ function RefereesScreen() {
              </Button>
              <Modal show={show} onHide={handleClose}>
                <Modal.Header closeButton>
-                 <Modal.Title>Choose the referee and the corressponding rank </Modal.Title>
+                 <Modal.Title>Choose the referee and the corresponding rank </Modal.Title>
                </Modal.Header>
 
                <Modal.Body>

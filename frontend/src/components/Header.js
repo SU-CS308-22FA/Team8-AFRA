@@ -1,10 +1,17 @@
 import React, { useEffect } from "react";
-import { Container, Form, FormControl, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  FormControl,
+  Nav,
+  Navbar,
+  NavDropdown,
+} from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 import { FaBell, FaQuestionCircle } from "react-icons/fa";
 import { logout } from "../actions/userActions";
-import afra from "../afra.png"
+import afra from "../afra.png";
 
 function Header({ setSearch }) {
   const dispatch = useDispatch();
@@ -23,8 +30,10 @@ function Header({ setSearch }) {
   return (
     <Navbar collapseOnSelect expand="lg" bg="primary" variant="dark">
       <Container>
-      <Navbar.Brand>
-        <a href="/"><img src={afra} style={{height: "40px"}} alt='logo'/></a>
+        <Navbar.Brand>
+          <a href="/">
+            <img src={afra} style={{ height: "40px" }} alt="logo" />
+          </a>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
@@ -36,23 +45,38 @@ function Header({ setSearch }) {
             <Nav.Link href="/fixture">Fixture</Nav.Link>
           </Nav>
           <Nav>
+            <Nav.Link href="/teams">Teams</Nav.Link>
+            <Nav.Link href="/topscorers/2022">Top Scorers</Nav.Link>
+          </Nav>
+          <Nav>
             <Nav.Link href="/standings">Standings</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="/referees">Referees</Nav.Link>
           </Nav>
-         <Nav>
+          <Nav>
             {userInfo ? (
               <>
-               <Nav style={{marginTop: "9px"}}>
-            <Nav.Link href="/calendar" >Google Calendar</Nav.Link>
-              </Nav>
-              <Nav style={{marginTop: "9px"}}>
-            <Nav.Link href="/notification"><FaBell color={(Not==="new") && "red"}></FaBell></Nav.Link>
-              </Nav>
-              
+                <Nav style={{ marginTop: "9px" }}>
+                  <Nav.Link href="/calendar">Google Calendar</Nav.Link>
+                </Nav>
+                <Nav style={{ marginTop: "9px" }}>
+                  <Nav.Link href="/notification">
+                    <FaBell color={Not === "new" && "red"}></FaBell>
+                  </Nav.Link>
+                </Nav>
                 <NavDropdown
-                  title={<> {userInfo.name} &#8205; &#8205;<img src={userInfo.pic} alt={"pic"} style={{height: "40px", borderRadius: "50%"}}  /></>}
+                  title={
+                    <>
+                      {" "}
+                      {userInfo.name} &#8205; &#8205;
+                      <img
+                        src={userInfo.pic}
+                        alt={"pic"}
+                        style={{ height: "40px", borderRadius: "50%" }}
+                      />
+                    </>
+                  }
                   id="collasible-nav-dropdown"
                 >
                   {userInfo.isAdmin ? (

@@ -1,18 +1,82 @@
 import React, { useState } from "react";
-import { Form, Button, Dropdown, DropdownButton } from "react-bootstrap";
+import { useSelector } from "react-redux";
+import { Form, Button, Dropdown, DropdownButton, FormControl } from "react-bootstrap";
 import axios from "axios";
 import "./FixturePage.css";
+import Modal from 'react-bootstrap/Modal';
+
+
+
 
 function FixturePage() {
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const [varSeason, setvarSeason] = useState();
   const [varWeek, setVarWeek] = useState();
   const [seasonVar, setSeasonVar] = useState();
   const [weekVar, setWeekVar] = useState();
   const [displaySentence, setDisplaySentence] = useState();
   const [data, setData] = useState([]);
+  const [show, setShow] = useState(false);
+  const [selectedWeek, setSelectedWeek] = useState(3);
+  const [matchId, setMatchId] = useState(0);
   const handleSelectSeason = (e) => {
     setSeasonVar(e);
   };
+
+
+let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
+"13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28",
+"29","30","31","32","33","34","35","36","37","38","39"];
+
+  const handleSubmitForEdit = async(e) => {
+    e.preventDefault();
+    //console.log(e);
+    console.log(selectedWeek);
+    console.log(matchId);
+    setShow(false);
+
+    let matchID= matchId;
+    const { dataOfUpdatedMatch } = await axios.put(
+      `${process.env.REACT_APP_URL}/api/matches/changetimeofmatch`,
+      { matchID,selectedWeek}
+    );
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/matches/fixture`,
+      {
+        params: {
+          season: seasonVar,
+          week: weekVar,
+        },
+      }
+    );
+    setData(data);
+    
+  };
+
+  const checkBackend = async (matchID) => {
+    
+
+    await axios.put(
+      `${process.env.REACT_APP_URL}/api/matches/matchdelayed`,
+      { matchID}
+    );
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/matches/fixture`,
+      {
+        params: {
+          season: seasonVar,
+          week: weekVar,
+        },
+      }
+    );
+    setData(data);
+  };
+
+  const handleShow = () => setShow(true);
+  const handleClose= () => setShow(false);
 
   const handleSelectWeek = (e) => {
     setWeekVar(e);
@@ -51,6 +115,8 @@ function FixturePage() {
 
     setData(data);
   };
+
+
 
   return (
     <div>
@@ -140,14 +206,69 @@ function FixturePage() {
         <ol>
           {data.map((match) => (
             <>
+           
               <h3 key={match} className="startLine">
                 {" "}
+                <p>
+                  {match.isDelayed ? "This match has been delayed. Time is uncertain" : ""}
+                </p>
                 <a href={`/matchdetails/${match.matchID}`}>
                   <h5 className="teamNames">
                     {" "}
-                    {match.home} - {match.visitor}{" "}
+                    {match.home} - {match.visitor}{" "} 
+                    
                   </h5>{" "}
                 </a>
+                 <h5> 
+                  {userInfo.isAdmin ? <Dropdown>
+                      <Dropdown.Toggle variant="light" id="dropdown-basic">
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        <Dropdown.Item onClick={handleShow}>
+                          {" "}
+                          Change the time of the match{" "} 
+                                
+                        </Dropdown.Item>
+                            <Modal show={show} onHide={handleClose}>
+                            
+                              <Modal.Header closeButton>
+                                <Modal.Title>Choose another week for the match</Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>Avaiable Weeks:
+                                  <Form onSubmit={handleSubmitForEdit}>
+                                    {weeksOfTheMatches.map((labelName) => (
+                                    
+                                      <div key={`default-radio`} className="mb-3">
+                                        {labelName> match.week ?  
+                                        <Form.Group controlId= "getSelectionForUpdateWeek">
+                                            <Form.Check 
+                                              type='radio'
+                                              name= "belongSameRadio"
+                                              id={`default-radio`}
+                                              label={labelName}
+                                              value= {labelName}
+                                              onChange={(e) => setSelectedWeek(e.target.value)}
+                                            />
+                                        </Form.Group>
+                                        : <></>}
+                                        
+                                      </div>
+                                    ))}
+                                      <Button variant="primary" type="submit" onClick = {() => setMatchId(match.matchID) }>
+                                        Save Changes
+                                      </Button>
+                                    </Form>
+                              </Modal.Body>
+                            </Modal>
+                        <Dropdown.Item onClick= {() => checkBackend(match.matchID)} >
+                          {" "}
+                          Postpone match to a later date
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown> : <></>}
+                    
+                </h5>
+                
                 {match.hGoal} - {match.vGoal} <p> </p>
               </h3>
               <h5 className="explain">

@@ -1,9 +1,10 @@
 # AFRA = Automated Fixture and Referee Assignment
 Link to Heroku Deploy => [`CoolAFRA`](https://coolafra.herokuapp.com)
 
+## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
 
 ## What is AFRA ?
-  AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they wish for and more, in a single webpage.
+  AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. It also incorporates a user friendly design and has a simple structured interface.  We added all the features users look for and more for the best user experience. That way the users can find everything they wish for and more, in a single webpage.
 
 ## Why AFRA ?
   Our server has many useful features for many different actors such as: The admins, the users, referees and journalists.

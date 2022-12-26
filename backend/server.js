@@ -16,10 +16,11 @@ import faqRoutes from "./routes/faqRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import appealRoutes from "./routes/appealRoutes.js";
 import refereeRoutes from "./routes/refereeRoutes.js";
+import teamRoutes from "./routes/teamRoutes.js";
 import matchDetailRoutes from "./routes/matchDetailRoutes.js";
-import swaggerUi from 'swagger-ui-express'
-import swaggerFile from './swagger_output.json' assert { type: "json" };
-
+import TopScorersRoutes from "./routes/topScorersRoutes.js";
+import swaggerUi from "swagger-ui-express";
+import swaggerFile from "./swagger_output.json" assert { type: "json" };
 
 dotenv.config();
 
@@ -39,10 +40,11 @@ app.use("/api/comments", commentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/calendar", calendarRoutes);
 app.use("/api/referees", refereeRoutes);
+app.use("/api/teams", teamRoutes);
 app.use("/api/matchdetail", matchDetailRoutes);
 app.use("/api/appeal", appealRoutes);
-app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
-
+app.use("/api/topscorers", TopScorersRoutes);
+app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // --------------------------deployment------------------------------
 const __dirname = path.resolve();

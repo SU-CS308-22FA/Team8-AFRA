@@ -35,11 +35,17 @@ function FaqScreen() {
 
   const addFaq =(e, d)=>{
     e.preventDefault();
-    axios.post(`${process.env.REACT_APP_URL}/api/faq/add`, {question, answer}).then(res => { 
-        setChanged((c) => c + 1)
-        setMessage(res.data)
-    }).catch(err => {console.log(err)
-      })
+    if(!question || !answer)
+    {
+        setMessage("Fields cannot be empty.")
+    }
+    else{
+        axios.post(`${process.env.REACT_APP_URL}/api/faq/add`, {question, answer}).then(res => { 
+            setChanged((c) => c + 1)
+            setMessage(res.data)
+        }).catch(err => {console.log(err)
+          })
+    }
   }
 
   return (

@@ -1,0 +1,28 @@
+.faq {
+    font-size: 40px;
+    text-align: center;
+    color: #2146C7;
+}
+.sub {
+    font-size: 30px;
+    text-align: center;
+    color: #2146C7;
+}
+.ex {
+    padding: 20 50;
+    font-size: 22px;
+    text-align: center;
+    color: #0a036f;
+}
+.saul {
+    size: 10px;
+    text-align: center;
+}
+
+.about {
+    padding: 20 50;
+    font-size: 22px;
+    text-align: left;
+    color: #0a036f;
+    margin-left: 40px
+}

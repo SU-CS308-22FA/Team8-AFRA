@@ -1,0 +1,14 @@
+.flexbox-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.info-text-size {
+  font-size: 25;
+}
+
+.dropdown-season {
+  position: relative;
+  right: 100px;
+  top: 7px;
+}

@@ -149,11 +149,11 @@ function RefereesScreen() {
             {userInfo.role==="journalist"? 
              <th>
              <Button variant="light" onClick={handleShow}>
-                 Rank a Refere
+                 Rank a Referee
              </Button>
              <Modal show={show} onHide={handleClose}>
                <Modal.Header closeButton>
-                 <Modal.Title>Choose the referee and the corressponding rank </Modal.Title>
+                 <Modal.Title>Choose the referee and the corresponding rank </Modal.Title>
                </Modal.Header>
 
                <Modal.Body>

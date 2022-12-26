@@ -12,11 +12,13 @@ import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 import googleDrive from "./routes/googledrive.js";
 import calendarRoutes from "./routes/calenderRoutes.js";
 import commentRoutes from "./routes/commentRoutes.js";
+import faqRoutes from "./routes/faqRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import appealRoutes from "./routes/appealRoutes.js";
 import refereeRoutes from "./routes/refereeRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
 import matchDetailRoutes from "./routes/matchDetailRoutes.js";
+import TopScorersRoutes from "./routes/topScorersRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger_output.json" assert { type: "json" };
 
@@ -33,6 +35,7 @@ app.use("/api/users", userRoutes);
 app.use("/app", googleDrive); //-> /app is the base path and routeUrls will be appemded to it
 app.use("/api/matches", matchRoutes);
 app.use("/api/requests", requestRoutes);
+app.use("/api/faq", faqRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/calendar", calendarRoutes);
@@ -40,6 +43,7 @@ app.use("/api/referees", refereeRoutes);
 app.use("/api/teams", teamRoutes);
 app.use("/api/matchdetail", matchDetailRoutes);
 app.use("/api/appeal", appealRoutes);
+app.use("/api/topscorers", TopScorersRoutes);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // --------------------------deployment------------------------------

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Form, Button, Table, Dropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import axios from "axios";
 import "./RefereesScreen.css";
 import Modal from 'react-bootstrap/Modal';
@@ -146,7 +145,7 @@ function RefereesScreen() {
                 </Dropdown.Menu>
               </Dropdown>
             </th>
-            {userInfo.role==="journalist"? 
+            {userInfo && userInfo.role==="journalist"? 
              <th>
              <Button variant="light" onClick={handleShow}>
                  Rank a Referee

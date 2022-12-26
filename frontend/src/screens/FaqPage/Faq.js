@@ -56,7 +56,7 @@ function FaqScreen() {
         <h2 className="faq" > Do You Have Questions?</h2>
         <h3 className="ex">We have answers to most of them! </h3>
         <h3 className="ex">Below you will find answers as to what AFRA is and how everything works. </h3>
-        <h3 className="ex">If you still cannot find the answer you're looking for, just <a href="mailto:afra.projet.308@gmail.com">Contact us!</a></h3>
+        <h3 className="ex">If you still cannot find the answer you're looking for, just <a href="mailto:afra.project.308@gmail.com">Contact us!</a></h3>
         <div className="saul">
             <img src={saul} style={{height: "350px"}}></img>
         </div>

@@ -130,7 +130,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   console.log("this is update profile")
   if (user) {
     user.name = req.body.name || user.name;
-    if (req.body.email) {
+    if (req.body.email !== user.email) {
       //if user changes email the verification drops.
       user.verified = false;
       user.subscribed = false;

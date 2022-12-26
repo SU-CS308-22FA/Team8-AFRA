@@ -1,13 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import React from "react";
-import { useState, Suspense } from "react";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Unauthorized from "./components/Unauthorized";
 import BanScreen from "./components/Banned";
 import OnlyAdmins from "./components/OnlyAdmins";
 import RequireAuth from "./components/RequireAuth";
+import CheckNotBan from "./components/CheckNotBan";
 import RequireAdmin from "./components/RequireAdmin";
 import BanAppeal from "./screens/BanAppeal/BanAppeal";
 import LandingPage from "./screens/LandingPage/LandingPage";
@@ -40,6 +40,7 @@ function App() {
     <Router>
       <Header/>
       <Routes>
+      <Route element={<CheckNotBan />}>
         <Route path="/" element={<LandingPage />} />
         <Route path="login" element={<LoginScreen />} />
         <Route path="banappeal" element={<BanAppeal />} />
@@ -57,6 +58,7 @@ function App() {
         <Route path="/team/:teamID/:season" element={<SingleTeam />} />
         <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
         <Route path="/topscorers/:season" element={<TopScorersPage />} />
+      </Route>
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />

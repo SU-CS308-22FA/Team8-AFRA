@@ -31,6 +31,7 @@ import SingleTeam from "./screens/SingleTeam/SingleTeam";
 import MatchDetailPage from "./screens/MatchDetailPage/MatchDetailPage";
 import ReplyComment from "./screens/CreateComment/ReplyComment";
 import TeamsScreen from "./screens/TeamsScreen/TeamsScreen";
+import TopScorersPage from "./screens/TopScorersPage/TopScorersPage";
 
 function App() {
   const [search, setSearch] = useState("");
@@ -53,6 +54,8 @@ function App() {
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
         <Route path="/teams" element={<TeamsScreen />} />
         <Route path="/team/:teamID/:season" element={<SingleTeam />} />
+        <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
+        <Route path="/topscorers/:season" element={<TopScorersPage />} />
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />

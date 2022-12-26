@@ -92,7 +92,7 @@ function FaqScreen() {
                <Accordion.Collapse eventKey="0">
                  <Card.Body>
                    <h5 style={{fontSize:"18px", textAlign: "left", fontWeight: "500", color: "black"}}>{d.answer} 
-                   {(userInfo.isAdmin) && ( 
+                   {userInfo && (userInfo.isAdmin) && ( 
                     <Button type="submit" style={{float: 'right'}} onClick={(e) =>deleteFaq(e,d) }>
                         Delete <FaTrashAlt/>
                     </Button>)} </h5>
@@ -105,7 +105,7 @@ function FaqScreen() {
     </Col>
     
     </Row>
-    {userInfo.isAdmin &&  <Row>
+    {userInfo && userInfo.isAdmin &&  <Row>
     <Col>
     <br></br>
     <h2 className="sub" >Add FAQ</h2>

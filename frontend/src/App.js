@@ -13,6 +13,7 @@ import BanAppeal from "./screens/BanAppeal/BanAppeal";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import NotificationPage from "./screens/NotificationPage/NotificationPage";
+import FaqPage from "./screens/FaqPage/Faq";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
@@ -34,11 +35,10 @@ import TeamsScreen from "./screens/TeamsScreen/TeamsScreen";
 import TopScorersPage from "./screens/TopScorersPage/TopScorersPage";
 
 function App() {
-  const [search, setSearch] = useState("");
 
   return (
     <Router>
-      <Header setSearch={(s) => setSearch(s)} />
+      <Header/>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="login" element={<LoginScreen />} />
@@ -50,6 +50,7 @@ function App() {
         <Route path="standings" element={<StandingPage />} />
         <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
         <Route path="banned" element={<BanScreen />} />
+        <Route path="faq" element={<FaqPage />} />
         <Route path="/referees" element={<RefereesScreen />} />
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
         <Route path="/teams" element={<TeamsScreen />} />

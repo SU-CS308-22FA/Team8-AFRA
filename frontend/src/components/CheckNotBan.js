@@ -5,7 +5,7 @@ import checkBanned from "../components/checkForBan";
 import checkNotification from "../components/checkNotification";
 import { logout } from "../actions/userActions";
 
-function RequireAuth (){
+function CheckNotBan (){
     const dispatch = useDispatch();
     const location = useLocation();
     const userLogin = useSelector((state) => state.userLogin);
@@ -13,7 +13,7 @@ function RequireAuth (){
     
     if(userInfo)
     { 
-        console.log("req auth")
+        console.log("notban")
         const { userInfo } = userLogin;
         checkBanned(userInfo);
         if(!localStorage.getItem("notification"))
@@ -21,22 +21,21 @@ function RequireAuth (){
         const getBanned = localStorage.getItem("isBanned")
         if(getBanned)
         {
-            console.log("banned")
+            console.log("getbanned")
             localStorage.clear()
             console.log(localStorage)
             dispatch(logout());
             return <Navigate to="/banned" state={{ from: location }} replace />
         }
-        else if (userInfo)
-        {
+        else{
             return <Outlet/>
-        } 
+        }
     }
     else
         {
-            console.log("unauthorized")
-            return <Navigate to="/unauthorized" state={{ from: location }} replace /> 
+            console.log("no user")
+            return <Outlet/>
         }
 }
 
-export default RequireAuth;
+export default CheckNotBan;

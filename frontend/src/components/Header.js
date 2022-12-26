@@ -43,6 +43,7 @@ function Header({ setSearch }) {
           </Nav>
           <Nav>
             <Nav.Link href="/teams">Teams</Nav.Link>
+            <Nav.Link href="/topscorers/2022">Top Scorers</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="/standings">Standings</Nav.Link>
@@ -53,13 +54,14 @@ function Header({ setSearch }) {
           <Nav>
             {userInfo ? (
               <>
-               <Nav style={{marginTop: "9px"}}>
-            <Nav.Link href="/calendar" >Google Calendar</Nav.Link>
-              </Nav>
-              <Nav style={{marginTop: "9px"}}>
-            <Nav.Link href="/notification"><FaBell color={(Not==="new") && "red"}></FaBell></Nav.Link>
-              </Nav>
-              
+                <Nav style={{ marginTop: "9px" }}>
+                  <Nav.Link href="/calendar">Google Calendar</Nav.Link>
+                </Nav>
+                <Nav style={{ marginTop: "9px" }}>
+                  <Nav.Link href="/notification">
+                    <FaBell color={Not === "new" && "red"}></FaBell>
+                  </Nav.Link>
+                </Nav>
                 <NavDropdown
                   title={
                     <>

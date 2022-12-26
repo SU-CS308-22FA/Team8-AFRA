@@ -17,6 +17,7 @@ import appealRoutes from "./routes/appealRoutes.js";
 import refereeRoutes from "./routes/refereeRoutes.js";
 import teamRoutes from "./routes/teamRoutes.js";
 import matchDetailRoutes from "./routes/matchDetailRoutes.js";
+import TopScorersRoutes from "./routes/topScorersRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger_output.json" assert { type: "json" };
 
@@ -40,6 +41,7 @@ app.use("/api/referees", refereeRoutes);
 app.use("/api/teams", teamRoutes);
 app.use("/api/matchdetail", matchDetailRoutes);
 app.use("/api/appeal", appealRoutes);
+app.use("/api/topscorers", TopScorersRoutes);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // --------------------------deployment------------------------------

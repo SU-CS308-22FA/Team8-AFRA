@@ -3,8 +3,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  useNavigate,
-  Outlet,
 } from "react-router-dom";
 import React from "react";
 import Footer from "./components/Footer";
@@ -18,9 +16,10 @@ import BanAppeal from "./screens/BanAppeal/BanAppeal";
 import LandingPage from "./screens/LandingPage/LandingPage";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import NotificationPage from "./screens/NotificationPage/NotificationPage";
+import FaqPage from "./screens/FaqPage/Faq";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
 import VerificationPage from "./screens/VerificationPage/VerificationPage";
-import { useState, Suspense } from "react";
+import { useState} from "react";
 import ProfileScreen from "./screens/ProfileScreen/ProfileScreen";
 import AdminPage from "./screens/AdminPage/AdminPage";
 import AdminBan from "./screens/AdminPage/AdminBan";
@@ -52,6 +51,7 @@ function App() {
         <Route path="fixture" element={<FixturePage />} />
         <Route path="standings" element={<StandingPage />} />
         <Route path="banned" element={<BanScreen />} />
+        <Route path="faq" element={<FaqPage />} />
         <Route path="/referees" element={<RefereesScreen />} />
         <Route path="/referee/:refereeName" element={<SingleReferee />} />
         <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />

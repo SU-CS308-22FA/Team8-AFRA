@@ -29,6 +29,24 @@ const refereeSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+
+  rankedBy:
+    {
+      type: Array,
+      default: [],
+      
+      
+  },
+
+  totalVotes:{
+    type:Number,
+    default:0,
+  },
+
+  sumOfRanks:{
+    type:Number,
+    default:0,
+  },
 });
 
 const referee = mongoose.model("referee", refereeSchema);

@@ -149,7 +149,7 @@ function RefereesScreen() {
             {userInfo.role==="journalist"? 
              <th>
              <Button variant="light" onClick={handleShow}>
-                 Rank a Refere
+                 Rank a Referee
              </Button>
              <Modal show={show} onHide={handleClose}>
                <Modal.Header closeButton>

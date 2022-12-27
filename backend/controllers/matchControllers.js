@@ -32,7 +32,9 @@ const uploadDatabase = asyncHandler(async (req, res) => {
         const season = seasonVar;
         const week = weekCounter;
         const home = r.data.response[i].teams.home.name;
+        const homeLogo = r.data.response[i].teams.home.logo;
         const visitor = r.data.response[i].teams.away.name;
+        const visitorLogo = r.data.response[i].teams.away.logo;
         const division = "SL";
         const referee = r.data.response[i].fixture.referee;
         const hGoal = r.data.response[i].goals.home;
@@ -44,7 +46,9 @@ const uploadDatabase = asyncHandler(async (req, res) => {
           season,
           week,
           home,
+          homeLogo,
           visitor,
+          visitorLogo,
           division,
           referee,
           hGoal,
@@ -92,23 +96,22 @@ const getStandingsBySeason = asyncHandler(async (req, res) => {
     });
 });
 
-
 // "/changetimeofmatch"
 //PUT
 const changeTimeOfTheMatch = asyncHandler(async (req, res) => {
   console.log("axios sending to changeTimeOfMatch successfully");
   console.log(req.body);
-  const {matchID,selectedWeek}=req.body;
+  const { matchID, selectedWeek } = req.body;
   console.log(matchID);
   console.log(selectedWeek);
   const filter = { matchID: matchID };
-  const update = { week:selectedWeek, isDelayed:false };
-  let thematch = await fixture.findOneAndUpdate(filter,update);
+  const update = { week: selectedWeek, isDelayed: false };
+  let thematch = await fixture.findOneAndUpdate(filter, update);
   console.log(thematch);
-  if(thematch){
-    const updatedMatch=thematch.save();
-    res.json(updatedMatch)
-  }else{
+  if (thematch) {
+    const updatedMatch = thematch.save();
+    res.json(updatedMatch);
+  } else {
     res.status(404);
     throw new Error("Match not found");
   }
@@ -119,21 +122,25 @@ const changeTimeOfTheMatch = asyncHandler(async (req, res) => {
 const matchDelayed = asyncHandler(async (req, res) => {
   console.log("axios sending to matchDelayed successfully");
   console.log(req.body);
-  const {matchID}=req.body;
+  const { matchID } = req.body;
   console.log(matchID);
   const filter = { matchID: matchID };
-  const update = { isDelayed:true };
-  let thematch = await fixture.findOneAndUpdate(filter,update);
+  const update = { isDelayed: true };
+  let thematch = await fixture.findOneAndUpdate(filter, update);
   console.log(thematch);
-  if(thematch){
-    const updatedMatch=thematch.save();
-    res.json(updatedMatch)
-  }else{
+  if (thematch) {
+    const updatedMatch = thematch.save();
+    res.json(updatedMatch);
+  } else {
     res.status(404);
     throw new Error("Match not found");
   }
 });
 
-
-
-export { uploadDatabase, getMatchesBySeasonAndWeek, getStandingsBySeason,changeTimeOfTheMatch,matchDelayed };
+export {
+  uploadDatabase,
+  getMatchesBySeasonAndWeek,
+  getStandingsBySeason,
+  changeTimeOfTheMatch,
+  matchDelayed,
+};

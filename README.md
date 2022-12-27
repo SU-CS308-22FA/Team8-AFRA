@@ -42,8 +42,8 @@ Link to Heroku Deploy :rocket: => [`CoolAFRA`](https://coolafra.herokuapp.com)
 - [x] Admins can add and remove FAQ so that the users can reach them easily. [#112](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/112)
 - [x] Admins can manually edit the fixture in case of cancellation or a delay. [#80](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/80)
 - [x] Admins can send notifications/mails to the users with ease. [#84](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/84)
-- [] Admins can assign referees to the matches accordingly to their rank. [#78](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/78)
-- [] Admins can generate fixtures for the upcoming matches. [#83](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/83)
+- [ ] Admins can assign referees to the matches accordingly to their rank. [#78](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/78)
+- [ ] Admins can generate fixtures for the upcoming matches. [#83](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/83)
 
 ## Repository and Code Structure
 

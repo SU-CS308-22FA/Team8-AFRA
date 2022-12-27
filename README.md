@@ -3,7 +3,7 @@ Link to Heroku Deploy :rocket: => [`CoolAFRA`](https://coolafra.herokuapp.com)
 
 ## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
 
-## What is AFRA :soccer: ?
+## :soccer: What is AFRA ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. Our vision was to include everything the users want from a football website and MORE for the best user experience. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they need in a single efficient webpage!
 
 ## Why AFRA ?
@@ -143,5 +143,5 @@ After finding a bug, here are some steps you should follow...
 6. Send an email with the documentation to => afra.project.308@gmail.com 
 
 
-### :beetle: Known bugs 
+### :lady_beetle: Known bugs 
 Currently there are no known bugs :tada: :tada:

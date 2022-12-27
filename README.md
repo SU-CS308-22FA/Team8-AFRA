@@ -1,8 +1,8 @@
-[![coolafra](https://user-images.githubusercontent.com/75041108/209647017-31b7f620-eae6-44ff-8e24-dd957ddb5a7e.png)][1]
-# AFRA = Automated Fixture and Referee Assignment
-Click the logo to access our webpage!
-
 ## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
+
+[![coolafra](https://user-images.githubusercontent.com/75041108/209647017-31b7f620-eae6-44ff-8e24-dd957ddb5a7e.png)][1]
+#Automated Fixture and Referee Assignment
+Click the logo to access our webpage!
 
 ## :soccer: What is AFRA ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. Our vision was to include everything the users want from a football website and MORE for the best user experience. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they need in a single efficient webpage!

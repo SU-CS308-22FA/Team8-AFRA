@@ -7,10 +7,10 @@ Click the logo to access our webpage!
 ## :soccer: What is AFRA ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. Our vision was to include everything the users want from a football website and MORE for the best user experience. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they need in a single efficient webpage!
 
-## Why AFRA ?
-  Our server has many different functionalities and we always improve it for the better. AFRA presents users with many useful features for many different actors such as: The admins, the users, referees and journalists. 
+## :chipmunk: Why AFRA ?
+  Our server has many different functionalities and we always improve it for the better. AFRA presents users with many useful features for many different actors such as: The admins, the users, referees and journalists. Improvement is the key feature for software development so we always try to update AFRA for the better. Here is the link to our [Enhancement Log 🪵](https://github.com/orgs/SU-CS308-22FA/projects/40/views/10?layout=table)
 
-#### All users
+#### :busts_in_silhouette: All users
 - [x] AFRA has a login/register system that allows the users to get all the benefits.[#8](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/8) [#9](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/9)
 - [x] Login is done via tokens so the users does not have to login each time. [#23](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/23)
 - [x] Users can display the matches in the selected season and week [#18](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/18)
@@ -31,11 +31,11 @@ Click the logo to access our webpage!
 - [x] Users can see the detailed information about the teams. [#82](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/82)
 - [x] Users can see details of top scorers, asists, yellow and red cards. [#79](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/79)
 
-#### Verified Professions
+#### :speaking_head: Verified Professions
 - [x] Referees and Journalists can apply for verifying their occupations [#15](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/15)
 - [x] Journalists can use the rating system for referees and have an influence on their assignments. [#81](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/81)
 
-#### The Admins
+#### :woman_technologist: The Admins
 - [x] Admins can approve or reject the requests for occupation verification [#34](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/34)
 - [x] Admins can fetch the match data using an API thereby it is automatic [#16](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/16)
 - [x] Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in, they get kicked to main page. [#47](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/47)
@@ -46,7 +46,7 @@ Click the logo to access our webpage!
 - [ ] Admins can assign referees to the matches accordingly to their rank. [#78](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/78)
 - [ ] Admins can generate fixtures for the upcoming matches. [#83](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/83)
 
-## Repository and Code Structure
+## :file_cabinet: Repository and Code Structure
 
 The project is made using MERN stack.
 - [React JS](https://reactjs.org/)
@@ -87,9 +87,9 @@ Here is our documentation
 ##### `.gitignore` - Tells git which files to ignore
 ##### `README` - This file!
 
-## How to use AFRA ?
+## :thinking: How to use AFRA ?
 
-### Using the deployed server
+### :rocket: Using the deployed server
 Simply click the link to our Heroku Deploy => https://coolafra.herokuapp.com
 You can create an account and get all the benefits! 
 Some Notes:
@@ -103,7 +103,7 @@ Some Notes:
   - Setting up your Calendar with the matches you wish, adding/liking comments to express your opinions...
 
 
-## Set up instructions for developers
+## :keyboard: Set up instructions for developers
 ### :computer: For your local machine
 
 1. Download an IDE

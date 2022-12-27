@@ -1,5 +1,6 @@
 # AFRA = Automated Fixture and Referee Assignment
 Link to Heroku Deploy => [`CoolAFRA`](https://coolafra.herokuapp.com)
+[![coolafra](https://user-images.githubusercontent.com/75041108/209647017-31b7f620-eae6-44ff-8e24-dd957ddb5a7e.png)][1]
 
 ## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
 
@@ -145,3 +146,5 @@ After finding a bug, here are some steps you should follow...
 
 ### :lady_beetle: Known bugs 
 Currently there are no known bugs :tada: :tada:
+
+[1]: https://coolafra.herokuapp.com

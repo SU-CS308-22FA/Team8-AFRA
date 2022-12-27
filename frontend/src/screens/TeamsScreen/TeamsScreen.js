@@ -18,6 +18,7 @@ function TeamsScreen() {
   const [data, setData] = useState([]);
   const [displaySentence, setDisplaySentence] = useState();
   const [flag, setFlag] = useState(false);
+  const [changed, setChanged] = useState(0);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/api/teams`, {
@@ -27,34 +28,20 @@ function TeamsScreen() {
       })
       .then((res) => {
         setData(res.data);
-        setDisplaySentence("You are now viewing the teams of Season 2022");
+        setDisplaySentence(
+          "You are now viewing the teams of Season " + seasonVar
+        );
         setFlag(true);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [changed]);
 
-  const handleSelectSeason = (e) => {
-    setSeasonVar(e);
-  };
-
-  const submitHandler = async (e) => {
-    setDisplaySentence("You are now viewing the teams of Season " + seasonVar);
+  const handleSelectSeason = (eventKey, e) => {
     e.preventDefault();
-    const config = {
-      headers: {
-        "Content-type": "application/json",
-      },
-    };
-
-    const { data } = await axios.get(`${process.env.REACT_APP_URL}/api/teams`, {
-      params: {
-        season: seasonVar,
-      },
-    });
-    console.log(data);
-    setData(data);
+    setSeasonVar(eventKey);
+    setChanged((c) => c + 1);
   };
 
   return !flag ? (
@@ -66,9 +53,7 @@ function TeamsScreen() {
     <div>
       <h1 className="mtitle">Teams in Super League</h1>
       <p> </p>
-      <h2 className="subsentence"> {displaySentence} </h2>
-      <p> </p>
-      <div style={{ marginLeft: 60 }}>
+      <div style={{ marginLeft: 900 }}>
         <table>
           <thead>
             <tr>
@@ -76,8 +61,8 @@ function TeamsScreen() {
                 <th>
                   <DropdownButton
                     id="dropdown-basic-button"
-                    title="Choose a season"
-                    onSelect={handleSelectSeason}
+                    title={seasonVar}
+                    onSelect={(e, eventKey) => handleSelectSeason(e, eventKey)}
                   >
                     <Dropdown.Item eventKey="2022">2022</Dropdown.Item>
                     <Dropdown.Item eventKey="2021">2021</Dropdown.Item>
@@ -93,14 +78,6 @@ function TeamsScreen() {
                   </DropdownButton>
                 </th>
               </Col>
-              <Col>
-                <Form onSubmit={submitHandler} className="dropdown">
-                  <Button variant="primary" type="submit">
-                    {" "}
-                    Submit your Chooses{" "}
-                  </Button>
-                </Form>
-              </Col>
             </tr>
           </thead>
         </table>
@@ -112,28 +89,23 @@ function TeamsScreen() {
         {data.map((data) => {
           return (
             <div className="card-body text-dark">
-              <Card className="card-body text-dark" style={{ width: "18rem" }}>
-                <Row className="allRows">
-                  <img variant="top" src={data.team.logo} width={100} />
-                </Row>
+              <Link to={`/team/${data.team.id}/${seasonVar}`}>
+                <Card
+                  className="card-body text-dark"
+                  style={{ width: "18rem" }}
+                >
+                  <Row className="allRows">
+                    <img variant="top" src={data.team.logo} width={100} />
+                  </Row>
 
-                <Card.Body>
-                  <Card.Title style={{ textAlign: "center" }}>
-                    {data.team.name}
-                  </Card.Title>
-                  <Card.Text>
-                    To see further details about the team please visit the
-                    details page.
-                  </Card.Text>
-                </Card.Body>
-                <Row className="allRows">
-                  <Link to={`/team/${data.team.id}/${seasonVar}`}>
-                    <Button variant="primary" size="lg">
-                      See Team Details
-                    </Button>
-                  </Link>
-                </Row>
-              </Card>
+                  <Card.Body>
+                    <Card.Title style={{ textAlign: "center" }}>
+                      {data.team.name}
+                    </Card.Title>
+                  </Card.Body>
+                  <Row className="allRows"></Row>
+                </Card>
+              </Link>
             </div>
           );
         })}

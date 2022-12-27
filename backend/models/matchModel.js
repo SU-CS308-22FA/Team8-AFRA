@@ -17,7 +17,23 @@ const fixtureSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  homeID: {
+    type: Number,
+    required: true,
+  },
+  homeLogo: {
+    type: String,
+    required: true,
+  },
   visitor: {
+    type: String,
+    required: true,
+  },
+  visitorID: {
+    type: Number,
+    required: true,
+  },
+  visitorLogo: {
     type: String,
     required: true,
   },
@@ -28,7 +44,7 @@ const fixtureSchema = mongoose.Schema({
   },
   referee: {
     type: String,
-    required: false,
+    required: true,
   },
   hGoal: {
     type: Number,
@@ -42,10 +58,9 @@ const fixtureSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
-  isDelayed:{
+  isDelayed: {
     type: Boolean,
-    dafault: false,
-    required: false,
+    default: false,
   },
 });
 

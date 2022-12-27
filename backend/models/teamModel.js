@@ -5,15 +5,15 @@ const teamSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  name: {
+  TeamName: {
     type: String,
     required: true,
   },
-  rank: {
-    type: String,
+  teamRank: {
+    type: Number,
     required: true,
   },
-  info: {
+  teamInfo: {
     type: String,
     required: false,
   },

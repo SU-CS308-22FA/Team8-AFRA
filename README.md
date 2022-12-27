@@ -3,11 +3,11 @@ Link to Heroku Deploy :rocket: => [`CoolAFRA`](https://coolafra.herokuapp.com)
 
 ## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
 
-## What is AFRA ?
+## What is AFRA :soccer: ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. Our vision was to include everything the users want from a football website and MORE for the best user experience. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they need in a single efficient webpage!
 
 ## Why AFRA ?
-  Our server has many useful features for many different actors such as: The admins, the users, referees and journalists.
+  Our server has many different functionalities and we always improve it for the better. AFRA presents users with many useful features for many different actors such as: The admins, the users, referees and journalists. 
 
 #### All users
 - [x] AFRA has a login/register system that allows the users to get all the benefits.[#8](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/8) [#9](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/9)
@@ -103,7 +103,7 @@ Some Notes:
 
 
 ## Set up instructions for developers
-### For your local machine
+### :computer: For your local machine
 
 1. Download an IDE
 2. Clone the repo
@@ -129,10 +129,10 @@ Some Notes:
    $ npm run dev
    ```
 
-### For deploying the app to Heroku
+### :rocket: For deploying the app to Heroku
 The code has all the necessary scripts for heroku deployment. All thats necessary is to set the env variables (as described above) from your heroku app settings!
 
-## How to report bugs?
+## :warning: How to report bugs? 
 After finding a bug, here are some steps you should follow...
 
 1. Write down what happened, and your thoughts on what you think caused it. 
@@ -143,5 +143,5 @@ After finding a bug, here are some steps you should follow...
 6. Send an email with the documentation to => afra.project.308@gmail.com 
 
 
-### Known bugs 
+### :beetle: Known bugs 
 Currently there are no known bugs :tada: :tada:

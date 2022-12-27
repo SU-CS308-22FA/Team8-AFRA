@@ -1,7 +1,7 @@
 ## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
 
 [![coolafra](https://user-images.githubusercontent.com/75041108/209647017-31b7f620-eae6-44ff-8e24-dd957ddb5a7e.png)][1]
-#Automated Fixture and Referee Assignment
+# Automated Fixture and Referee Assignment
 Click the logo to access our webpage!
 
 ## :soccer: What is AFRA ?

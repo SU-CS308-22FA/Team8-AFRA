@@ -174,7 +174,6 @@ const refereeAssignment = asyncHandler(async (req, res) => {
     }
   });
 
-  console.log(matchRanks.length);
   for(let i = 0; i < matchRanks.length; i++){
     const filter = {matchID: matchRanks[i].id};
     const update = {referee: r[i].name};

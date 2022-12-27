@@ -1,6 +1,9 @@
 import fixture from "../models/matchModel.js";
+import team from "../models/teamModel.js";
+import referee from "../models/refereeModel.js";
 import asyncHandler from "express-async-handler";
 import axios from "axios";
+import { Rewind } from "react-bootstrap-icons";
 
 const uploadDatabase = asyncHandler(async (req, res) => {
   const { seasonVar } = req.body;
@@ -32,11 +35,13 @@ const uploadDatabase = asyncHandler(async (req, res) => {
         const season = seasonVar;
         const week = weekCounter;
         const home = r.data.response[i].teams.home.name;
+        const homeID = r.data.response[i].teams.home.id;
         const homeLogo = r.data.response[i].teams.home.logo;
         const visitor = r.data.response[i].teams.away.name;
+        const visitorID = r.data.response[i].teams.away.id;
         const visitorLogo = r.data.response[i].teams.away.logo;
         const division = "SL";
-        const referee = !r.data.response[i].fixture.referee ? "Referee does not assign" : r.data.response[i].fixture.referee.split(',')[0];
+        const referee = !r.data.response[i].fixture.referee ? "Referee Does not Assign" : r.data.response[i].fixture.referee.split(',')[0];
         const hGoal = r.data.response[i].goals.home;
         const vGoal = r.data.response[i].goals.away;
         const matchID = r.data.response[i].fixture.id;
@@ -46,8 +51,10 @@ const uploadDatabase = asyncHandler(async (req, res) => {
           season,
           week,
           home,
+          homeID,
           homeLogo,
           visitor,
+          visitorID,
           visitorLogo,
           division,
           referee,
@@ -137,10 +144,60 @@ const matchDelayed = asyncHandler(async (req, res) => {
   }
 });
 
+const refereeAssignment = asyncHandler(async (req, res) => {
+  const { season, week } = req.body;
+
+  const f = await fixture.find({
+    season: season,
+    week: week,
+  });
+
+  const r = await referee.find().sort({rank: -1});
+
+  var matchRanks = [];
+  for(let i = 0; i < f.length; i++){
+  
+    const homeDetail = await team.findOne({id: f[i].homeID});
+    const visitorDetail = await team.findOne({id: f[i].visitorID});
+
+    const matchRank = homeDetail.teamRank + visitorDetail.teamRank;
+    const tempValue = {
+      id: f[i].matchID,
+      rank: matchRank
+    }
+    matchRanks.push(tempValue);
+  }
+  
+  matchRanks = matchRanks.sort((a,b) => {
+    if(b.rank < a.rank){
+      return -1;
+    }
+  });
+
+  console.log(matchRanks.length);
+  for(let i = 0; i < matchRanks.length; i++){
+    const filter = {matchID: matchRanks[i].id};
+    const update = {referee: r[i].name};
+    let thematch = await fixture.findOneAndUpdate(filter, update);
+    if (thematch) {
+      const updatedMatch = thematch.save();
+      if(!updatedMatch){
+        res.status(404);
+        throw new Error("Match not found");
+      }
+    } else {
+      res.status(404);
+      throw new Error("Match not found");
+    }
+  }
+  res.status(200).send("Referees have successfully assigned");
+});
+
 export {
   uploadDatabase,
   getMatchesBySeasonAndWeek,
   getStandingsBySeason,
   changeTimeOfTheMatch,
   matchDelayed,
+  refereeAssignment,
 };

@@ -17,12 +17,20 @@ const fixtureSchema = mongoose.Schema({
     type: String,
     required: true,
   },
+  homeID: {
+    type: Number,
+    required: true,
+  },
   homeLogo: {
     type: String,
     required: true,
   },
   visitor: {
     type: String,
+    required: true,
+  },
+  visitorID: {
+    type: Number,
     required: true,
   },
   visitorLogo: {

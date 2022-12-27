@@ -5,6 +5,7 @@ import {
   Dropdown,
   DropdownButton,
   Card,
+  Button,
 } from "react-bootstrap";
 import axios from "axios";
 import MainScreen from "../../components/MainScreen";
@@ -49,7 +50,25 @@ function FixturePage() {
       setFlag(true);
     })
     
-  }, [season, week]);
+  }, [season, week, flag]);
+
+  const submitHandler = async() => {
+    
+    if(data[0].referee !== "Referee Does not Assign"){
+      alert("Referees have already been assigned");
+      return;
+    }
+
+    await axios.post(`${process.env.REACT_APP_URL}/api/matches/referee`,{season,week})
+    .then(res => {
+      alert(res.data);
+      setFlag(false);
+    })
+    .catch(err => {
+      console.log("I am here in catch");
+      console.log(err);
+    })
+  }
 
   return (
     <MainScreen>
@@ -87,7 +106,7 @@ function FixturePage() {
           <Dropdown.Item onClick={() => {setWeek(17);}}> 17 </Dropdown.Item>
           <Dropdown.Item onClick={() => {setWeek(18);}}> 18 </Dropdown.Item>
           <Dropdown.Item onClick={() => {setWeek(19);}}> 19 </Dropdown.Item>
-          <Dropdown.Item onClick={() => {setWeek(20);}}> 22 </Dropdown.Item>
+          <Dropdown.Item onClick={() => {setWeek(20);}}> 20 </Dropdown.Item>
           <Dropdown.Item onClick={() => {setWeek(21);}}> 21 </Dropdown.Item>
           <Dropdown.Item onClick={() => {setWeek(22);}}> 22 </Dropdown.Item>
           <Dropdown.Item onClick={() => {setWeek(23);}}> 23 </Dropdown.Item>
@@ -119,6 +138,7 @@ function FixturePage() {
             </>
           )}
         </DropdownButton>
+        <Button onClick={submitHandler}> Referee Assign </Button>
       </Row>
       {checker && (
         <>
@@ -142,7 +162,7 @@ function FixturePage() {
                 lastDate = tempDate;
                 return (
                   <div key={index}>
-                    <Row className="bg-primary"> {lastDate} </Row>
+                    <Row className="bg-primary rowcenter"> {lastDate} </Row>
                     <Card className="fixture-card"> 
                       <div>
                         {tempTime}

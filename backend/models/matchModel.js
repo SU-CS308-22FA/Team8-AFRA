@@ -36,7 +36,7 @@ const fixtureSchema = mongoose.Schema({
   },
   referee: {
     type: String,
-    default: "Referee does not assign",
+    required: true,
   },
   hGoal: {
     type: Number,

@@ -36,7 +36,7 @@ const uploadDatabase = asyncHandler(async (req, res) => {
         const visitor = r.data.response[i].teams.away.name;
         const visitorLogo = r.data.response[i].teams.away.logo;
         const division = "SL";
-        const referee = r.data.response[i].fixture.referee;
+        const referee = !r.data.response[i].fixture.referee ? "Referee does not assign" : r.data.response[i].fixture.referee.split(',')[0];
         const hGoal = r.data.response[i].goals.home;
         const vGoal = r.data.response[i].goals.away;
         const matchID = r.data.response[i].fixture.id;
@@ -70,7 +70,7 @@ const getMatchesBySeasonAndWeek = asyncHandler(async (req, res) => {
   const r = await fixture.find({
     season: season,
     week: week,
-  });
+  }).sort({date: +1});
   res.json(r);
 });
 

@@ -1,5 +1,5 @@
 # AFRA = Automated Fixture and Referee Assignment
-Link to Heroku Deploy :rocket: => [`CoolAFRA`](https://coolafra.herokuapp.com)
+Link to Heroku Deploy => [`CoolAFRA`](https://coolafra.herokuapp.com)
 
 ## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
 
@@ -59,7 +59,7 @@ Here is our documentation
 - Code documentation => [`CODE DOCUMENTATION`](https://docs.google.com/document/d/1et_x-6B5ka5RlvvPosqfY9qxL8VcAu5Ao8sHZtJNW9M/edit?usp=sharing)
 - API documentation => [`SWAGGER UI`](https://coolafra.herokuapp.com/doc)
 
-### File structure
+### :card_index_dividers: File structure
 ##### `frontend` - Holds the client application
 - ##### `public` - This holds all of our static files
 - ##### `src`

@@ -1,10 +1,10 @@
 # AFRA = Automated Fixture and Referee Assignment
-Link to Heroku Deploy => [`CoolAFRA`](https://coolafra.herokuapp.com)
+Link to Heroku Deploy :rocket: => [`CoolAFRA`](https://coolafra.herokuapp.com)
 
 ## Note about SPRINT 1 -> you can make this repo public to see our wiki page. We wanted to keep our code private for the last sprint. Thanks for understanding :) 
 
 ## What is AFRA ?
-  AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. It also incorporates a user friendly design and has a simple structured interface.  We added all the features users look for and more for the best user experience. That way the users can find everything they wish for and more, in a single webpage.
+  AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. Our vision was to include everything the users want from a football website and MORE for the best user experience. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they need in a single efficient webpage!
 
 ## Why AFRA ?
   Our server has many useful features for many different actors such as: The admins, the users, referees and journalists.
@@ -24,15 +24,26 @@ Link to Heroku Deploy => [`CoolAFRA`](https://coolafra.herokuapp.com)
 - [x] Users can display detailed match information. [#53](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/53)
 - [x] Users can filter the comments in many different ways [#52](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/52)
 - [x] Users can reply to other comments [#56](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/56)
+- [x] Users can appeal for an unban so they can get a chance of redemption. [#76](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/76)
+- [x] Users can see the most asked questions with the FAQ page. [#112](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/112)
+- [x] Users can receive emails/notifications about the latest news from AFRA. [#84](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/84)
+- [x] Users can see the detailed information about the teams. [#82](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/82)
+- [x] Users can see details of top scorers, asists, yellow and red cards. [#79](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/79)
 
 #### Verified Professions
 - [x] Referees and Journalists can apply for verifying their occupations [#15](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/15)
+- [x] Journalists can use the rating system for referees and have an influence on their assignments. [#81](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/81)
 
 #### The Admins
 - [x] Admins can approve or reject the requests for occupation verification [#34](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/34)
 - [x] Admins can fetch the match data using an API thereby it is automatic [#16](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/16)
 - [x] Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in, they get kicked to main page. [#47](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/47)
-
+- [x] Admins have a dedicated page to unban the users. [#76](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/76)
+- [x] Admins can add and remove FAQ so that the users can reach them easily. [#112](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/112)
+- [x] Admins can manually edit the fixture in case of cancellation or a delay. [#80](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/80)
+- [x] Admins can send notifications/mails to the users with ease. [#84](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/84)
+- [] Admins can assign referees to the matches accordingly to their rank. [#78](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/78)
+- [] Admins can generate fixtures for the upcoming matches. [#83](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/83)
 
 ## Repository and Code Structure
 

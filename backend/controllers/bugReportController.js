@@ -1,5 +1,10 @@
 import BugReport from "../models/bugReportModel.js";
+import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+//const {v4: uuidv4}=require("uuid");
+dotenv.config();
 
 // @route GET /api/bugreports
 const getAllBugReports = asyncHandler(async (req, res) => {
@@ -23,23 +28,11 @@ const addBugReport = asyncHandler(async (req, res) => {
 });
 
 const deleteBugReport = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { id, bugReportedUserEmail } = req.body;
   try {
+    const thepage = await BugReport.findOne({ _id: id });
     let deleting = await BugReport.deleteOne({ _id: id });
-    res.status(200).send("Bug Report has been deleted");
-  } catch {
-    res.status(400).send("Failed to delete Bug Report.");
-  }
-});
-
-const informReporter = asyncHandler(async (req, res) => {
-  const { user } = req.body;
-  try {
-    const theuser = await User.findById(user);
-    theuser.banned = false;
-    await theuser.save();
-    const b = await Blacklist.deleteOne({ user: user });
-    const f = await Appeal.deleteOne({ user: user });
+    const theuser = await User.findOne({ email: bugReportedUserEmail });
     var transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
@@ -47,15 +40,26 @@ const informReporter = asyncHandler(async (req, res) => {
         pass: process.env.MAIL_PASS,
       },
     });
+    transporter.verify((error, success) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Ready for messages");
+        console.log(success);
+      }
+    });
+
     const text =
       "Hello, " +
       theuser.name +
-      "\n \t Your explaination for the appeal was found as valid by the admins! You have been unbanned, welcome back to AFRA";
+      "\n \t Your bug report has been considered by our software engineers. " +
+      thepage.bugPage +
+      " was reviewed. Problem is solved! Thank you for your cooperation. Enjoy AFRA :)";
 
     var mailOptions = {
       from: process.env.MAIL,
       to: theuser.email,
-      subject: "APPEAL ACCEPTED",
+      subject: "BUG SOLVED",
       text: text,
     };
 
@@ -66,9 +70,10 @@ const informReporter = asyncHandler(async (req, res) => {
         console.log("Email sent: " + info.response);
       }
     });
-    res.status(200).send("User has been unbanned!");
-  } catch (err) {
-    res.status(400).send(err);
+
+    res.status(200).send("Bug Report has been deleted");
+  } catch {
+    res.status(400).send("Failed to delete Bug Report.");
   }
 });
 

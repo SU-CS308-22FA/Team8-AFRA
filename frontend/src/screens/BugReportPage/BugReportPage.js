@@ -39,7 +39,10 @@ function BugReportPage() {
   const deleteBugReport = (e, d) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_URL}/api/bugreports/delete`, { id: d._id })
+      .post(`${process.env.REACT_APP_URL}/api/bugreports/delete`, {
+        id: d._id,
+        bugReportedUserEmail: d.bugReportedUserEmail,
+      })
       .then((res) => {
         setChanged((c) => c + 1);
         setMessage(res.data);

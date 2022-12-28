@@ -8,4 +8,25 @@
 .whatswrong {
   size: 10px;
   text-align: center;
+  color: #2146c7;
+}
+
+.sub {
+  font-size: 30px;
+  text-align: center;
+  color: #2146c7;
+}
+
+.explain {
+  font-size: 22px;
+  text-align: left;
+  color: #0a036f;
+}
+
+.getBug {
+  padding: 20 50;
+  font-size: 22px;
+  text-align: left;
+  color: #11079e;
+  margin-left: 40px;
 }

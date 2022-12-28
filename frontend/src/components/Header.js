@@ -32,7 +32,7 @@ function Header({ setSearch }) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto"></Nav>
           {userInfo ? (
-            <Nav style={{ marginTop: "9px" }}>
+            <Nav>
               <Nav.Link href="/bugreport">
                 <FaSpider color={"black"}></FaSpider>
               </Nav.Link>

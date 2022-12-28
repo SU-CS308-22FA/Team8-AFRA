@@ -1,11 +1,19 @@
 import "./BugReportPage.css";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Accordion, Button, Card, Form } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import {
+  Accordion,
+  Button,
+  Card,
+  Col,
+  Dropdown,
+  DropdownButton,
+  Form,
+  Row,
+} from "react-bootstrap";
 import axios from "axios";
 import ErrorMessage from "../../components/ErrorMessage";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaRegSmile, FaSpider, FaTrashAlt } from "react-icons/fa";
 import whatswrong from "./what_is_wrong.jpg";
 
 function BugReportPage() {
@@ -68,83 +76,124 @@ function BugReportPage() {
       <div className="whatswrong">
         <img src={whatswrong} style={{ height: "150px" }}></img>
       </div>
+      <div className="getBug">
+        <Row>
+          <Col>
+            <div>
+              <Row>
+                <Col>
+                  <br></br>
+                  <h2> About Bug Reports</h2>
+                  <div>
+                    <h3 className="explain">
+                      <FaSpider style={{ marginRight: "10px" }} /> As you report
+                      a bug, admins will also be able to see it and inform the
+                      software engineers to solve the bug.
+                    </h3>
+                    <h3 className="explain">
+                      {" "}
+                      <FaSpider style={{ marginRight: "10px" }} /> When the bug
+                      is solved, admin will remark it as solved and you will
+                      receive an email.
+                    </h3>
+                    <h3 className="explain">
+                      {" "}
+                      <FaSpider style={{ marginRight: "10px" }} /> Please
+                      clearly explain the problem that you encounter.
+                    </h3>
+                    <h3 className="explain">
+                      <FaSpider style={{ marginRight: "10px" }} /> Thank you for
+                      your cooperation, we will try to solve it as much as
+                      possible. <FaRegSmile />
+                    </h3>
+                  </div>
+                </Col>
+              </Row>
+            </div>
+            <div>
+              <br></br>
+              <br></br>
+              {message && <ErrorMessage variant="info">{message}</ErrorMessage>}
+              <Form onSubmit={addBugReport}>
+                <Form.Group controlId="formBasicEmail">
+                  <Form.Label>The page you found a bug</Form.Label>
+                  <Form.Control
+                    type="bug"
+                    value={bugPage}
+                    placeholder="Enter the page that you think there is an error"
+                    onChange={(e) => setBugPage(e.target.value)}
+                    style={{ width: "50%" }}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasic">
+                  <Form.Label>The detail of the bug</Form.Label>
+                  <Form.Control
+                    as="textArea"
+                    value={bugDetail}
+                    placeholder="Please explain the bug"
+                    onChange={(e) => setBugDetail(e.target.value)}
+                    style={{ width: "50%" }}
+                  />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                  Report Bug <FaSpider />
+                </Button>
+              </Form>
+            </div>
+          </Col>
 
-      <div>
-        {message && <ErrorMessage variant="info">{message}</ErrorMessage>}
-        <Form onSubmit={addBugReport}>
-          <Form.Group controlId="formBasicEmail">
-            <Form.Label>BugPage</Form.Label>
-            <Form.Control
-              type="question"
-              value={bugPage}
-              placeholder="Enter question"
-              onChange={(e) => setBugPage(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group controlId="formBasic">
-            <Form.Label>BugDetail</Form.Label>
-            <Form.Control
-              as="textArea"
-              value={bugDetail}
-              placeholder="Enter the Answer"
-              onChange={(e) => setBugDetail(e.target.value)}
-            />
-          </Form.Group>
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
-        </Form>
-      </div>
-      <div className="loginContainer">
-        {data.map((d, i) => {
-          return (
-            <Accordion defaultActiveKey="1">
-              <Card className="notcard">
-                <Card.Header
-                  style={{ backgroundColor: "#BAD7E9", padding: "0 0" }}
-                  className="faq"
-                >
-                  <span>
-                    <Accordion.Toggle
-                      as={Card.Header}
-                      style={{ fontSize: "17px", textAlign: "left" }}
-                      variant="text"
-                      eventKey="0"
-                    >
-                      <b className="question">
-                        {i + 1}) <wbr></wbr>
-                        {d.bugPage}{" "}
-                      </b>
-                    </Accordion.Toggle>
-                  </span>
-                </Card.Header>
-                <Accordion.Collapse eventKey="0">
-                  <Card.Body>
-                    <h5
-                      style={{
-                        fontSize: "18px",
-                        textAlign: "left",
-                        fontWeight: "500",
-                        color: "black",
-                      }}
-                    >
-                      {d.bugDetail}
-                      {userInfo && userInfo.isAdmin && (
-                        <Button
-                          type="submit"
-                          style={{ float: "right" }}
-                          onClick={(e) => deleteBugReport(e, d)}
-                        >
-                          Delete <FaTrashAlt />
-                        </Button>
-                      )}{" "}
-                    </h5>
-                  </Card.Body>
-                </Accordion.Collapse>
-              </Card>
-            </Accordion>
-          );
-        })}
+          <Col>
+            <div className="loginContainer">
+              <h2>Previously Reported Bugs (Not Solved Yet)</h2>
+              {data.map((d) => {
+                return (
+                  <Accordion defaultActiveKey="1">
+                    <Card>
+                      <Card.Header
+                        style={{ backgroundColor: "#71b8e3", padding: "0 0" }}
+                        className="faq"
+                      >
+                        <span>
+                          <Accordion.Toggle
+                            as={Card.Header}
+                            style={{ fontSize: "17px", textAlign: "left" }}
+                            variant="text"
+                            eventKey="0"
+                          >
+                            <b className="question">{d.bugPage} </b>
+                          </Accordion.Toggle>
+                        </span>
+                      </Card.Header>
+                      <Accordion.Collapse eventKey="0">
+                        <Card.Body>
+                          <h5
+                            style={{
+                              fontSize: "18px",
+                              textAlign: "left",
+                              fontWeight: "500",
+                              color: "black",
+                            }}
+                          >
+                            {d.bugDetail}
+                            {userInfo && userInfo.isAdmin && (
+                              <Button
+                                type="submit"
+                                style={{ float: "right" }}
+                                onClick={(e) => deleteBugReport(e, d)}
+                              >
+                                Delete <FaTrashAlt />
+                              </Button>
+                            )}{" "}
+                          </h5>
+                        </Card.Body>
+                      </Accordion.Collapse>
+                    </Card>
+                  </Accordion>
+                );
+              })}
+            </div>
+          </Col>
+        </Row>
       </div>
     </div>
   );

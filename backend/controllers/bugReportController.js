@@ -72,4 +72,4 @@ const informReporter = asyncHandler(async (req, res) => {
   }
 });
 
-export { getAllBugReports, addBugReport, deleteBugReport, informReporter };
+export { getAllBugReports, addBugReport, deleteBugReport };

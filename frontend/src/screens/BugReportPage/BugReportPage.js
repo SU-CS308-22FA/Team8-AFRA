@@ -1,10 +1,12 @@
 import "./BugReportPage.css";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Accordion, Button, Card, Form } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ErrorMessage from "../../components/ErrorMessage";
+import { FaTrashAlt } from "react-icons/fa";
+import whatswrong from "./what_is_wrong.jpg";
 
 function BugReportPage() {
   const [data, setData] = useState([]);
@@ -26,7 +28,7 @@ function BugReportPage() {
       });
   }, [changed]);
 
-  const deleteBanReport = (e, d) => {
+  const deleteBugReport = (e, d) => {
     e.preventDefault();
     axios
       .post(`${process.env.REACT_APP_URL}/api/bugreports/delete`, { id: d._id })
@@ -61,7 +63,12 @@ function BugReportPage() {
   };
   return (
     <div>
+      <br></br>
       <h1 className="sub">Report a Bug</h1>
+      <div className="whatswrong">
+        <img src={whatswrong} style={{ height: "150px" }}></img>
+      </div>
+
       <div>
         {message && <ErrorMessage variant="info">{message}</ErrorMessage>}
         <Form onSubmit={addBugReport}>
@@ -87,6 +94,57 @@ function BugReportPage() {
             Submit
           </Button>
         </Form>
+      </div>
+      <div className="loginContainer">
+        {data.map((d, i) => {
+          return (
+            <Accordion defaultActiveKey="1">
+              <Card className="notcard">
+                <Card.Header
+                  style={{ backgroundColor: "#BAD7E9", padding: "0 0" }}
+                  className="faq"
+                >
+                  <span>
+                    <Accordion.Toggle
+                      as={Card.Header}
+                      style={{ fontSize: "17px", textAlign: "left" }}
+                      variant="text"
+                      eventKey="0"
+                    >
+                      <b className="question">
+                        {i + 1}) <wbr></wbr>
+                        {d.bugPage}{" "}
+                      </b>
+                    </Accordion.Toggle>
+                  </span>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <h5
+                      style={{
+                        fontSize: "18px",
+                        textAlign: "left",
+                        fontWeight: "500",
+                        color: "black",
+                      }}
+                    >
+                      {d.bugDetail}
+                      {userInfo && userInfo.isAdmin && (
+                        <Button
+                          type="submit"
+                          style={{ float: "right" }}
+                          onClick={(e) => deleteBugReport(e, d)}
+                        >
+                          Delete <FaTrashAlt />
+                        </Button>
+                      )}{" "}
+                    </h5>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          );
+        })}
       </div>
     </div>
   );

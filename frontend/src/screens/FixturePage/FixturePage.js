@@ -300,9 +300,16 @@ function FixturePage() {
             {data.map((d,index) => {
               const tempD = new Date(d.date);
               const tempDate = tempD.getDate() + " " + monthNames[tempD.getMonth()] + " " + tempD.getFullYear();
-              const tempT = d.date.split('T')[1];
-              const tempTime = tempT.split(':')[0] + ":" + tempT.split(':')[1];
-              if(tempDate != lastDate){
+              var tempTime;
+              if(d.isDelayed){
+                tempTime = "Postponed";
+              }
+              else{
+                const tempT = d.date.split('T')[1];
+                tempTime = tempT.split(':')[0] + ":" + tempT.split(':')[1];
+              }
+
+              if(tempDate !== lastDate){
                 lastDate = tempDate;
                 return (
                   <div key={index}>

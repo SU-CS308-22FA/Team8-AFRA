@@ -1,15 +1,14 @@
+import "./MatchDetailPage.css";
 import React, { useEffect, useState } from "react";
 import MainScreen from "../../components/MainScreen";
 import Loading from "../../components/Loading";
-import { Row, Col, Table } from "react-bootstrap";
+import {Card, Tabs, Tab } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import "./MatchDetailPage.css";
 import EventsPage from "./EventsPage";
 import LineUpsPage from "./LineUpsPage";
 import StatisticsPage from "./StatisticsPage";
 import Comments from "./Comments";
-import Unauthorized from "../../components/Unauthorized";
 import { useSelector } from "react-redux";
 
 function MatchDetailPage() {
@@ -20,6 +19,10 @@ function MatchDetailPage() {
   const [flag, setFlag] = useState(false);
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const [matchDate, setMatchDate] = useState();
+  const [matchTime, setMatchTime] = useState();
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
 
   useEffect(() => {
     axios
@@ -30,6 +33,12 @@ function MatchDetailPage() {
       })
       .then((res) => {
         const tempData = res.data;
+        const tempD = new Date(tempData.date);
+        const tempDate = tempD.getDate() + " " + monthNames[tempD.getMonth()] + " " + tempD.getFullYear();
+        const tempT = tempData.date.split('T')[1];
+        const tempTime = tempT.split(':')[0] + ":" + tempT.split(':')[1];
+        setMatchDate(tempDate);
+        setMatchTime(tempTime);
         setMatch(tempData);
         setFlag(true);
       })
@@ -43,45 +52,48 @@ function MatchDetailPage() {
   ) : (
     <MainScreen>
       <div>
-        <div>
-          <h3 key={match} className="startLine">
-            {" "}
-            <h5 className="teamNames">
-              {" "}
-              {match.home} - {match.visitor}{" "}
-            </h5>{" "}
-            {match.hGoal} - {match.vGoal} <p> </p>
-          </h3>
-          <h5 className="explain">
-            {" "}
-            The referee of the match was: {match.referee}{" "}
-          </h5>{" "}
-          <p> </p>
-        </div>
-        <hr className="newhr"></hr>
-        <div>
-          <Row className="rowcenter">
-            <Col className="rowcenter">
-              <div>
-                <button onClick={() => setViewState(1)}>Events</button>
-              </div>
-            </Col>
-            <Col className="rowcenter">
-              <button onClick={() => setViewState(2)}>Line Ups</button>
-            </Col>
-            <Col className="rowcenter">
-              <button onClick={() => setViewState(3)}>Statistics</button>
-            </Col>
-            <Col className="rowcenter">
-              <button onClick={() => setViewState(4)}>Comments</button>
-            </Col>
-          </Row>
-        </div>
-        <p></p>
-        {viewState === 1 ? <EventsPage matchID={matchIDVar} /> : ""}
-        {viewState === 2 ? <LineUpsPage matchID={matchIDVar} /> : ""}
-        {viewState === 3 ? <StatisticsPage matchID={matchIDVar} /> : ""}
-        {viewState === 4 ? (userInfo ? <Comments matchID={matchIDVar}/> : <Unauthorized/>): ""}
+        <Card className="fixture-detail-card"> 
+          <div>
+            {matchDate}
+          </div>
+          <div>
+            {matchTime}
+          </div>
+          <div className="flexbox-container">
+            <div className="w-15 p-2">
+              <img src={`${match.homeLogo}`} height={50} width={50}/>
+            </div>
+            <div className="w-20 p-2"> {match.home} </div>
+            <div className="w-15 p-2"> {match.hGoal} </div>
+            <div className="w-15 p-3"> - </div>
+            <div className="w-15 p-2"> {match.vGoal} </div>
+            <div className="w-20 p-2"> {match.visitor} </div>
+            <div className="w-15 p-2">
+              <img src={`${match.visitorLogo}`} height={50} width={50}/>
+            </div>
+          </div>
+          <div>
+            Referee: {match.referee}
+          </div>
+        </Card>
+        <Tabs 
+          defaultActiveKey="comments"
+          id="match-detail-page"
+          className="mb-3"
+        >
+          <Tab className="ml-3" eventKey="events" title="Events">
+            <EventsPage matchID={matchIDVar} />
+          </Tab>
+          <Tab className="ml-3" eventKey="lineups" title="Line Ups">
+            <LineUpsPage matchID={matchIDVar} />
+          </Tab>
+          <Tab className="ml-3" eventKey="statistics" title="Statistics">
+            <StatisticsPage matchID={matchIDVar} />
+          </Tab>
+          <Tab className="ml-3" eventKey="comments" title="Comments">
+            <Comments matchID={matchIDVar} />
+          </Tab>
+        </Tabs>
       </div>
     </MainScreen>
   );

@@ -21,6 +21,7 @@ const StatisticsPage = ({ matchID }) => {
         console.log(err);
       });
   }, []);
+  
   return !flag ? (
     <Loading/>
   ) : (

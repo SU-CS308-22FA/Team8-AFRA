@@ -1,7 +1,9 @@
 import "./FixturePage.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Row,
+  Col,
   Dropdown,
   DropdownButton,
   Card,
@@ -20,6 +22,7 @@ function FixturePage() {
   var lastDate;
   const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"];
+  const navigate = useNavigate();
 
   const fetchData = async() => {
     return await axios.get(
@@ -69,6 +72,147 @@ function FixturePage() {
       console.log(err);
     })
   }
+
+  function changeTimezone(date, ianatz) {
+
+    var invdate = new Date(date.toLocaleString('en-US', {
+      timeZone: ianatz
+    }));
+    var diff = date.getTime() - invdate.getTime();
+    return new Date(date.getTime() - diff); // needs to substract
+
+  }
+
+/*
+  const [show, setShow] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [matchId, setMatchId] = useState(0);
+
+  const handleSubmitForEdit = async(e) => {
+    e.preventDefault();
+    //console.log(e);
+    console.log(selectedDate);
+    console.log(matchId);
+    setShow(false);
+
+
+    var dateString = selectedDate;
+    var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/;
+    console.log(reggie)
+    var dateArray = reggie.exec(dateString); 
+    console.log(dateArray);
+    var dateObject = new Date(
+    (+dateArray[1]),
+    (+dateArray[2])-1, // Careful, month starts at 0!
+    (+dateArray[3]),
+    (+dateArray[4]),
+    (+dateArray[5]),
+    (+dateArray[6])
+    );
+
+    console.log(dateObject);
+
+    var there = changeTimezone(dateObject, "Asia/Almaty");
+    console.log(there);
+    dateObject=there;
+
+    let matchID= matchId;
+
+    const  dataOfUpdatedMatch  = await axios.put(
+      `${process.env.REACT_APP_URL}/api/matches/changetimeofmatch`,
+      { matchID,dateObject}
+    );
+
+    console.log(dataOfUpdatedMatch);
+    if(dataOfUpdatedMatch.data==="Same time"){
+      window.alert("There is another match at the same time. Please try again");
+    }
+    else{
+      window.alert("Time is successfully updated");
+    }
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/matches/fixture`,
+      {
+        params: {
+          season: seasonVar,
+          week: weekVar,
+        },
+      }
+    );
+    setData(data);
+    
+  };
+
+  const doDelay = async (matchID) => {
+    await axios.put(
+      `${process.env.REACT_APP_URL}/api/matches/matchdelayed`,
+      { matchID}
+    );
+
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_URL}/api/matches/fixture`,
+      {
+        params: {
+          season: seasonVar,
+          week: weekVar,
+        },
+      }
+    );
+    setData(data);
+  };
+
+  const handleShow = () => setShow(true);
+  const handleClose= () => setShow(false);
+
+
+  <h5> 
+    {userInfo && userInfo.isAdmin ? <Dropdown>
+        <Dropdown.Toggle variant="light" id="dropdown-basic">
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={handleShow}>
+            {" "}
+            Change the time of the match{" "} 
+                  
+          </Dropdown.Item>
+              <Modal show={show} onHide={handleClose}>
+              
+                <Modal.Header closeButton>
+                  <Modal.Title>Choose another day and time for the match</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Please enter the new date and the time in the form of 
+                  (YYYY-MM-DD HH:MM:SS):
+                    <Form onSubmit={handleSubmitForEdit}>
+                        <div key={`default-radio`} className="mb-3"> 
+                          <Form.Group controlId= "getSelectionForUpdateWeek">
+                              <Form.Control
+                                type="input"
+                                value={selectedDate}
+                                placeholder="Enter the new date (YYYY-MM-DD HH:MM:SS)"
+                                onChange={(e) => setSelectedDate(e.target.value)}
+                              />
+                              
+                          </Form.Group>
+                        
+                          
+                        </div>
+                    
+                        <Button variant="primary" type="submit" onClick = {() => setMatchId(match.matchID) }>
+                          Save Changes
+                        </Button>
+                      </Form>
+                </Modal.Body>
+              </Modal>
+          <Dropdown.Item onClick= {() => checkBackend(match.matchID)} >
+            {" "}
+            Postpone match to a later date
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown> : <></>}
+      
+  </h5>
+*/
 
   return (
     <MainScreen>
@@ -162,27 +306,35 @@ function FixturePage() {
                 lastDate = tempDate;
                 return (
                   <div key={index}>
-                    <Row className="bg-primary rowcenter"> {lastDate} </Row>
-                    <Card className="fixture-card"> 
-                      <div>
-                        {tempTime}
+                    <Row className="bg-primary rowcenter date-card"> {lastDate} </Row>
+                    <Card className="fixture-card" onClick={() => { navigate(`/matchdetails/${d.matchID}`)}}>
+                      <div style={{ position: 'relative' }} className="flexbox-container"> 
+                        <div>{tempTime}</div>
                       </div>
                       <div className="flexbox-container">
-                        <div className="w-15 p-3">
-                          <img src={`${d.homeLogo}`} height={50} width={50}/>
-                        </div>
-                        <div className="w-15 p-3"> {d.home} </div>
-                        <div className="w-15 p-3"> {d.hGoal} </div>
+                        <Col className="flexbox-container">
+                          <div className="w-15 p-2">
+                            <img src={`${d.homeLogo}`} height={50} width={50}/>
+                          </div>
+                          <div className="w-20 p-2"> {d.home} </div>
+                          <div className="w-15 p-2"> {d.hGoal} </div>
+                        </Col>
+
                         <div className="w-15 p-3"> - </div>
-                        <div className="w-15 p-3"> {d.vGoal} </div>
-                        <div className="w-15 p-3"> {d.visitor} </div>
-                        <div className="w-15 p-3">
-                          <img src={`${d.visitorLogo}`} height={50} width={50}/>
-                        </div>
+
+                        <Col className="flexbox-container">
+                          <div className="w-15 p-2"> {d.vGoal} </div>
+                          <div className="w-20 p-2"> {d.visitor} </div>
+                          <div className="w-15 p-2">
+                            <img src={`${d.visitorLogo}`} height={50} width={50}/>
+                          </div>
+                        </Col>
+                      
                       </div>
                       <div>
                         Referee: {d.referee}
                       </div>
+                    
                     </Card>
                   </div>
                 );
@@ -190,20 +342,20 @@ function FixturePage() {
               else {
                 return (
                   <div key={index}>
-                    <Card className="fixture-card"> 
+                    <Card className="fixture-card" onClick={() => { navigate(`/matchdetails/${d.matchID}`) }}> 
                       <div>
                         {tempTime}
                       </div>
                       <div className="flexbox-container">
-                        <div className="w-15 p-3">
+                        <div className="w-15 p-2">
                           <img src={`${d.homeLogo}`} height={50} width={50}/>
                         </div>
-                        <div className="w-15 p-3"> {d.home} </div>
-                        <div className="w-15 p-3"> {d.hGoal} </div>
+                        <div className="w-20 p-2"> {d.home} </div>
+                        <div className="w-15 p-2"> {d.hGoal} </div>
                         <div className="w-15 p-3"> - </div>
-                        <div className="w-15 p-3"> {d.vGoal} </div>
-                        <div className="w-15 p-3"> {d.visitor} </div>
-                        <div className="w-15 p-3">
+                        <div className="w-15 p-2"> {d.vGoal} </div>
+                        <div className="w-20 p-2"> {d.visitor} </div>
+                        <div className="w-15 p-2">
                           <img src={`${d.visitorLogo}`} height={50} width={50}/>
                         </div>
                       </div>
@@ -222,4 +374,3 @@ function FixturePage() {
   );
 }
 export default FixturePage;
-

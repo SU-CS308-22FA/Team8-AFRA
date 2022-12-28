@@ -1,24 +1,16 @@
-import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Button,
-  Dropdown,
-  DropdownButton,
-  Card,
-  Row,
-  Col,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-import axios from "axios";
 import "./TeamsScreen.css";
+import React, { useState, useEffect } from "react";
+import { Dropdown, DropdownButton, Card, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import Loading from "../../components/Loading";
 
 function TeamsScreen() {
   const [seasonVar, setSeasonVar] = useState("2022");
   const [data, setData] = useState([]);
-  const [displaySentence, setDisplaySentence] = useState();
   const [flag, setFlag] = useState(false);
   const [changed, setChanged] = useState(0);
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/api/teams`, {
@@ -28,9 +20,6 @@ function TeamsScreen() {
       })
       .then((res) => {
         setData(res.data);
-        setDisplaySentence(
-          "You are now viewing the teams of Season " + seasonVar
-        );
         setFlag(true);
       })
       .catch((err) => {
@@ -89,23 +78,22 @@ function TeamsScreen() {
         {data.map((data) => {
           return (
             <div className="card-body text-dark">
-              <Link to={`/team/${data.team.id}/${seasonVar}`}>
-                <Card
-                  className="card-body text-dark"
-                  style={{ width: "18rem" }}
-                >
-                  <Row className="allRows">
-                    <img variant="top" src={data.team.logo} width={100} />
-                  </Row>
+              <Card
+                className="card-body text-dark"
+                style={{ width: "18rem" }}
+                onClick={() => navigate(`/team/${data.team.id}/${seasonVar}`)}
+              >
+                <Row className="allRows">
+                  <img variant="top" src={data.team.logo} width={100} />
+                </Row>
 
-                  <Card.Body>
-                    <Card.Title style={{ textAlign: "center" }}>
-                      {data.team.name}
-                    </Card.Title>
-                  </Card.Body>
-                  <Row className="allRows"></Row>
-                </Card>
-              </Link>
+                <Card.Body>
+                  <Card.Title style={{ textAlign: "center" }}>
+                    {data.team.name}
+                  </Card.Title>
+                </Card.Body>
+                <Row className="allRows"></Row>
+              </Card>
             </div>
           );
         })}

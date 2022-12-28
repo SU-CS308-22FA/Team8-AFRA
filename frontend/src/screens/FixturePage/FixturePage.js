@@ -256,7 +256,8 @@ function FixturePage() {
               }
               else{
                 const tempT = d.date.split('T')[1];
-                tempTime = tempT.split(':')[0] + ":" + tempT.split(':')[1];
+                const tempH = parseInt(tempT.split(':')[0]) + 3;
+                tempTime = tempH.toString() + ":" + tempT.split(':')[1];
               }
 
               if(tempDate !== lastDate){

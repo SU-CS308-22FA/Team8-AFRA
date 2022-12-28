@@ -36,7 +36,8 @@ function MatchDetailPage() {
         const tempD = new Date(tempData.date);
         const tempDate = tempD.getDate() + " " + monthNames[tempD.getMonth()] + " " + tempD.getFullYear();
         const tempT = tempData.date.split('T')[1];
-        const tempTime = tempT.split(':')[0] + ":" + tempT.split(':')[1];
+        const tempH = parseInt(tempT.split(':')[0]) + 3;
+        const tempTime = tempH.toString() + ":" + tempT.split(':')[1];
         setMatchDate(tempDate);
         setMatchTime(tempTime);
         setMatch(tempData);

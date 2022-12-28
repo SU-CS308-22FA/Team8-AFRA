@@ -22,6 +22,7 @@ const EventsPage = ({ matchID }) => {
         console.log(err);
       });
   }, []);
+  
   return !flag ? (
     <Loading/>
   ) : (

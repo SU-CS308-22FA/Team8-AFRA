@@ -21,6 +21,7 @@ import matchDetailRoutes from "./routes/matchDetailRoutes.js";
 import TopScorersRoutes from "./routes/topScorersRoutes.js";
 import swaggerUi from "swagger-ui-express";
 import swaggerFile from "./swagger_output.json" assert { type: "json" };
+import bugReportRoutes from "./routes/bugReportRoutes.js";
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ app.use("/api/teams", teamRoutes);
 app.use("/api/matchdetail", matchDetailRoutes);
 app.use("/api/appeal", appealRoutes);
 app.use("/api/topscorers", TopScorersRoutes);
+app.use("/api/bugreports", bugReportRoutes);
 app.use("/doc", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // --------------------------deployment------------------------------

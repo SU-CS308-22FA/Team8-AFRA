@@ -9,7 +9,7 @@ import {
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
-import { FaBell, FaQuestionCircle } from "react-icons/fa";
+import { FaBell, FaQuestionCircle, FaSpider } from "react-icons/fa";
 import { logout } from "../actions/userActions";
 import afra from "../afra.png";
 
@@ -39,7 +39,12 @@ function Header({ setSearch }) {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto"></Nav>
           <Nav>
-            <Nav.Link href="/faq">FAQ <wbr></wbr><FaQuestionCircle style={{marginBottom: "3px"}}></FaQuestionCircle></Nav.Link>
+            <Nav.Link href="/faq">
+              FAQ <wbr></wbr>
+              <FaQuestionCircle
+                style={{ marginBottom: "3px" }}
+              ></FaQuestionCircle>
+            </Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="/fixture">Fixture</Nav.Link>
@@ -63,6 +68,11 @@ function Header({ setSearch }) {
                 <Nav style={{ marginTop: "9px" }}>
                   <Nav.Link href="/notification">
                     <FaBell color={Not === "new" && "red"}></FaBell>
+                  </Nav.Link>
+                </Nav>
+                <Nav style={{ marginTop: "9px" }}>
+                  <Nav.Link href="/bugreport">
+                    <FaSpider color={"black"}></FaSpider>
                   </Nav.Link>
                 </Nav>
                 <NavDropdown

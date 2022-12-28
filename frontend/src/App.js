@@ -33,32 +33,33 @@ import MatchDetailPage from "./screens/MatchDetailPage/MatchDetailPage";
 import ReplyComment from "./screens/CreateComment/ReplyComment";
 import TeamsScreen from "./screens/TeamsScreen/TeamsScreen";
 import TopScorersPage from "./screens/TopScorersPage/TopScorersPage";
+import BugReportPage from "./screens/BugReportPage/BugReportPage";
 
 function App() {
-
   return (
     <Router>
-      <Header/>
+      <Header />
       <Routes>
-      <Route element={<CheckNotBan />}>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="login" element={<LoginScreen />} />
-        <Route path="banappeal" element={<BanAppeal />} />
-        <Route path="register" element={<RegisterScreen />} />
-        <Route path="unauthorized" element={<Unauthorized />} />
-        <Route path="onlyadmins" element={<OnlyAdmins />} />
-        <Route path="fixture" element={<FixturePage />} />
-        <Route path="standings" element={<StandingPage />} />
-        <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
-        <Route path="banned" element={<BanScreen />} />
-        <Route path="faq" element={<FaqPage />} />
-        <Route path="/referees" element={<RefereesScreen />} />
-        <Route path="/referee/:refereeName" element={<SingleReferee />} />
-        <Route path="/teams" element={<TeamsScreen />} />
-        <Route path="/team/:teamID/:season" element={<SingleTeam />} />
-        <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
-        <Route path="/topscorers/:season" element={<TopScorersPage />} />
-      </Route>
+        <Route element={<CheckNotBan />}>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="login" element={<LoginScreen />} />
+          <Route path="banappeal" element={<BanAppeal />} />
+          <Route path="register" element={<RegisterScreen />} />
+          <Route path="unauthorized" element={<Unauthorized />} />
+          <Route path="onlyadmins" element={<OnlyAdmins />} />
+          <Route path="fixture" element={<FixturePage />} />
+          <Route path="standings" element={<StandingPage />} />
+          <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
+          <Route path="banned" element={<BanScreen />} />
+          <Route path="faq" element={<FaqPage />} />
+          <Route path="/referees" element={<RefereesScreen />} />
+          <Route path="/referee/:refereeName" element={<SingleReferee />} />
+          <Route path="/teams" element={<TeamsScreen />} />
+          <Route path="/team/:teamID/:season" element={<SingleTeam />} />
+          <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
+          <Route path="/topscorers/:season" element={<TopScorersPage />} />
+          <Route path="/bugreport" element={<BugReportPage />} />
+        </Route>
 
         <Route element={<RequireAuth />}>
           <Route path="calendar" element={<CalendarPage />} />

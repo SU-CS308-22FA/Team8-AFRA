@@ -9,3 +9,8 @@
   margin-right: auto;
   width: 50%;
 }
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+  background-color: rgba(18, 102, 241, 0.5);
+}

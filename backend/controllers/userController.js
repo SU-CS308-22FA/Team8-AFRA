@@ -384,7 +384,7 @@ const subscribe = asyncHandler(async (req, res) => {
   const { email } = req.body;
   try {
     const add = await new Maillist({email: email})
-    add.save();
+    await add.save();
     if (add)
       res.status(200).send("You have been added to our email list!");
   } catch (err){

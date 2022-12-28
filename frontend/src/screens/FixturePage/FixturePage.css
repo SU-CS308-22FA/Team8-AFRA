@@ -45,11 +45,6 @@
   border-radius: 10px;
 }
 
-.fixture-card:hover{
-  background-color: #BAD7E9;
-  border-color: #1f3551;
-}
-
 .fixture-card .team {
   display: flex;
   flex-direction: column;

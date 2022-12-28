@@ -4,7 +4,7 @@ import { Form, Button, Dropdown, DropdownButton, FormControl } from "react-boots
 import axios from "axios";
 import "./FixturePage.css";
 import Modal from 'react-bootstrap/Modal';
-
+import moment from "moment/moment";
 
 
 
@@ -18,7 +18,7 @@ function FixturePage() {
   const [displaySentence, setDisplaySentence] = useState();
   const [data, setData] = useState([]);
   const [show, setShow] = useState(false);
-  const [selectedWeek, setSelectedWeek] = useState(3);
+  const [selectedDate, setSelectedDate] = useState("");
   const [matchId, setMatchId] = useState(0);
   const handleSelectSeason = (e) => {
     setSeasonVar(e);
@@ -29,18 +29,65 @@ let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
 "13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28",
 "29","30","31","32","33","34","35","36","37","38","39"];
 
+
+function changeTimezone(date, ianatz) {
+
+  // suppose the date is 12:00 UTC
+  var invdate = new Date(date.toLocaleString('en-US', {
+    timeZone: ianatz
+  }));
+
+  // then invdate will be 07:00 in Toronto
+  // and the diff is 5 hours
+  var diff = date.getTime() - invdate.getTime();
+
+  // so 12:00 in Toronto is 17:00 UTC
+  return new Date(date.getTime() - diff); // needs to substract
+
+}
+
   const handleSubmitForEdit = async(e) => {
     e.preventDefault();
     //console.log(e);
-    console.log(selectedWeek);
+    console.log(selectedDate);
     console.log(matchId);
     setShow(false);
 
-    let matchID= matchId;
-    const { dataOfUpdatedMatch } = await axios.put(
-      `${process.env.REACT_APP_URL}/api/matches/changetimeofmatch`,
-      { matchID,selectedWeek}
+
+    var dateString = selectedDate;
+    var reggie = /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/;
+    console.log(reggie)
+    var dateArray = reggie.exec(dateString); 
+    console.log(dateArray);
+    var dateObject = new Date(
+    (+dateArray[1]),
+    (+dateArray[2])-1, // Careful, month starts at 0!
+    (+dateArray[3]),
+    (+dateArray[4]),
+    (+dateArray[5]),
+    (+dateArray[6])
     );
+
+    console.log(dateObject);
+
+    var there = changeTimezone(dateObject, "Asia/Almaty");
+    console.log(there);
+    dateObject=there;
+
+    let matchID= matchId;
+
+    const  dataOfUpdatedMatch  = await axios.put(
+      `${process.env.REACT_APP_URL}/api/matches/changetimeofmatch`,
+      { matchID,dateObject}
+    );
+
+    console.log(dataOfUpdatedMatch);
+    if(dataOfUpdatedMatch.data==="Same time"){
+      window.alert("There is another match at the same time. Please try again");
+    }
+    else{
+      window.alert("Time is successfully updated");
+    }
 
     const { data } = await axios.get(
       `${process.env.REACT_APP_URL}/api/matches/fixture`,
@@ -220,7 +267,7 @@ let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
                   </h5>{" "}
                 </a>
                  <h5> 
-                  {userInfo.isAdmin ? <Dropdown>
+                  {userInfo && userInfo.isAdmin ? <Dropdown>
                       <Dropdown.Toggle variant="light" id="dropdown-basic">
                       </Dropdown.Toggle>
                       <Dropdown.Menu>
@@ -232,28 +279,25 @@ let weeksOfTheMatches=["1","2","3","4","5","6","7","8","9","10","11","12",
                             <Modal show={show} onHide={handleClose}>
                             
                               <Modal.Header closeButton>
-                                <Modal.Title>Choose another week for the match</Modal.Title>
+                                <Modal.Title>Choose another day and time for the match</Modal.Title>
                               </Modal.Header>
-                              <Modal.Body>Avaiable Weeks:
+                              <Modal.Body>Please enter the new date and the time in the form of 
+                                (YYYY-MM-DD HH:MM:SS):
                                   <Form onSubmit={handleSubmitForEdit}>
-                                    {weeksOfTheMatches.map((labelName) => (
-                                    
-                                      <div key={`default-radio`} className="mb-3">
-                                        {labelName> match.week ?  
+                                      <div key={`default-radio`} className="mb-3"> 
                                         <Form.Group controlId= "getSelectionForUpdateWeek">
-                                            <Form.Check 
-                                              type='radio'
-                                              name= "belongSameRadio"
-                                              id={`default-radio`}
-                                              label={labelName}
-                                              value= {labelName}
-                                              onChange={(e) => setSelectedWeek(e.target.value)}
+                                            <Form.Control
+                                              type="input"
+                                              value={selectedDate}
+                                              placeholder="Enter the new date (YYYY-MM-DD HH:MM:SS)"
+                                              onChange={(e) => setSelectedDate(e.target.value)}
                                             />
+                                            
                                         </Form.Group>
-                                        : <></>}
+                                     
                                         
                                       </div>
-                                    ))}
+                                  
                                       <Button variant="primary" type="submit" onClick = {() => setMatchId(match.matchID) }>
                                         Save Changes
                                       </Button>

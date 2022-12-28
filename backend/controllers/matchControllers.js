@@ -98,16 +98,21 @@ const getStandingsBySeason = asyncHandler(async (req, res) => {
 const changeTimeOfTheMatch = asyncHandler(async (req, res) => {
   console.log("axios sending to changeTimeOfMatch successfully");
   console.log(req.body);
-  const {matchID,selectedWeek}=req.body;
+  const dateObject=req.body.dateObject;
+  const {matchID}=req.body;
   console.log(matchID);
-  console.log(selectedWeek);
+  console.log(dateObject);
   const filter = { matchID: matchID };
-  const update = { week:selectedWeek, isDelayed:false };
+  const update = { date:dateObject, isDelayed:false };
+  if(await fixture.findOne({date:dateObject})){
+    console.log("there is a match at the same time");
+    res.send("Same time");
+  }
   let thematch = await fixture.findOneAndUpdate(filter,update);
   console.log(thematch);
   if(thematch){
     const updatedMatch=thematch.save();
-    res.json(updatedMatch)
+    res.send("Successfully updated")
   }else{
     res.status(404);
     throw new Error("Match not found");

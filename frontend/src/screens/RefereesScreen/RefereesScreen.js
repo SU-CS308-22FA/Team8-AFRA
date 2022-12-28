@@ -146,7 +146,7 @@ function RefereesScreen() {
                 </Dropdown.Menu>
               </Dropdown>
             </th>
-            {userInfo.role==="journalist"? 
+            {userInfo && userInfo.role==="journalist"? 
              <th>
              <Button variant="light" onClick={handleShow}>
                  Rank a Referee

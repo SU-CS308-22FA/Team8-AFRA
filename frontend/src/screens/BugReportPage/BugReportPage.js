@@ -9,6 +9,7 @@ import {
   Dropdown,
   DropdownButton,
   Form,
+  ListGroup,
   Row,
 } from "react-bootstrap";
 import axios from "axios";
@@ -20,7 +21,7 @@ function BugReportPage() {
   const [data, setData] = useState([]);
   const [changed, setChanged] = useState(0);
   const [message, setMessage] = useState("");
-  const [bugPage, setBugPage] = useState("");
+  const [bugPage, setBugPage] = useState("Pages that you can choose");
   const [bugDetail, setBugDetail] = useState("");
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
@@ -52,7 +53,7 @@ function BugReportPage() {
       });
   };
 
-  const addBugReport = (e, d) => {
+  const addBugReport = (e) => {
     e.preventDefault();
     if (!bugPage || !bugDetail) {
       setMessage("Fields cannot be empty.");
@@ -72,6 +73,13 @@ function BugReportPage() {
         });
     }
   };
+
+  const handleSelect = (eventKey, e) => {
+    e.preventDefault();
+    setBugPage(eventKey + " Page");
+    setChanged((c) => c + 1);
+  };
+
   return (
     <div>
       <br></br>
@@ -117,16 +125,47 @@ function BugReportPage() {
               <br></br>
               <br></br>
               {message && <ErrorMessage variant="info">{message}</ErrorMessage>}
+
               <Form onSubmit={addBugReport}>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>The page you found a bug</Form.Label>
-                  <Form.Control
-                    type="bug"
-                    value={bugPage}
-                    placeholder="Enter the page that you think there is an error"
-                    onChange={(e) => setBugPage(e.target.value)}
-                    style={{ width: "50%" }}
-                  />
+                  <div>
+                    <DropdownButton
+                      id="dropdown-button"
+                      title={bugPage}
+                      onSelect={(e, eventKey) => handleSelect(e, eventKey)}
+                      style={{ textAlign: "left", width: "%100" }}
+                    >
+                      <Dropdown.Item eventKey="FAQ">FAQ</Dropdown.Item>
+                      <Dropdown.Item eventKey="Fixture">Fixture</Dropdown.Item>
+                      <Dropdown.Item eventKey="Google Calendar">
+                        Google Calendar
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Match Details">
+                        Match Details
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Notifications">
+                        Notifications
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Profile">Profile</Dropdown.Item>
+                      <Dropdown.Item eventKey="Referees">
+                        Referees
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Referee Details">
+                        Referee Details
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Standings">
+                        Standings
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Teams">Teams</Dropdown.Item>
+                      <Dropdown.Item eventKey="Team Details">
+                        Team Details
+                      </Dropdown.Item>
+                      <Dropdown.Item eventKey="Top Scorers">
+                        Top Scorers
+                      </Dropdown.Item>
+                    </DropdownButton>
+                  </div>
                 </Form.Group>
                 <Form.Group controlId="formBasic">
                   <Form.Label>The detail of the bug</Form.Label>

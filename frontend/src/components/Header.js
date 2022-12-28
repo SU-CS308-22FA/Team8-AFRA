@@ -1,14 +1,7 @@
 import React, { useEffect } from "react";
-import {
-  Container,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FaBell, FaQuestionCircle, FaSpider } from "react-icons/fa";
 import { logout } from "../actions/userActions";
 import afra from "../afra.png";
@@ -38,6 +31,15 @@ function Header({ setSearch }) {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="m-auto"></Nav>
+          {userInfo ? (
+            <Nav style={{ marginTop: "9px" }}>
+              <Nav.Link href="/bugreport">
+                <FaSpider color={"black"}></FaSpider>
+              </Nav.Link>
+            </Nav>
+          ) : (
+            <div></div>
+          )}
           <Nav>
             <Nav.Link href="/faq">
               FAQ <wbr></wbr>
@@ -68,11 +70,6 @@ function Header({ setSearch }) {
                 <Nav style={{ marginTop: "9px" }}>
                   <Nav.Link href="/notification">
                     <FaBell color={Not === "new" && "red"}></FaBell>
-                  </Nav.Link>
-                </Nav>
-                <Nav style={{ marginTop: "9px" }}>
-                  <Nav.Link href="/bugreport">
-                    <FaSpider color={"black"}></FaSpider>
                   </Nav.Link>
                 </Nav>
                 <NavDropdown

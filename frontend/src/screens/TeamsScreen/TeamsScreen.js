@@ -11,6 +11,7 @@ function TeamsScreen() {
   const [flag, setFlag] = useState(false);
   const [changed, setChanged] = useState(0);
   const navigate = useNavigate();
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/api/teams`, {

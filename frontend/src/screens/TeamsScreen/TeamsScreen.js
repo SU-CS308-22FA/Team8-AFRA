@@ -53,12 +53,12 @@ function TeamsScreen() {
     <div>
       <h1 className="mtitle">Teams in Super League</h1>
       <p> </p>
-      <div style={{ marginLeft: 900 }}>
-        <table>
-          <thead>
+      <div className="center">
+        <table className="center">
+          <thead className="center">
             <tr>
-              <Col>
-                <th>
+              <Col className="center">
+                <th className="center">
                   <DropdownButton
                     id="dropdown-basic-button"
                     title={seasonVar}

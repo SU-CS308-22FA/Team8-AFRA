@@ -57,6 +57,7 @@ function StandingPage() {
   return (
     <div>
       <h1 className="mtitle">Standings of Teams</h1>
+      <br></br>
       <div className="dropdown">
         <DropdownButton
           id="dropdown-basic-button"
@@ -81,7 +82,7 @@ function StandingPage() {
 
       <Table responsive>
         <thead>
-          <tr>
+          <tr style={{ height: "50px", textAlign: "center" }}>
             {tableHead.map((tableHead) => {
               return (
                 <th>
@@ -104,7 +105,7 @@ function StandingPage() {
         <tbody>
           {data.map((data) => {
             return (
-              <tr>
+              <tr style={{ height: "50px", textAlign: "center" }}>
                 <td>{data.rank}</td>
                 <td>{data.team.name}</td>
                 <td>{data.all.played}</td>

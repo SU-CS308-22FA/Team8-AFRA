@@ -4,12 +4,19 @@
   color: rgb(14, 52, 136);
 }
 
+.tbodyCal:nth-of-type(even) {
+  text-align: center;
+  color: rgb(6, 63, 75);
+  background-color: #d0e4ee;
+}
+
 a {
   font-family: "Arial";
 }
 
 td {
-  font-family: "Arial";
+  font-weight: 400;
+  font-family: "Montserrat", sans-serif;
 }
 
 .dropdown {

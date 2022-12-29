@@ -1,3 +1,4 @@
+import "./MatchDetailPage.css";
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import axios from "axios";

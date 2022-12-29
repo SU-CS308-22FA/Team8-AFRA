@@ -1,7 +1,7 @@
+import "./MatchDetailPage.css";
 import React, { useEffect, useState } from "react";
 import { Table, Col, Row } from "react-bootstrap";
 import axios from "axios";
-import "./MatchDetailPage.css";
 import Loading from "../../components/Loading";
 
 const LineUpsPage = ({ matchID }) => {

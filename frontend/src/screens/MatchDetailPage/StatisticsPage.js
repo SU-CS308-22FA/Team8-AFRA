@@ -1,3 +1,4 @@
+import "./MatchDetailPage.css";
 import React, { useEffect, useState } from "react";
 import { Table, Col, Row } from "react-bootstrap";
 import axios from "axios";
@@ -28,11 +29,11 @@ const StatisticsPage = ({ matchID }) => {
     <div>
       <Row>
         <Col>
-          <Table responsive>
+          <Table className="stats-table" >
             <thead>
               <tr>
                 <th style={{ textAlign: "center" }}>
-                  {staticsData[0].team.name}
+                  <img src={`${staticsData[0].team.logo}`} height={35} width={35}/>
                 </th>
               </tr>
             </thead>
@@ -40,7 +41,7 @@ const StatisticsPage = ({ matchID }) => {
               {staticsData[0].statistics.map((data) => {
                 return (
                   <tr>
-                    <td>{data.value ? data.value : 0}</td>
+                    <td style={{ textAlign: "center" }} >{data.value ? data.value : 0}</td>
                   </tr>
                 );
               })}
@@ -48,17 +49,18 @@ const StatisticsPage = ({ matchID }) => {
           </Table>
         </Col>
         <Col>
-          <Table responsive>
+          <Table className="stats-table">
             <thead>
-              <tr>
-                <th style={{ textAllign: "center" }}> Statistics </th>
+              
+              <tr style={{height: "53px", textAlign: "center"}}>
+                <th style={{textAlign: "center", fontSize: "20px" }} > Statistics </th>
               </tr>
             </thead>
             <tbody>
               {staticsData[0].statistics.map((data) => {
                 return (
                   <tr>
-                    <td>{data.type}</td>
+                    <td style={{ textAlign: "center" }}>{data.type}</td>
                   </tr>
                 );
               })}
@@ -66,11 +68,11 @@ const StatisticsPage = ({ matchID }) => {
           </Table>
         </Col>
         <Col>
-          <Table responsive>
+          <Table className="stats-table">
             <thead>
               <tr>
                 <th style={{ textAlign: "center" }}>
-                  {staticsData[1].team.name}
+                  <img src={`${staticsData[1].team.logo}`} height={35} width={35}/>
                 </th>
               </tr>
             </thead>
@@ -78,7 +80,7 @@ const StatisticsPage = ({ matchID }) => {
               {staticsData[1].statistics.map((data) => {
                 return (
                   <tr>
-                    <td>{data.value ? data.value : 0}</td>
+                    <td style={{ textAlign: "center" }}>{data.value ? data.value : 0}</td>
                   </tr>
                 );
               })}

@@ -12,7 +12,6 @@ import Comments from "./Comments";
 import { useSelector } from "react-redux";
 
 function MatchDetailPage() {
-  const [viewState, setViewState] = useState(4);
   const [match, setMatch] = useState();
   const params = useParams();
   const matchIDVar = params.matchID;

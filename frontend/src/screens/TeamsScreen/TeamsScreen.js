@@ -41,36 +41,30 @@ function TeamsScreen() {
     </div>
   ) : (
     <div>
-      <h1 className="mtitle">Teams in Super League</h1>
+      <h1 className="mtitle">Teams</h1>
       <p> </p>
       <div className="center">
-        <table className="center">
-          <thead className="center">
-            <tr>
-              <Col className="center">
-                <th className="center">
-                  <DropdownButton
-                    id="dropdown-basic-button"
-                    title={seasonVar}
-                    onSelect={(e, eventKey) => handleSelectSeason(e, eventKey)}
-                  >
-                    <Dropdown.Item eventKey="2022">2022</Dropdown.Item>
-                    <Dropdown.Item eventKey="2021">2021</Dropdown.Item>
-                    <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
-                    <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
-                    <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
-                    <Dropdown.Item eventKey="2017">2017</Dropdown.Item>
-                    <Dropdown.Item eventKey="2016">2016</Dropdown.Item>
-                    <Dropdown.Item eventKey="2015">2015</Dropdown.Item>
-                    <Dropdown.Item eventKey="2014">2014</Dropdown.Item>
-                    <Dropdown.Item eventKey="2013">2013</Dropdown.Item>
-                    <Dropdown.Item eventKey="2012">2012</Dropdown.Item>
-                  </DropdownButton>
-                </th>
-              </Col>
-            </tr>
-          </thead>
-        </table>
+        <Col className="center">
+          <div className="center">
+            <DropdownButton
+              id="dropdown-basic-button"
+              title={seasonVar}
+              onSelect={(e, eventKey) => handleSelectSeason(e, eventKey)}
+            >
+              <Dropdown.Item eventKey="2022">2022</Dropdown.Item>
+              <Dropdown.Item eventKey="2021">2021</Dropdown.Item>
+              <Dropdown.Item eventKey="2020">2020</Dropdown.Item>
+              <Dropdown.Item eventKey="2019">2019</Dropdown.Item>
+              <Dropdown.Item eventKey="2018">2018</Dropdown.Item>
+              <Dropdown.Item eventKey="2017">2017</Dropdown.Item>
+              <Dropdown.Item eventKey="2016">2016</Dropdown.Item>
+              <Dropdown.Item eventKey="2015">2015</Dropdown.Item>
+              <Dropdown.Item eventKey="2014">2014</Dropdown.Item>
+              <Dropdown.Item eventKey="2013">2013</Dropdown.Item>
+              <Dropdown.Item eventKey="2012">2012</Dropdown.Item>
+            </DropdownButton>
+          </div>
+        </Col>
       </div>
       <div
         className="row row-cols-4 row-cols-md-4 g-4"
@@ -93,7 +87,6 @@ function TeamsScreen() {
                     {data.team.name}
                   </Card.Title>
                 </Card.Body>
-                <Row className="allRows"></Row>
               </Card>
             </div>
           );

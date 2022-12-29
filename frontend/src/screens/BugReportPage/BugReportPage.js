@@ -157,6 +157,9 @@ function BugReportPage() {
                       <Dropdown.Item eventKey="Standings">
                         Standings
                       </Dropdown.Item>
+                      <Dropdown.Item eventKey="Verification">
+                        Verification
+                      </Dropdown.Item>
                       <Dropdown.Item eventKey="Teams">Teams</Dropdown.Item>
                       <Dropdown.Item eventKey="Team Details">
                         Team Details

@@ -6,7 +6,7 @@ import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { login } from "../../actions/userActions";
 import MainScreen from "../../components/MainScreen";
-import BanAppeal from "../../screens/BanAppeal/BanAppeal"
+import BanAppeal from "../../screens/BanAppeal/BanAppeal";
 import "./LoginScreen.css";
 
 function LoginScreen() {
@@ -16,10 +16,10 @@ function LoginScreen() {
   const navigate = useNavigate();
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
-  
+
   useEffect(() => {
     if (userInfo) {
-      navigate("/referees")
+      navigate("/fixture");
     }
   }, [userInfo]);
 
@@ -62,23 +62,28 @@ function LoginScreen() {
             New User ? <Link to="/register">Register Here</Link>
           </Col>
         </Row>
-        {error && error.includes("banned") && 
-        <Row className="py-3">
-        
-        <h4 style={{textAlign: "left", color: "#db7029", fontWeight:"bolder" }}>Click the button to appeal for your ban &#8594;</h4>
-        
-        <Link to = "/banappeal">
-          <Button variant="primary" type="submit">
-              Ban Appeal Page
-          </Button>
-        </Link>
-      
-        </Row>
-       }
+        {error && error.includes("banned") && (
+          <Row className="py-3">
+            <h4
+              style={{
+                textAlign: "left",
+                color: "#db7029",
+                fontWeight: "bolder",
+              }}
+            >
+              Click the button to appeal for your ban &#8594;
+            </h4>
+
+            <Link to="/banappeal">
+              <Button variant="primary" type="submit">
+                Ban Appeal Page
+              </Button>
+            </Link>
+          </Row>
+        )}
       </div>
     </MainScreen>
   );
 }
 
 export default LoginScreen;
-

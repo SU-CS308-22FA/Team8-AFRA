@@ -1,21 +1,13 @@
 import "./StandingPage.css";
 import React, { useState, useEffect } from "react";
-import {
-  Form,
-  Button,
-  Dropdown,
-  DropdownButton,
-  Table,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Col, Dropdown, DropdownButton, Row, Table } from "react-bootstrap";
 import axios from "axios";
+import Loading from "../../components/Loading";
 
 function StandingPage() {
   const [seasonVar, setSeasonVar] = useState("2022");
   const [data, setData] = useState([]);
   const [tableHead, setTableHead] = useState([]);
-  const [displaySentence, setDisplaySentence] = useState();
   const [changed, setChanged] = useState(0);
   const [flag, setFlag] = useState(false);
 
@@ -27,6 +19,7 @@ function StandingPage() {
         },
       })
       .then((res) => {
+        console.log(data);
         setData(res.data);
         setFlag(true);
       })
@@ -54,7 +47,12 @@ function StandingPage() {
     setChanged((c) => c + 1);
   };
 
-  return (
+  return !flag ? (
+    <div>
+      <p></p>
+      <Loading />
+    </div>
+  ) : (
     <div>
       <h1 className="mtitle">Standings of Teams</h1>
       <br></br>
@@ -82,7 +80,7 @@ function StandingPage() {
 
       <Table responsive>
         <thead>
-          <tr style={{ height: "50px", textAlign: "center" }}>
+          <tr className="thead" style={{ height: "50px", textAlign: "center" }}>
             {tableHead.map((tableHead) => {
               return (
                 <th>
@@ -110,7 +108,14 @@ function StandingPage() {
                 style={{ height: "50px", textAlign: "center" }}
               >
                 <td>{data.rank}</td>
-                <td>{data.team.name}</td>
+                <td>
+                  <Row>
+                    <Col style={{ textAlign: "right" }}>
+                      <img variant="top" src={data.team.logo} width={50} />
+                    </Col>
+                    <Col style={{ textAlign: "left" }}>{data.team.name}</Col>
+                  </Row>
+                </td>
                 <td>{data.all.played}</td>
                 <td>{data.all.win}</td>
                 <td>{data.all.draw}</td>

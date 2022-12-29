@@ -58,7 +58,6 @@ function App() {
           <Route path="/team/:teamID/:season" element={<SingleTeam />} />
           <Route path="/matchdetails/:matchID" element={<MatchDetailPage />} />
           <Route path="/topscorers/:season" element={<TopScorersPage />} />
-          <Route path="/bugreport" element={<BugReportPage />} />
         </Route>
 
         <Route element={<RequireAuth />}>
@@ -72,6 +71,7 @@ function App() {
             element={<ReplyComment />}
           />
           <Route path="verification" element={<VerificationPage />} />
+          <Route path="/bugreport" element={<BugReportPage />} />
         </Route>
 
         <Route element={<RequireAdmin />}>

@@ -87,7 +87,6 @@ function TeamsScreen() {
                     {data.team.name}
                   </Card.Title>
                 </Card.Body>
-                <Row className="allRows"></Row>
               </Card>
             </div>
           );

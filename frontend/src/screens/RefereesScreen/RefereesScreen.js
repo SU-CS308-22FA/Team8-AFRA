@@ -172,7 +172,7 @@ function RefereesScreen() {
       <h1 className="mainTitle">Referees</h1>
       <p> </p>
       <div>
-        <table>
+        <table style={{ marginLeft: 60 }}>
           <thead>
             <tr>
               <th>

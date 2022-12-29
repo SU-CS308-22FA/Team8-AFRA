@@ -3,3 +3,14 @@
   text-align: center;
   justify-content: center;
 }
+
+.teamTitle {
+  font-size: 30px;
+  text-align: center;
+  color: #2146c7;
+}
+
+.teamLogo {
+  size: 10px;
+  text-align: center;
+}

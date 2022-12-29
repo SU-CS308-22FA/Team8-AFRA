@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Form, Button, Table, Dropdown } from "react-bootstrap";
-import axios from "axios";
 import "./RefereesScreen.css";
-import Modal from 'react-bootstrap/Modal';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React, { useEffect, useState } from "react";
+import {
+  Button,
+  Col,
+  Dropdown,
+  DropdownButton,
+  Form,
+  Modal,
+  Row,
+  Table,
+} from "react-bootstrap";
+import axios from "axios";
 import { useSelector } from "react-redux";
 
 function RefereesScreen() {
@@ -14,9 +20,11 @@ function RefereesScreen() {
   const [tableHead, setTableHead] = useState([]);
   const [show, setShow] = useState(false);
   const [selectedReferee, setSelectedReferee] = useState("");
+  const [dropdownTitle, setDropdownTitle] = useState("Sort Referees");
   const [selectedRefereeRank, setSelectedRefereeRank] = useState(0);
 
   const sortByRank = async () => {
+    setDropdownTitle("Sort by Rank (Most to Least)");
     axios
       .get(`${process.env.REACT_APP_URL}/api/referees/sortbyrank`)
       .then((res) => {
@@ -28,6 +36,7 @@ function RefereesScreen() {
       });
   };
   const sortByName = async () => {
+    setDropdownTitle("Sort by Name(Alphabetically A to Z)");
     axios
       .get(`${process.env.REACT_APP_URL}/api/referees/sortbyname`)
       .then((res) => {
@@ -39,6 +48,7 @@ function RefereesScreen() {
       });
   };
   const sortByMatchCount = async () => {
+    setDropdownTitle(" Sort by Match Count(Most to Least)");
     axios
       .get(`${process.env.REACT_APP_URL}/api/referees/sortbymatchcount`)
       .then((res) => {
@@ -50,6 +60,7 @@ function RefereesScreen() {
       });
   };
   const sortByDefault = async () => {
+    setDropdownTitle("Default (Sorted by Match Count)");
     axios
       .get(`${process.env.REACT_APP_URL}/api/referees/sortbymatchcount`)
       .then((res) => {
@@ -75,7 +86,6 @@ function RefereesScreen() {
     axios
       .get(`${process.env.REACT_APP_URL}/api/referees`)
       .then((res) => {
-        
         const referees = res.data;
         setData(referees);
       })
@@ -85,9 +95,9 @@ function RefereesScreen() {
   }, []);
 
   const handleShow = () => setShow(true);
-  const handleClose= () => setShow(false);
+  const handleClose = () => setShow(false);
 
-  const handleSubmitForEdit = async(e) => {
+  const handleSubmitForEdit = async (e) => {
     e.preventDefault();
     //console.log(e);
     console.log(selectedReferee);
@@ -98,13 +108,12 @@ function RefereesScreen() {
 
     const dataOfRank = await axios.post(
       `${process.env.REACT_APP_URL}/api/referees/updaterankofreferee`,
-      { nameOfJournalist,selectedRefereeRank,selectedReferee}
+      { nameOfJournalist, selectedRefereeRank, selectedReferee }
     );
-    
+
     axios
       .get(`${process.env.REACT_APP_URL}/api/referees`)
       .then((res) => {
-        
         const referees = res.data;
         console.log(referees);
         setData(referees);
@@ -112,106 +121,97 @@ function RefereesScreen() {
       .catch((err) => {
         console.log(err);
       });
-   
   };
 
   return (
     <div>
-      <h1 className="mainTitle">Referees in Super League</h1>
+      <h1 className="mainTitle">Referees</h1>
       <p> </p>
 
       <table>
         <thead>
           <tr>
             <th>
-              <Dropdown>
-                <Dropdown.Toggle variant="light" id="dropdown-basic">
-                  Sort Referees
-                </Dropdown.Toggle>
-
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => sortByRank()}>
-                    Sort by Rank (Most to Least)
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => sortByName()}>
-                    Sort by Name(Alphabetically A to Z)
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => sortByMatchCount()}>
-                    Sorted by Match Count(Most to Least)
-                  </Dropdown.Item>
-                  <Dropdown.Item onClick={() => sortByDefault()}>
-                    Default (Sorted by Match Count)
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+              <DropdownButton id="dropdown-basic-button" title={dropdownTitle}>
+                <Dropdown.Item onClick={() => sortByRank()}>
+                  Sort by Rank (Most to Least)
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => sortByName()}>
+                  Sort by Name(Alphabetically A to Z)
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => sortByMatchCount()}>
+                  Sort by Match Count(Most to Least)
+                </Dropdown.Item>
+                <Dropdown.Item onClick={() => sortByDefault()}>
+                  Default (Sorted by Match Count)
+                </Dropdown.Item>
+              </DropdownButton>
             </th>
-            {userInfo && userInfo.role==="journalist"? 
-             <th>
-             <Button variant="light" onClick={handleShow}>
-                 Rank a Referee
-             </Button>
-             <Modal show={show} onHide={handleClose}>
-               <Modal.Header closeButton>
-                 <Modal.Title>Choose the referee and the corresponding rank </Modal.Title>
-               </Modal.Header>
+            {userInfo && userInfo.role === "journalist" ? (
+              <th>
+                <Button variant="light" onClick={handleShow}>
+                  Rank a Referee
+                </Button>
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>
+                      Choose the referee and the corresponding rank{" "}
+                    </Modal.Title>
+                  </Modal.Header>
 
-               <Modal.Body>
-                      <Form onSubmit={handleSubmitForEdit}>
-                       <Row>
-                         <Col>
-                         Choose a Referee:
-                         {data.map((refereeInfo) => (
-                         
-                         <div key={`default-radio`} className="mb-3">
+                  <Modal.Body>
+                    <Form onSubmit={handleSubmitForEdit}>
+                      <Row>
+                        <Col>
+                          Choose a Referee:
+                          {data.map((refereeInfo) => (
+                            <div key={`default-radio`} className="mb-3">
+                              <Form.Group controlId="getSelectionForNameOfReferee">
+                                <Form.Check
+                                  type="radio"
+                                  name="belongSameRadio"
+                                  id={`default-radio`}
+                                  label={refereeInfo.name}
+                                  value={refereeInfo.name}
+                                  onChange={(e) =>
+                                    setSelectedReferee(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </div>
+                          ))}
+                        </Col>
+                        <Col>
+                          Choose a Rank:
+                          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((ranks) => (
+                            <div key={`default-radio`} className="mb-3">
+                              <Form.Group controlId="getSelectionForRankOfReferee">
+                                <Form.Check
+                                  type="radio"
+                                  name="belongSameRankRadio"
+                                  id={`default-radio`}
+                                  label={ranks}
+                                  value={ranks}
+                                  onChange={(e) =>
+                                    setSelectedRefereeRank(e.target.value)
+                                  }
+                                />
+                              </Form.Group>
+                            </div>
+                          ))}
+                        </Col>
+                      </Row>
 
-                           <Form.Group controlId= "getSelectionForNameOfReferee">
-                               <Form.Check 
-                                 type='radio'
-                                 name= "belongSameRadio"
-                                 id={`default-radio`}
-                                 label={refereeInfo.name}
-                                 value= {refereeInfo.name}
-                                 onChange={(e) => setSelectedReferee(e.target.value)}
-                               />
-                           </Form.Group>
-
-                         </div>
-                       ))}
-                         </Col>   
-                         <Col>
-                         Choose a Rank:
-                         {[1,2,3,4,5,6,7,8,9,10].map((ranks) => (
-                         
-                         <div key={`default-radio`} className="mb-3">
-
-                           <Form.Group controlId= "getSelectionForRankOfReferee">
-                               <Form.Check 
-                                 type='radio'
-                                 name= "belongSameRankRadio"
-                                 id={`default-radio`}
-                                 label={ranks}
-                                 value= {ranks}
-                                 
-                                 onChange={(e) => setSelectedRefereeRank(e.target.value)}
-                               />
-                           </Form.Group>
-
-                         </div>
-                       ))}  
-                         </Col>
-                       </Row>
-                         
-                        
-                           <Button variant="light" type="submit">
-                             Update Rank of Referee
-                           </Button>
-                       </Form>    
-               </Modal.Body>
-     
-             </Modal>
-           </th>
-            : <></>}
-           
+                      <Button variant="light" type="submit">
+                        Update Rank of Referee
+                      </Button>
+                    </Form>
+                  </Modal.Body>
+                </Modal>
+              </th>
+            ) : (
+              <></>
+            )}
           </tr>
         </thead>
       </table>

@@ -80,6 +80,7 @@ function MatchDetailPage() {
           defaultActiveKey="comments"
           id="match-detail-page"
           className="mb-3"
+          style={{ width: "80%", margin: "0 auto", padding: "20px"}}
         >
           <Tab className="ml-3" eventKey="events" title="Events">
             <EventsPage matchID={matchIDVar} />

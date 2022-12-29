@@ -80,3 +80,50 @@
   background-color: #4caf50;
   color: white;
 }
+
+
+.lineups-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.lineups-header {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.team-logo {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 10px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+
+.player-number {
+  width: 30px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+  margin-right: 10px;
+}
+
+.player-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+

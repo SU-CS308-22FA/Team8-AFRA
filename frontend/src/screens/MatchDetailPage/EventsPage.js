@@ -9,6 +9,7 @@ import { BiTimer } from "react-icons/bi";
 const EventsPage = ({ matchID }) => {
   const [eventData, setEventData] = useState();
   const [flag, setFlag] = useState(false);
+  const [dataFlag, setDataFlag] = useState(false);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/api/matchdetail/events`, {
@@ -17,18 +18,21 @@ const EventsPage = ({ matchID }) => {
         },
       })
       .then((res) => {
-        console.log(res);
+        if(res.data.length === 0){
+          setDataFlag(true);
+        }
         setEventData(res.data);
         setFlag(true);
       })
       .catch((err) => {
         console.log(err);
+        setDataFlag(true);
       });
   }, []);
   
   return !flag ? (
     <Loading/>
-  ) : (
+  ) : ( dataFlag ? (<div className="center d-flex justify-content-center" style={{fontSize: "25px"}}>The game hasn't played yet</div>) : (
     <div>
       {eventData.map((d, index) => {
         if(d.type === "subst"){
@@ -91,6 +95,7 @@ const EventsPage = ({ matchID }) => {
         }
       })}
     </div>
+  )
   );
 };
 

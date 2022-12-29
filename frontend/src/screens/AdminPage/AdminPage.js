@@ -13,7 +13,7 @@ import axios from "axios";
 function AdminPage() {
   const [requestdata, setRequestData] = useState([]);
   const [headData, setHeadData] = useState([]);
-  const [seasonVar, setSeasonVar] = useState();
+  const [seasonVar, setSeasonVar] = useState(2022);
   const [message, setMessage] = useState("");
   const [role, setRole] = useState();
 
@@ -164,7 +164,7 @@ function AdminPage() {
             <div className="dropdown">
               <DropdownButton
                 id="dropdown-basic-button"
-                title="Choose a season"
+                title={seasonVar}
                 onSelect={handleSelectSeason}
               >
                 <Dropdown.Item eventKey="2022">2022</Dropdown.Item>

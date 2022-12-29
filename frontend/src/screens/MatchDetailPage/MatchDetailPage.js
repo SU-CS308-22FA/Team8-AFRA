@@ -9,6 +9,7 @@ import EventsPage from "./EventsPage";
 import LineUpsPage from "./LineUpsPage";
 import StatisticsPage from "./StatisticsPage";
 import Comments from "./Comments";
+import Unauthorized from "../../components/Unauthorized";
 import { useSelector } from "react-redux";
 
 function MatchDetailPage() {
@@ -92,7 +93,7 @@ function MatchDetailPage() {
             <StatisticsPage matchID={matchIDVar} />
           </Tab>
           <Tab className="ml-3" eventKey="comments" title="Comments">
-            <Comments matchID={matchIDVar} />
+            {userInfo ? <Comments matchID={matchIDVar}/> : <Unauthorized/>}
           </Tab>
         </Tabs>
       </div>

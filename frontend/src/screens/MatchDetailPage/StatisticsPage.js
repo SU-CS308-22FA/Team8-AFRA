@@ -7,6 +7,7 @@ import Loading from "../../components/Loading";
 const StatisticsPage = ({ matchID }) => {
   const [staticsData, setStaticsData] = useState();
   const [flag, setFlag] = useState(false);
+  const [dataFlag, setDataFlag] = useState(false);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/api/matchdetail/statics`, {
@@ -15,17 +16,21 @@ const StatisticsPage = ({ matchID }) => {
         },
       })
       .then((res) => {
+        if(res.data.length === 0){
+          setDataFlag(true);
+        }
         setStaticsData(res.data);
         setFlag(true);
       })
       .catch((err) => {
         console.log(err);
+        setDataFlag(true);
       });
   }, []);
   
   return !flag ? (
     <Loading/>
-  ) : (
+  ) : ( dataFlag ? (<div className="center d-flex justify-content-center" style={{fontSize: "25px"}}>The game hasn't played yet</div>) : (
     <div>
       <Row>
         <Col>
@@ -89,6 +94,7 @@ const StatisticsPage = ({ matchID }) => {
         </Col>
       </Row>
     </div>
+  )
   );
 };
 

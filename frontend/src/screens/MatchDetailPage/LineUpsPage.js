@@ -8,6 +8,7 @@ import { Justify } from "react-bootstrap-icons";
 const LineUpsPage = ({ matchID }) => {
   const [lineUpsData, setLineUpsData] = useState();
   const [flag, setFlag] = useState(false);
+  const [dataFlag, setDataFlag] = useState(false);
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_URL}/api/matchdetail/lineups`, {
@@ -16,16 +17,20 @@ const LineUpsPage = ({ matchID }) => {
         },
       })
       .then((res) => {
+        if(res.data.length === 0){
+          setDataFlag(true);
+        }
         setLineUpsData(res.data);
         setFlag(true);
       })
       .catch((err) => {
         console.log(err);
+        setDataFlag(true);
       });
   }, []);
   return !flag ? (
     <Loading/>
-  ) : (
+  ) : ( dataFlag ? (<div className="center d-flex justify-content-center" style={{fontSize: "25px"}}>The game hasn't played yet</div>) : (
     <div style={{ width: "80%", margin: "0 auto", padding: "20px"}}>
       <Row className="flexbox-container bg-primary">
         <Col lg={4}> 
@@ -95,6 +100,7 @@ const LineUpsPage = ({ matchID }) => {
         </Col>
       </Row>
     </div>
+  )
   );
 };
 

@@ -372,7 +372,7 @@ const Comments = ({ matchID }) => {
 
           <Col>
             <Row className="create">
-              {userInfo.verified ? (
+              {userInfo && userInfo.verified ? (
                 <Col className="create">
                   <Link to={`/createcomment/${matchID}`}>
                     <Button
@@ -442,7 +442,7 @@ const Comments = ({ matchID }) => {
                           {comment.title}
                         </Accordion.Toggle>
                       </span>
-                      {comment.user === userInfo._id ? (
+                      {userInfo && comment.user === userInfo._id ? (
                         <div>
                           <Button size="sm" href={`/comment/${comment._id}/${matchID}`}>Edit</Button>
                           <Button

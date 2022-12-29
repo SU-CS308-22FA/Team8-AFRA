@@ -4,6 +4,19 @@
   color: rgb(14, 52, 136);
 }
 
+.edit-button {
+  background-color: #1cbed3;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  width: 130px;
+}
+
+.edit-button:hover {
+  background-color: rgb(9, 52, 170);
+  cursor: pointer;
+}
+
 .subTitle {
   text-align: center;
 }

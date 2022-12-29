@@ -149,7 +149,11 @@ function RefereesScreen() {
             </th>
             {userInfo && userInfo.role === "journalist" ? (
               <th>
-                <Button variant="light" onClick={handleShow}>
+                <Button
+                  className="edit-button"
+                  variant="light"
+                  onClick={handleShow}
+                >
                   Rank a Referee
                 </Button>
                 <Modal show={show} onHide={handleClose}>

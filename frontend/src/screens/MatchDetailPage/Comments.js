@@ -372,7 +372,7 @@ const Comments = ({ matchID }) => {
 
           <Col>
             <Row className="create">
-              {userInfo.verified ? (
+              {userInfo && userInfo.verified ? (
                 <Col className="create">
                   <Link to={`/createcomment/${matchID}`}>
                     <Button

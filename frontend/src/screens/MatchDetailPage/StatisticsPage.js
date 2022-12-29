@@ -38,9 +38,9 @@ const StatisticsPage = ({ matchID }) => {
               </tr>
             </thead>
             <tbody>
-              {staticsData[0].statistics.map((data) => {
+              {staticsData[0].statistics.map((data, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td style={{ textAlign: "center" }} >{data.value ? data.value : 0}</td>
                   </tr>
                 );
@@ -57,9 +57,9 @@ const StatisticsPage = ({ matchID }) => {
               </tr>
             </thead>
             <tbody>
-              {staticsData[0].statistics.map((data) => {
+              {staticsData[0].statistics.map((data, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td style={{ textAlign: "center" }}>{data.type}</td>
                   </tr>
                 );
@@ -77,9 +77,9 @@ const StatisticsPage = ({ matchID }) => {
               </tr>
             </thead>
             <tbody>
-              {staticsData[1].statistics.map((data) => {
+              {staticsData[1].statistics.map((data, index) => {
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td style={{ textAlign: "center" }}>{data.value ? data.value : 0}</td>
                   </tr>
                 );

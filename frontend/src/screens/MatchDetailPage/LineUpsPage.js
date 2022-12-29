@@ -40,9 +40,9 @@ const LineUpsPage = ({ matchID }) => {
       </Row>
       <Row>
         <Col lg={6}>
-            {lineUpsData[0].startXI.map((d) => {
+            {lineUpsData[0].startXI.map((d, index) => {
               return(
-                <div className="flexbox-container">
+                <div key={index} className="flexbox-container">
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.number} </div>
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.name} </div>
                 </div>
@@ -50,9 +50,9 @@ const LineUpsPage = ({ matchID }) => {
             })}
         </Col>
         <Col lg={6}>
-            {lineUpsData[1].startXI.map((d) => {
+            {lineUpsData[1].startXI.map((d, index) => {
               return(
-                <div className="flexbox-container d-flex justify-content-end">
+                <div key={index} className="flexbox-container d-flex justify-content-end">
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.name} </div>
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.number} </div>
                 </div>
@@ -74,9 +74,9 @@ const LineUpsPage = ({ matchID }) => {
       </Row>
       <Row>
         <Col lg={6}>
-            {lineUpsData[0].substitutes.map((d) => {
+            {lineUpsData[0].substitutes.map((d, index) => {
               return(
-                <div className="flexbox-container">
+                <div key={index} className="flexbox-container">
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.number} </div>
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.name} </div>
                 </div>
@@ -84,9 +84,9 @@ const LineUpsPage = ({ matchID }) => {
             })}
         </Col>
         <Col lg={6}>
-            {lineUpsData[1].substitutes.map((d) => {
+            {lineUpsData[1].substitutes.map((d, index) => {
               return(
-                <div className="flexbox-container d-flex justify-content-end">
+                <div key={index} className="flexbox-container d-flex justify-content-end">
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.name} </div>
                   <div className="p-2" style={{fontSize: "20px"}}> {d.player.number} </div>
                 </div>

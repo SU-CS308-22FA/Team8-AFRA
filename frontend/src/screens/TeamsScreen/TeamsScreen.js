@@ -81,7 +81,7 @@ function TeamsScreen() {
             <div className="card-body text-dark">
               <Card
                 className="card-body text-dark"
-                style={{ width: "18rem" }}
+                style={{ width: "18rem", cursor: "pointer" }}
                 onClick={() => navigate(`/team/${data.team.id}/${seasonVar}`)}
               >
                 <Row className="allRows">

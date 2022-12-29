@@ -54,7 +54,6 @@ function StandingPage() {
     </div>
   ) : (
     <div>
-      <h1 className="mtitle">Standings of Teams</h1>
       <br></br>
       <div className="dropdown">
         <DropdownButton

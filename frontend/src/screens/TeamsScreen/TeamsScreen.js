@@ -80,7 +80,7 @@ function TeamsScreen() {
           return (
             <div className="card-body text-dark">
               <Card
-                className="card-body text-dark"
+                className="card-body text-dark teams-card"
                 style={{ width: "18rem", cursor: "pointer" }}
                 onClick={() => navigate(`/team/${data.team.id}/${seasonVar}`)}
               >

@@ -34,7 +34,7 @@ function Header({ setSearch }) {
           {userInfo ? (
             <Nav>
               <Nav.Link href="/bugreport">
-                <FaSpider color={"black"}></FaSpider>
+                <FaSpider></FaSpider>
               </Nav.Link>
             </Nav>
           ) : (

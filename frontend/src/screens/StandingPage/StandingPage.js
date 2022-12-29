@@ -105,7 +105,10 @@ function StandingPage() {
         <tbody>
           {data.map((data) => {
             return (
-              <tr style={{ height: "50px", textAlign: "center" }}>
+              <tr
+                className="tbodyCal"
+                style={{ height: "50px", textAlign: "center" }}
+              >
                 <td>{data.rank}</td>
                 <td>{data.team.name}</td>
                 <td>{data.all.played}</td>

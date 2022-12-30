@@ -105,7 +105,7 @@ function SingleTeam() {
             <div id="c-i-tlast" className="row">
               <h3 className="explain">
                 <FaMedal style={{ marginRight: "10px" }} />
-                <strong>Team Rank: </strong>{" "}
+                <strong>Team Rank: </strong>
                 {isInDB ? teamRank : "No Rank is Assigned"}
               </h3>
             </div>

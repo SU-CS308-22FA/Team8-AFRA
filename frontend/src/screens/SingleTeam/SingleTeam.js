@@ -130,13 +130,8 @@ function SingleTeam() {
       <br></br>
       <div className="col-12">
         <div id="stadium-info-section" className="row">
-          <div id="club-logo" className="col-3">
-            <img
-              id="club-image"
-              src={stadiumImage}
-              alt="Stadium"
-              style={{ height: "250px" }}
-            />
+          <div id="stadium-image" className="col-3">
+            <img id="club-image" src={stadiumImage} alt="Stadium" />
           </div>
           <div id="club-info" className="col-9">
             <div id="c-i-t1" className="row">

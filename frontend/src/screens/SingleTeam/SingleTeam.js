@@ -79,17 +79,16 @@ function SingleTeam() {
   return (
     <div className="container-fluid main-div">
       <div className="col-12">
-        <div id="club-info-section" className="row">
-          <div id="club-logo" className="col-3">
-            <img id="club-image" src={logo} alt="logo" />
+        <div id="team-info-section" className="row">
+          <div id="team-logo" className="col-3">
+            <img id="team-image" src={logo} alt="logo" />
           </div>
           <div id="club-info" className="col-9">
             <div id="c-i-h" className="row">
               <h1 id="c-info-head">
-                {" "}
-                <b>{name}</b>{" "}
-              </h1>{" "}
-              <br />{" "}
+                <b>{name}</b>
+              </h1>
+              <br />
             </div>
             <div id="c-i-t1" className="row">
               <h3 className="explain">
@@ -130,8 +129,8 @@ function SingleTeam() {
       <br></br>
       <div className="col-12">
         <div id="stadium-info-section" className="row">
-          <div id="stadium-image" className="col-3">
-            <img id="club-image" src={stadiumImage} alt="Stadium" />
+          <div id="stadium-container" className="col-3">
+            <img id="stadium-image" src={stadiumImage} alt="Stadium" />
           </div>
           <div id="club-info" className="col-9">
             <div id="c-i-t1" className="row">

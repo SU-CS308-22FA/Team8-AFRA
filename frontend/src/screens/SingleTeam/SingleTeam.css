@@ -1,3 +1,39 @@
+#team-info-section {
+  border-bottom-width: 2px;
+}
+
+#team-logo {
+  padding-left: 6rem;
+  padding-top: 3rem;
+  padding-bottom: auto;
+  padding-right: 6rem;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+#team-image {
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+}
+
+#stadium-container {
+  padding-left: 6rem;
+  padding-top: 3rem;
+  padding-bottom: auto;
+  padding-right: 6rem;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+#stadium-image {
+  width: 80%;
+  height: auto;
+  border-radius: 15px;
+}
+
 .centerClass {
   align-items: center;
   text-align: center;
@@ -26,35 +62,12 @@
   padding-top: 2rem;
 }
 
-#club-logo {
-  padding-left: 6rem;
-  padding-top: 3rem;
-  padding-bottom: auto;
-  padding-right: 6rem;
-}
-
-#stadium-image {
-  padding-left: 6rem;
-  padding-top: 3rem;
-  padding-bottom: auto;
-  padding-right: 6rem;
-}
-
 #c-info-head {
   font-family: sans-serif;
   text-align: center;
   margin-top: 0.5em;
   margin-left: 1em;
   color: #2146c7;
-}
-
-#club-image {
-  width: 80%;
-  height: auto;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  border-radius: 15px;
 }
 
 #c-i-h {
@@ -97,10 +110,6 @@
   font-family: sans-serif;
   font-size: medium;
   text-indent: 50px;
-}
-
-#club-info-section {
-  border-bottom-width: 2px;
 }
 
 #stadium-info-section {

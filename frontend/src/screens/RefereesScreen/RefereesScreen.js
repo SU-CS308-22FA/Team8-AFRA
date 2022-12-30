@@ -9,11 +9,11 @@ import {
   Form,
   Modal,
   Row,
-  Table,
 } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
 
 import AbdulkadirBitigen from "../../screens/SingleReferee/refereeImages/abdulkadir-bitigen.jpg";
 import AliPalabiyik from "../../screens/SingleReferee/refereeImages/ali-palabiyik.jpg";
@@ -47,6 +47,7 @@ function RefereesScreen() {
   const [selectedReferee, setSelectedReferee] = useState("");
   const [dropdownTitle, setDropdownTitle] = useState("Sort Referees");
   const [selectedRefereeRank, setSelectedRefereeRank] = useState(0);
+  const [flag, setFlag] = useState(false);
   const images = [
     { id: "Abdulkadir Bitigen", src: AbdulkadirBitigen },
     { id: "Ali Palabıyık", src: AliPalabiyik },
@@ -129,6 +130,7 @@ function RefereesScreen() {
       .then((res) => {
         const referees = res.data;
         setData(referees);
+        setFlag(true);
       })
       .catch((err) => {
         console.log(err);
@@ -160,12 +162,17 @@ function RefereesScreen() {
       });
   };
 
-  return (
+  return !flag ? (
+    <div>
+      <p></p>
+      <Loading />
+    </div>
+  ) : (
     <div>
       <h1 className="mainTitle">Referees</h1>
       <p> </p>
       <div>
-        <table>
+        <table style={{ marginLeft: 60 }}>
           <thead>
             <tr>
               <th>

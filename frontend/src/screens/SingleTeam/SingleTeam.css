@@ -10,7 +10,101 @@
   color: #2146c7;
 }
 
-.teamLogo {
-  size: 10px;
+.shortInfo {
+  font-size: 22px;
+  text-align: left;
+  color: #db7029;
+}
+
+.explain {
+  font-size: 22px;
+  text-align: left;
+  color: #0a036f;
+}
+
+.main-div {
+  padding-top: 2rem;
+}
+
+#club-logo {
+  padding-left: 6rem;
+  padding-top: 3rem;
+  padding-bottom: auto;
+  padding-right: 6rem;
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-right-style: solid;
+  border-right-color: black;
+  border-right-width: 2px;
+}
+
+#c-info-head {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 0.5em;
+  margin-left: 1em;
+  color: #2146c7;
+}
+
+#club-image {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+#c-i-h {
+  padding-top: 1rem;
+}
+
+#c-i-t1 {
+  padding-top: 1rem;
+  padding-left: 2em;
+}
+
+#c-i-tlast {
+  padding-top: 1rem;
+  padding-left: 2em;
+  padding-bottom: 1rem;
+}
+
+#c-i-tinfohead {
+  padding-top: 1rem;
+  padding-left: 2em;
+  padding-bottom: 1rem;
+}
+
+#c-i-t2 {
+  padding-top: 1rem;
+  border-bottom-style: solid;
+}
+
+#c-i-g {
+  padding-top: 1rem;
+  color: black;
+}
+
+.c-g-info {
+  font-family: sans-serif;
+  font-size: medium;
+}
+
+.c-info-text {
+  font-family: sans-serif;
+  font-size: medium;
+  text-indent: 50px;
+}
+
+#club-info-section {
+  border-bottom-width: 2px;
+}
+
+#stadium-info-section {
+  border-top-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.name-col {
+  border: 2px solid black;
   text-align: center;
 }

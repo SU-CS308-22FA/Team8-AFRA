@@ -1,10 +1,14 @@
 import "./SingleTeam.css";
 import React, { useEffect, useState } from "react";
-import MainScreen from "../../components/MainScreen";
-import { Col, Card, Row } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { FaFutbol, FaHome, FaMap, FaMedal } from "react-icons/fa";
+import {
+  FaFutbol,
+  FaHome,
+  FaMap,
+  FaMedal,
+  FaQuestionCircle,
+} from "react-icons/fa";
 
 function SingleTeam() {
   const params = useParams();
@@ -34,6 +38,7 @@ function SingleTeam() {
       })
       .then((res) => {
         const teams = res.data;
+        console.log(teams);
         teams.forEach((element) => {
           var cleanID = String(element.team.id);
           if (cleanID === teamID) {
@@ -72,7 +77,116 @@ function SingleTeam() {
   }, []);
 
   return (
-    <div>
+    <div className="container-fluid main-div">
+      <div className="col-12">
+        <div id="club-info-section" className="row">
+          <div id="club-logo" className="col-3">
+            <img id="club-image" src={logo} alt="logo" />
+          </div>
+          <div id="club-info" className="col-9">
+            <div id="c-i-h" className="row">
+              <h1 id="c-info-head">
+                {" "}
+                <b>{name}</b>{" "}
+              </h1>{" "}
+              <br />{" "}
+            </div>
+            <div id="c-i-t1" className="row">
+              <h3 className="explain">
+                <FaFutbol style={{ marginRight: "10px" }} />
+                <strong>Country of Origin:</strong> {country}
+              </h3>
+            </div>
+            <div id="c-i-t1" className="row">
+              <h3 className="explain">
+                <FaFutbol style={{ marginRight: "10px" }} />
+                <strong>Date of Foundation:</strong> {founded}
+              </h3>
+            </div>
+            <div id="c-i-tlast" className="row">
+              <h3 className="explain">
+                <FaMedal style={{ marginRight: "10px" }} />
+                <strong>Team Rank: </strong>{" "}
+                {isInDB ? teamRank : "No Rank is Assigned"}
+              </h3>
+            </div>
+            {isInDB && (
+              <div id="c-i-t1" className="row">
+                <h3 className="shortInfo">
+                  <FaQuestionCircle style={{ marginRight: "10px" }} />
+                  <strong>About {name}</strong>
+                </h3>
+                <br />
+              </div>
+            )}
+            {isInDB && (
+              <div id="c-i-tinfohead" className="row">
+                <h3 className="explain">{teamInfo}</h3>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <br></br>
+      <div className="col-12">
+        <div id="stadium-info-section" className="row">
+          <div id="club-logo" className="col-3">
+            <img
+              id="club-image"
+              src={stadiumImage}
+              alt="Stadium"
+              style={{ height: "250px" }}
+            />
+          </div>
+          <div id="club-info" className="col-9">
+            <div id="c-i-t1" className="row">
+              <h3 className="shortInfo">
+                <FaHome style={{ marginRight: "10px" }} />
+                <FaHome style={{ marginRight: "10px" }} />
+                <strong>{name} Stadium</strong>
+              </h3>
+              <br />
+            </div>
+            <div id="c-i-t1" className="row">
+              <h3 className="explain">
+                <FaHome style={{ marginRight: "10px" }} />
+                <strong>Stadium Name:</strong> {stadiumName}
+              </h3>
+            </div>
+            <div id="c-i-t1" className="row">
+              <h3 className="explain">
+                <FaMap style={{ marginRight: "10px" }} />
+                <strong>Stadium Address:</strong> {stadiumAddress}
+              </h3>
+            </div>
+            <div id="c-i-t1" className="row">
+              <h3 className="explain">
+                <FaHome style={{ marginRight: "10px" }} />
+                <strong>Stadium City:</strong> {stadiumCity}
+              </h3>
+            </div>
+            <div id="c-i-t1" className="row">
+              <h3 className="explain">
+                <FaHome style={{ marginRight: "10px" }} />
+                <strong>Stadium Capacity:</strong> {stadiumCapacity}
+              </h3>
+            </div>
+            <div id="c-i-tlast" className="row">
+              <h3 className="explain">
+                <FaHome style={{ marginRight: "10px" }} />
+                <strong>Stadium Surface:</strong> {stadiumSurface}
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+export default SingleTeam;
+
+/*
+ <div>
       <br></br>
       <h1 className="teamTitle">{name}</h1>
 
@@ -107,7 +221,14 @@ function SingleTeam() {
               </Row>
             </div>
             <div>
-              <Card></Card>
+              <Card>
+                {isInDB && (
+                  <section>
+                    <h2>Short Team Information for {name}</h2>
+                    <p>{teamInfo}</p>
+                  </section>
+                )}
+              </Card>
             </div>
           </Col>
 
@@ -116,28 +237,41 @@ function SingleTeam() {
               <Row>
                 <Col>
                   <br></br>
-                  <h2>Stadium Information</h2>
+                  <h2 className="center">Stadium Information</h2>
                   <div>
-                    <h3 className="explain">
-                      <FaHome style={{ marginRight: "10px" }} />
-                      <strong>Stadium Name:</strong> {stadiumName}
-                    </h3>
-                    <h3 className="explain">
-                      <FaMap style={{ marginRight: "10px" }} />
-                      <strong>Stadium Address:</strong> {stadiumAddress}
-                    </h3>
-                    <h3 className="explain">
-                      <FaHome style={{ marginRight: "10px" }} />
-                      <strong>Stadium City:</strong> {stadiumCity}
-                    </h3>
-                    <h3 className="explain">
-                      <FaHome style={{ marginRight: "10px" }} />
-                      <strong>Stadium Capacity:</strong> {stadiumCapacity}
-                    </h3>
-                    <h3 className="explain">
-                      <FaHome style={{ marginRight: "10px" }} />
-                      <strong>Stadium Surface:</strong> {stadiumSurface}
-                    </h3>
+                    <div>
+                      <Row>
+                        <Col style={{ textAlign: "center" }}>
+                          <img
+                            src={stadiumImage}
+                            alt="Stadium"
+                            style={{ height: "250px" }}
+                          />
+                        </Col>
+                        <Col style={{ textAlign: "left" }}>
+                          <h3 className="explain">
+                            <FaHome style={{ marginRight: "10px" }} />
+                            <strong>Stadium Name:</strong> {stadiumName}
+                          </h3>
+                          <h3 className="explain">
+                            <FaMap style={{ marginRight: "10px" }} />
+                            <strong>Stadium Address:</strong> {stadiumAddress}
+                          </h3>
+                          <h3 className="explain">
+                            <FaHome style={{ marginRight: "10px" }} />
+                            <strong>Stadium City:</strong> {stadiumCity}
+                          </h3>
+                          <h3 className="explain">
+                            <FaHome style={{ marginRight: "10px" }} />
+                            <strong>Stadium Capacity:</strong> {stadiumCapacity}
+                          </h3>
+                          <h3 className="explain">
+                            <FaHome style={{ marginRight: "10px" }} />
+                            <strong>Stadium Surface:</strong> {stadiumSurface}
+                          </h3>
+                        </Col>
+                      </Row>
+                    </div>
                   </div>
                 </Col>
               </Row>
@@ -145,18 +279,5 @@ function SingleTeam() {
           </Col>
         </Row>
       </div>
-
-      <section>
-        <h2>Stadium Details</h2>
-        <img src={stadiumImage} alt="Stadium" style={{ height: "140px" }} />
-      </section>
-      {isInDB && (
-        <section>
-          <h2>Short Team Information for {name}</h2>
-          <p>{teamInfo}</p>
-        </section>
-      )}
     </div>
-  );
-}
-export default SingleTeam;
+    */

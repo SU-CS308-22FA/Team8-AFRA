@@ -35,12 +35,6 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  border-left-style: solid;
-  border-right-style: solid;
-  border-right-color: black;
-  border-right-width: 2px;
 }
 
 #stadium-image {
@@ -52,12 +46,6 @@
   padding-bottom: auto;
   padding-right: 6rem;
   align-items: center;
-  border-top-style: solid;
-  border-bottom-style: solid;
-  border-left-style: solid;
-  border-right-style: solid;
-  border-right-color: black;
-  border-right-width: 2px;
 }
 
 #c-info-head {

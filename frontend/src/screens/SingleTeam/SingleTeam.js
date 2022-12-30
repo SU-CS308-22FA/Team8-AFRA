@@ -83,7 +83,7 @@ function SingleTeam() {
           <div id="team-logo" className="col-3">
             <img id="team-image" src={logo} alt="logo" />
           </div>
-          <div id="club-info" className="col-9">
+          <div id="team-info" className="col-9">
             <div id="c-i-h" className="row">
               <h1 id="c-info-head">
                 <b>{name}</b>

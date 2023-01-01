@@ -21,20 +21,21 @@ const sendAppeal = asyncHandler(async (req, res) => {
     if (a){
       res.status(200).send("You have already made an appeal request!")
     }
-    const blacklist = await Blacklist.findOne({email: email});
-    if(blacklist){
-      const appeal = new Appeal ({
-        user: blacklist.user,
-        email: blacklist.email,
-        cause: blacklist.cause,
-        explaination: explaination
-    })
-    appeal.save();
-    res.status(200).send("Succesfully sent the appeal to the admins!")
+    else{
+      const blacklist = await Blacklist.findOne({email: email});
+      if(blacklist){
+        const appeal = new Appeal ({
+          user: blacklist.user,
+          email: blacklist.email,
+          cause: blacklist.cause,
+          explaination: explaination
+      })
+      appeal.save();
+      res.status(200).send("Succesfully sent the appeal to the admins!")
+      }
+      else
+      res.status(200).send("You are not banned stop wasting our time!")
     }
-    else
-    res.status(200).send("You are not banned stop wasting our time!")
-   
   }
   catch(err){
     console.log(err);

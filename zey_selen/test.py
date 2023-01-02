@@ -1,0 +1,152 @@
+#Zeynep Turkmen Test Cases
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+import unittest
+from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.keys import Keys
+from webdriver_manager.chrome import ChromeDriverManager    
+
+
+class Test(unittest.TestCase):
+
+    def setUp(self):
+       self.driver = webdriver.Chrome(ChromeDriverManager().install())
+       time.sleep(1)
+
+    def test(self):
+        #-----------------APPEAL PAGE TESTS-----------------------
+        #-----------------FIRST TIME APPEAL-----------------------
+        self.driver.get("https://coolafra.herokuapp.com/banappeal")
+        email = self.driver.find_element(By.XPATH, '//*[(@id = "formBasicEmail")]')
+        time.sleep(1)
+        email.send_keys("high@gmail.com")
+        explaination = self.driver.find_element(By.XPATH, '//*[(@id = "formBasicPassword")]')
+        explaination.send_keys("unban me pls")
+        checkbox = self.driver.find_element(By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "position-static", " " ))]')
+        checkbox.click()
+        time.sleep(1)
+        button = self.driver.find_element(By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "btn-primary", " " ))]')
+        button.click()
+        time.sleep(1)
+        result = self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div/div[1]/div/div/strong')
+        self.assertTrue(result, "Succesfully sent the appeal to the admins!")
+        print("1/3 Making appeal for the first time -> SUCCESSFUL ✅")
+        time.sleep(2)
+        #-------------------ALREADY APPEALED CASE-------------------
+        self.driver.get("https://coolafra.herokuapp.com/banappeal")
+        email = self.driver.find_element(By.XPATH, '//*[(@id = "formBasicEmail")]')
+        time.sleep(1)
+        email.send_keys("high@gmail.com")
+        explaination = self.driver.find_element(By.XPATH, '//*[(@id = "formBasicPassword")]')
+        explaination.send_keys("unban me pls")
+        checkbox = self.driver.find_element(By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "position-static", " " ))]')
+        checkbox.click()
+        time.sleep(1)
+        button = self.driver.find_element(By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "btn-primary", " " ))]')
+        button.click()
+        time.sleep(1)
+        result = self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div/div[1]/div/div/strong')
+        self.assertTrue(result, "You have already made an appeal request!")
+        print("2/3 Trying to make an appeal for the second time -> SUCCESSFUL✅")
+        time.sleep(2)
+    #------------------------NOT BANNED CASE-------------------------
+        self.driver.get("https://coolafra.herokuapp.com/banappeal")
+        email = self.driver.find_element(By.XPATH, '//*[(@id = "formBasicEmail")]')
+        time.sleep(1)
+        email.send_keys("zeyneppturkmen@gmail.com")
+        explaination = self.driver.find_element(By.XPATH, '//*[(@id = "formBasicPassword")]')
+        explaination.send_keys("unban me pls")
+        checkbox = self.driver.find_element(By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "position-static", " " ))]')
+        checkbox.click()
+        time.sleep(1)
+        button = self.driver.find_element(By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "btn-primary", " " ))]')
+        button.click()
+        time.sleep(1)
+        result = self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div/div[1]/div/div/strong')
+        self.assertTrue(result, "You are not banned stop wasting our time!")
+        print("3/3 Trying to make an appeal if not banned -> SUCCESSFUL✅")
+        time.sleep(2)
+    #-------------------------FAQ PAGE----------------------------
+        self.driver.get("https://coolafra.herokuapp.com/")
+        time.sleep(1)
+        self.driver.find_element(By.XPATH,"//*[@id=\"root\"]/div/div/div/div/div[2]/a[1]/button").click()
+        time.sleep(1)
+        mail = self.driver.find_element(By.XPATH, '//*[@id="formBasicEmail"]')
+        mail.send_keys("admin@admin.com")
+        time.sleep(1)
+        password = self.driver.find_element(By.XPATH, '//*[@id="formBasicPassword"]')
+        password.send_keys("admin")
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '//*[@id="root"]/div/div/div/div/div/form/button').click()
+        print("Admin has logged in...")
+        time.sleep(1)
+        self.driver.find_element(By.XPATH,"/html/body/div/nav/div/div/div[3]/a").click()
+        print("User is redirected to FAQ page...")
+        time.sleep(2)
+        self.driver.execute_script("window.scrollBy(0,2000)","")
+    #---------------------EMPTY FAQ--------------------------------
+        self.driver.execute_script("window.scrollTo(100,document.body.scrollHeight);")
+        time.sleep(1)
+        button = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/form/button')
+        button.click()
+        time.sleep(1)
+        result = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/div/strong')
+        self.assertTrue(result, "Fields cannot be empty.")
+        print("1/2 FAQ cannot be empty! -> SUCCESSFUL✅")
+        time.sleep(2)
+    #---------------------ADDING NEW FAQ---------------------------
+        question = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/form/div[1]/input')
+        question.send_keys("Am I a bot?")
+        time.sleep(1)
+        explaination = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/form/div[2]/textarea')
+        explaination.send_keys("No you are not a bot!")
+        time.sleep(1)
+        button.click()
+        result = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/div/strong')
+        time.sleep(3)
+        self.assertTrue(result, "FAQ is added!")
+        print("2/2 FAQ has been added! -> SUCCESSFUL✅")
+    #-------------------SENDING NOTIFICATIONS----------------------
+        self.driver.get("https://coolafra.herokuapp.com/adminmail")
+        print("Admin is redirected to sending notifications page...")
+        time.sleep(1)
+    #------------------EMPTY NOTIFICATION--------------------------
+        button = self.driver.find_element(By.XPATH, '/html/body/div/div/div[2]/div/form/button')
+        button.click()
+        time.sleep(1)
+        result = self.driver.find_element(By.XPATH, '/html/body/div/div/div[2]/div/div/strong')
+        self.assertTrue(result, "Fields cannot be empty.")
+        print("1/3 Empty notifications are not allowed! -> SUCCESSFUL✅")
+        time.sleep(2)
+    #------------------FULL NOTIFICATION--------------------------
+        topic = self.driver.find_element(By.XPATH, '/html/body/div/div/div[2]/div/form/div[1]/input')
+        topic.send_keys("This is a bot generated notification")
+        time.sleep(1)
+        text = self.driver.find_element(By.XPATH, '/html/body/div/div/div[2]/div/form/div[3]/textarea')
+        text.send_keys("I am a bot yay!")
+        time.sleep(1)
+        radio = self.driver.find_element(By.XPATH, '/html/body/div/div/div[2]/div/form/div[2]/div[3]/input')
+        radio.click()
+        time.sleep(1)
+        button.click()
+        time.sleep(1)
+        result = self.driver.find_element(By.XPATH, '/html/body/div/div/div[2]/div/div/strong')
+        self.assertTrue(result, "Notification for: news has been sent!")
+        print("2/3 Notification has been sent! -> SUCCESSFUL✅")
+        time.sleep(2)
+    #---------------DISPLAYING IF THE NOTIFICATION ARRIVED----------
+        self.driver.get('https://coolafra.herokuapp.com/notification')
+        print("Notification displayed...")
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '/html/body/div/div/div/div/div[1]/div/div[1]').click()
+        result = self.driver.find_element(By.XPATH, '/html/body/div/div/div/div/div[1]/div/div[2]/div')
+        self.assertTrue(result, "I am a bot yay!")
+        print("3/3 Notification has appeared on notifications page. -> SUCCESSFUL ✅")
+        print("ALL TESTS PASSED ✅")
+        time.sleep(2)
+        self.driver.close()
+
+if __name__ == "__main__":
+    unittest.main()

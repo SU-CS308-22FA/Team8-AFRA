@@ -11,7 +11,7 @@ function LandingPage() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/referees");
+      navigate("/fixture");
     }
   }, [userInfo]);
 

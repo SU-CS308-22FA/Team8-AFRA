@@ -56,7 +56,7 @@ function RegisterScreen() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate("/referees");
+      navigate("/fixture");
     }
   }, [userInfo]);
 

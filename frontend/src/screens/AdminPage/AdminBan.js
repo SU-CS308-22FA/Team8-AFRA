@@ -76,7 +76,7 @@ function AdminBan() {
                 <Loading/>
               )}
       {message && (
-                <ErrorMessage variant="info">
+                <ErrorMessage variant="info" controlId="message">
                   {message}
                 </ErrorMessage>
               )}
@@ -161,7 +161,7 @@ function AdminBan() {
           <Accordion.Collapse eventKey="0">
             <Card.Body>
               {subMessage && (
-                <ErrorMessage variant="info">
+                <ErrorMessage variant="info" controlId="message">
                   {subMessage}
                 </ErrorMessage>
               )}

@@ -45,7 +45,7 @@ const handleCheck = (event) => {
            <h4>Fill out the form below to request for an unban.</h4>
            <Container>
     {message && (
-                <ErrorMessage variant="info">
+                <ErrorMessage variant="info" controlId="message">
                   {message}
                 </ErrorMessage>
               )}

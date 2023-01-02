@@ -112,7 +112,7 @@ function FaqScreen() {
       <div style={{ display: "flex",
                     flexDirection: "column",
                     margin: "10px 70px 10px 70px"}}>
-        {message && <ErrorMessage variant="info">{message}</ErrorMessage>}
+        {message && <ErrorMessage variant="info" controlId="message">{message}</ErrorMessage>}
         <Form onSubmit={addFaq}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Question</Form.Label>

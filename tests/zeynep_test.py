@@ -102,8 +102,10 @@ class Test(unittest.TestCase):
         time.sleep(1)
         explaination = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/form/div[2]/textarea')
         explaination.send_keys("No you are not a bot!")
-        time.sleep(1)
-        button.click()
+        time.sleep(2)
+        button2 = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/form/button')
+        button2.click()
+        time.sleep(2)
         result = self.driver.find_element(By.XPATH, '/html/body/div/div/div[3]/div/div/div/strong')
         time.sleep(3)
         self.assertTrue(result, "FAQ is added!")
@@ -147,6 +149,7 @@ class Test(unittest.TestCase):
         print("ALL TESTS PASSED ✅")
         time.sleep(2)
         self.driver.close()
-
+    
+       
 if __name__ == "__main__":
     unittest.main()

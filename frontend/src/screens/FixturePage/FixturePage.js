@@ -82,16 +82,6 @@ function FixturePage() {
     })
   }
 
-  function changeTimezone(date, ianatz) {
-
-    var invdate = new Date(date.toLocaleString('en-US', {
-      timeZone: ianatz
-    }));
-    var diff = date.getTime() - invdate.getTime();
-    return new Date(date.getTime() - diff); // needs to substract
-
-  }
-
   const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [matchId, setMatchId] = useState(0);
@@ -120,7 +110,7 @@ function FixturePage() {
 
     console.log(dateObject);
 
-    var there = changeTimezone(dateObject, "Asia/Almaty");
+    var there = dateObject;
     console.log(there);
     dateObject=there;
 

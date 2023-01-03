@@ -68,6 +68,7 @@ function SingleReferee() {
   const [redCard, setRedCard] = useState();
   const [penalty, setPenalty] = useState();
   const [result, setResult] = useState();
+  const [rank, setRank] = useState();
 
   useEffect(() => {
     axios
@@ -86,6 +87,7 @@ function SingleReferee() {
             setYellowRedCard(element.yellowRedCard);
             setRedCard(element.redCard);
             setPenalty(element.penalty);
+            setRank(element.rank);
             var result = images.find(({ id }) => id === refereeName).src;
             setResult(result);
           }
@@ -141,6 +143,14 @@ function SingleReferee() {
                   </Row>
                   <Row className="allRows">
                     <h5>{firstMatch}</h5>
+                  </Row>
+                </Col>
+                <Col>
+                  <Row className="allRows">
+                    <h4>Rank</h4>
+                  </Row>
+                  <Row className="allRows">
+                    <h5>{rank}</h5>
                   </Row>
                 </Col>
               </Row>

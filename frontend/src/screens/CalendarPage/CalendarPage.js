@@ -229,10 +229,14 @@ const handleCheck = (e) => {
             </thead>
             <tbody >
               {data.map((d) => {
+                const str = d.date
+                var date = new Date(str);
+                date.setHours(date.getHours()+3)
+                var iso = date.toISOString();
                 return (
                   <tr className= "tbodyCal">
-                    <td>{d.date.split("T")[0]}</td>
-                    <td>{d.date.split("T")[1].split('.')[0]}</td>
+                    <td>{iso.split("T")[0]}</td>
+                    <td>{iso.split("T")[1].split('.')[0]}</td>
                     <td>{d.home}</td>
                     <td>{d.visitor}</td>
                     <td>{d.division}</td>

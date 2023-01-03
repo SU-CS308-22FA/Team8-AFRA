@@ -26,7 +26,9 @@ class TestRecommendation(unittest.TestCase):
         self.assertTrue(selectedTeam, currentTeam)
         print("1/2 User can go to a team detail page of a team of current season, first test has passed. ✅")
         time.sleep(2)
+
         #- - - - - - - - - -SELECT ANOTHER SEASON- - - - - - - - - -
+
         self.driver.get("https://coolafra.herokuapp.com/")
         time.sleep(2)
         self.driver.find_element(By.XPATH,"//*[@id=\"responsive-navbar-nav\"]/div[5]/a[1]").click()
@@ -37,7 +39,7 @@ class TestRecommendation(unittest.TestCase):
         time.sleep(2)
         selectedTeam = self.driver.find_element(By.XPATH, "/html/body/div/div/div[2]/div[8]/div/div[2]/div")
         self.driver.find_element(By.XPATH,"//*[@id=\"root\"]/div/div[2]/div[8]/div").click()
-        time.sleep(2)
+        time.sleep(3)
         currentTeam = self.driver.find_element(By.XPATH, '//*[@id="c-info-head"]')
         self.assertTrue(selectedTeam, currentTeam)
         print("2/2 User can go to a team detail page of a team of selected season (2018 in this case), first test has passed. ✅")

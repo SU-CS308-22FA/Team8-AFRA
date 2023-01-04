@@ -22,7 +22,7 @@ router.post("/", async(req, res, next) => {
     const {code, user} = req.body
     const {tokens} = await oauth2Client.getToken(code);
     const theuser = await User.findById(user);
-    if(tokens.refresh_token)
+    if(tokens.refresh_token && user.refresh_token !== tokens.refresh_token)
     {
       theuser.refresh_token = tokens.refresh_token;
       const yes = await theuser.save();
@@ -35,7 +35,8 @@ router.post("/", async(req, res, next) => {
 })
 
 router.post("/create-event", async(req, res, next) => {
-  const user = await User.findById(req.body.userInfo._id);
+  try{
+    const user = await User.findById(req.body.userInfo._id);
   let cal = req.body.cal;
   let busy = "";
   let color = req.body.color || 6;
@@ -90,6 +91,10 @@ router.post("/create-event", async(req, res, next) => {
       res.status(200).send("Failed to add = " + me + " because you are busy!")
   else
       res.status(200).send("Everything was added succesfully!")
+  }
+  catch(err){
+    console.log(err)
+  }
 })
 
 

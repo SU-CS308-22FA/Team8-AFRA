@@ -122,12 +122,8 @@ function FixturePage() {
     );
 
     console.log(dataOfUpdatedMatch);
-    if(dataOfUpdatedMatch.data==="Same time"){
-      window.alert("There is another match at the same time. Please try again");
-    }
-    else{
-      window.alert("Time is successfully updated");
-    }
+    window.alert("Time is successfully updated");
+   
 
     setFlag(false);
     

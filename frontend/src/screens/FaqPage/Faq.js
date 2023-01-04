@@ -72,7 +72,7 @@ function FaqScreen() {
         <h3 className="about"> <FaFutbol style={{marginRight: "10px"}}/> It also incorporates a user friendly design and has a simple structured interface. </h3>
         <h3 className="about"> <FaFutbol style={{marginRight: "10px"}}/> We added all the features users look for and more for the best user experience. </h3>
         <h3 className="about"> <FaFutbol style={{marginRight: "10px"}}/> That way the users can find everything they wish for and more, in a single webpage.</h3>
-        <h3 className="about"> <FaFutbol style={{marginRight: "10px"}}/> Here is a link to our demo video = <a href="https://drive.google.com/file/d/1RnH_6duSxchmWnYBGJd4Rts9--nRbRUr/view?usp=sharing">DEMO</a></h3>
+        <h3 className="about"> <FaFutbol style={{marginRight: "10px"}}/> Here is a link to our demo video = <a href="https://drive.google.com/file/d/1dpHbVNVj4iMeDl5GzGD6YVcDKh3zRPNS/view?usp=sharing">DEMO</a></h3>
         </div>
         </Col>
     <Col>

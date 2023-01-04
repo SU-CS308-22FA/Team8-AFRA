@@ -2,6 +2,7 @@
 # Automated Fixture and Referee Assignment
 Click the logo to access our webpage!
 
+
 ## :soccer: What is AFRA ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. Our vision was to include everything the users want from a football website and MORE for the best user experience. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they need in a single efficient webpage!
 

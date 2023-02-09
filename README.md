@@ -1,14 +1,18 @@
-[![coolafra](https://user-images.githubusercontent.com/75041108/209647017-31b7f620-eae6-44ff-8e24-dd957ddb5a7e.png)][1]
-# Automated Fixture and Referee Assignment
-Click the logo to access our webpage! Here is our demo video => [`Demo Video`](https://drive.google.com/file/d/1WPt_Q57eNeo_ekvOlfP9UJUmRZvd87U3/view?usp=sharing)
+<h1 align="center">Automated Fixture and Referee Assignment</h1>
 
-## :soccer: What is AFRA ?
+## What is AFRA ?
   AFRA is a web application that is designed to facilitate the burden of TFF by reducing human error in assigning fixtures and referees. Our vision was to include everything the users want from a football website and MORE for the best user experience. It also incorporates a user friendly design and has a simple structured interface. That way the users can find everything they need in a single efficient webpage!
 
-## :chipmunk: Why AFRA ?
+## Why AFRA ?
   Our server has many different functionalities and we always improve it for the better. AFRA presents users with many useful features for many different actors such as: The admins, the users, referees and journalists. Improvement is the key feature for software development so we always try to update AFRA for the better. Here is the link to our [Enhancement Log 🪵](https://github.com/orgs/SU-CS308-22FA/projects/40/views/10?layout=table)
 
-#### :busts_in_silhouette: All users
+## Click to access AFRA
+[![coolafra](https://user-images.githubusercontent.com/75041108/209647017-31b7f620-eae6-44ff-8e24-dd957ddb5a7e.png)][1]
+
+## Demo Video
+[![Demo Video](https://user-images.githubusercontent.com/75041108/217949437-4d9234e3-d681-4cc3-b8ed-3fa9042dc70c.png)](https://drive.google.com/file/d/1WPt_Q57eNeo_ekvOlfP9UJUmRZvd87U3/view?usp=sharing)
+
+#### All users
 - [x] AFRA has a login/register system that allows the users to get all the benefits.[#8](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/8) [#9](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/9)
 - [x] Login is done via tokens so the users does not have to login each time. [#23](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/23)
 - [x] Users can display the matches in the selected season and week [#18](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/18)
@@ -30,11 +34,11 @@ Click the logo to access our webpage! Here is our demo video => [`Demo Video`](h
 - [x] Users can see details of top scorers, asists, yellow and red cards. [#79](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/79)
 - [x] Users can report a bug when they see them so the website is always bug free.  [#119](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/119)
 
-#### :speaking_head: Verified Professions
+#### Verified Professions
 - [x] Referees and Journalists can apply for verifying their occupations [#15](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/15)
 - [x] Journalists can use the rating system for referees and have an influence on their assignments. [#81](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/81)
 
-#### :woman_technologist: The Admins
+#### The Admins
 - [x] Admins can approve or reject the requests for occupation verification [#34](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/34)
 - [x] Admins can fetch the match data using an API thereby it is automatic [#16](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/16)
 - [x] Admins can see the report requests and ban the users which also sends a notification email to the banned user, banned users cannot login and if they are already logged in, they get kicked to main page. [#47](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/47)
@@ -44,7 +48,7 @@ Click the logo to access our webpage! Here is our demo video => [`Demo Video`](h
 - [x] Admins can send notifications/mails to the users with ease. [#84](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/84)
 - [x] Admins can assign referees to the matches accordingly to their rank. [#78](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/78)
 
-## :file_cabinet: Repository and Code Structure
+## Repository and Code Structure
 
 The project is made using MERN stack.
 - [React JS](https://reactjs.org/)
@@ -58,7 +62,7 @@ Here is our documentation
 - Code documentation => [`CODE DOCUMENTATION`](https://docs.google.com/document/d/1et_x-6B5ka5RlvvPosqfY9qxL8VcAu5Ao8sHZtJNW9M/edit?usp=sharing)
 - API documentation => [`SWAGGER UI`](https://coolafra.herokuapp.com/doc)
 
-### :card_index_dividers: File structure
+### File structure
 ##### `frontend` - Holds the client application
 - ##### `public` - This holds all of our static files
 - ##### `src`
@@ -85,9 +89,9 @@ Here is our documentation
 ##### `.gitignore` - Tells git which files to ignore
 ##### `README` - This file!
 
-## :thinking: How to use AFRA ?
+## How to use AFRA ?
 
-### :rocket: Using the deployed server
+### Using the deployed server
 Simply click the link to our Heroku Deploy => https://coolafra.herokuapp.com
 You can create an account and get all the benefits! 
 Some Notes:
@@ -101,8 +105,8 @@ Some Notes:
   - Setting up your Calendar with the matches you wish, adding/liking comments to express your opinions...
 
 
-## :keyboard: Set up instructions for developers
-### :computer: For your local machine
+## Set up instructions for developers
+### For your local machine
 
 1. Download an IDE
 2. Clone the repo
@@ -128,10 +132,10 @@ Some Notes:
    $ npm run dev
    ```
 
-### :rocket: For deploying the app to Heroku
+### For deploying the app to Heroku
 The code has all the necessary scripts for heroku deployment. All thats necessary is to set the env variables (as described above) from your heroku app settings!
 
-## :warning: How to report bugs? 
+## How to report bugs? 
 After finding a bug, here are some steps you should follow...
 
 1. Write down what happened, and your thoughts on what you think caused it. 
@@ -142,7 +146,7 @@ After finding a bug, here are some steps you should follow...
 6. Send an email with the documentation to => afra.project.308@gmail.com 
 
 
-### :lady_beetle: Known bugs 
-Currently there are no known bugs :tada: :tada:
+### Known bugs 
+Currently there are no known bugs :tada: 
 
 [1]: https://coolafra.herokuapp.com

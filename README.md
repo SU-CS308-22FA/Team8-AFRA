@@ -7,7 +7,7 @@
   Our server has many different functionalities and we always improve it for the better. AFRA presents users with many useful features for many different actors such as: The admins, the users, referees and journalists. Improvement is the key feature for software development so we always try to update AFRA for the better. Here is the link to our [Enhancement Log 🪵](https://github.com/orgs/SU-CS308-22FA/projects/40/views/10?layout=table)
 
 ## Demo Video
-[![Demo Video](https://user-images.githubusercontent.com/75041108/217949437-4d9234e3-d681-4cc3-b8ed-3fa9042dc70c.png | width=50)](https://drive.google.com/file/d/1WPt_Q57eNeo_ekvOlfP9UJUmRZvd87U3/view?usp=sharing)
+[![Demo Video](https://user-images.githubusercontent.com/75041108/217951406-5e00a865-2b11-4f66-95d5-bc000d876681.png)](https://drive.google.com/file/d/1WPt_Q57eNeo_ekvOlfP9UJUmRZvd87U3/view?usp=sharing)
 
 #### All users
 - [x] AFRA has a login/register system that allows the users to get all the benefits.[#8](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/8) [#9](https://github.com/SU-CS308-22FA/Team8-AFRA/issues/9)

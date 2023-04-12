@@ -161,7 +161,7 @@ const mailSend = asyncHandler(async (req, res) => {
     });
 
   var mailOptions = {
-    from: process.env.MAIL,
+    from: 'AFRA <afra.project.308@gmail.com>',
     to: "Undisclosed recipents",
     bcc: recipents,
     subject: topic,
